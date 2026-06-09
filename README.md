@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bewerbungs-Onepager
+
+Next.js-Onepager fuer eine Bewerbungsseite mit dunklem Plus-Raster,
+Anker-Navigation und sicherer Login-Grundstruktur.
 
 ## Getting Started
 
-First, run the development server:
+Installieren und starten:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Login konfigurieren
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. `.env.example` nach `.env.local` kopieren.
+2. Einen Passwort-Hash erzeugen:
 
-## Learn More
+```bash
+npm run auth:hash -- "ein-sehr-starkes-passwort"
+```
 
-To learn more about Next.js, take a look at the following resources:
+3. Den ausgegebenen Hash in `ADMIN_PASSWORD_HASH` eintragen.
+4. `SESSION_SECRET` mit einem zufaelligen Secret von mindestens 32 Bytes setzen.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Der Admin-Bereich liegt unter `/admin`. Login und Logout laufen ueber Server
+Actions, die Session wird als `httpOnly` Cookie gespeichert.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Struktur
 
-## Deploy on Vercel
+- `src/app/page.tsx` setzt den Onepager zusammen.
+- `src/components/sections` enthaelt die einzelnen Bereiche.
+- `src/components/site` enthaelt Header und Hintergrund.
+- `src/lib/auth` enthaelt Session, Passwortpruefung, Rate Limit und Actions.
+- `src/data/profile.ts` enthaelt die editierbaren Inhalte.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Scripts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run dev
+npm run lint
+npm run build
+```
