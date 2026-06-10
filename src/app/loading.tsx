@@ -4,7 +4,7 @@ export default function Loading() {
       <div className="loader-mark" aria-hidden="true">
         ES
       </div>
-      <p className="font-mono text-sm text-zinc-400">Laedt Portfolio...</p>
+      <p className="font-mono text-sm text-zinc-400">Lädt Portfolio...</p>
     </div>
   );
 }

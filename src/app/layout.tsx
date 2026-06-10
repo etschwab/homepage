@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
-import { PageLoader } from "@/components/site/page-loader";
 import { PlusBackground } from "@/components/site/plus-background";
 import { ScrollRevealController } from "@/components/site/scroll-reveal-controller";
 import "./globals.css";
@@ -17,8 +16,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bewerbung | Portfolio",
-  description: "Onepage-Bewerbungsseite mit geschuetztem Login-Bereich.",
+  title: "Etienne Schwab | IMS Portfolio",
+  description:
+    "Persönliche IMS-Website mit GitHub-Projekten, Kurzprofil und geschütztem Bereich für sensible Daten.",
   icons: {
     icon: "/images/esch.png",
     shortcut: "/images/esch.png",
@@ -39,7 +39,6 @@ export default function RootLayout({
     >
       <body>
         <PlusBackground />
-        <PageLoader />
         <ScrollRevealController />
         {children}
       </body>

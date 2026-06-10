@@ -4,6 +4,7 @@ import { Lock, LogOut, ShieldCheck } from "lucide-react";
 
 import { navItems, profile } from "@/data/profile";
 import { logout } from "@/lib/auth/actions";
+import { ThemeToggle } from "@/components/site/theme-toggle";
 
 type SiteHeaderProps = {
   isProtected?: boolean;
@@ -52,6 +53,7 @@ export function SiteHeader({ isProtected = false, username }: SiteHeaderProps) {
 
         {isProtected ? (
           <div className="order-2 flex shrink-0 items-center justify-self-end gap-2 md:order-none">
+            <ThemeToggle />
             <span className="hidden items-center gap-2 rounded-soft border border-orange-400/25 px-3 py-2 font-mono text-xs text-orange-300 sm:inline-flex">
               <ShieldCheck aria-hidden="true" size={14} />
               {username}
@@ -67,14 +69,17 @@ export function SiteHeader({ isProtected = false, username }: SiteHeaderProps) {
             </form>
           </div>
         ) : (
-          <Link
-            href="/login"
-            className="button-motion rounded-soft order-2 inline-flex h-10 shrink-0 items-center justify-self-end border border-white/12 px-3 font-mono text-sm font-semibold text-white transition-colors hover:border-orange-400 hover:text-orange-300 focus:outline-none focus:ring-2 focus:ring-orange-400/60 sm:gap-2 sm:px-4 md:order-none"
-            aria-label="Login"
-          >
-            <Lock aria-hidden="true" size={15} strokeWidth={2.1} />
-            <span className="hidden sm:inline">Login</span>
-          </Link>
+          <div className="order-2 flex shrink-0 items-center justify-self-end gap-2 md:order-none">
+            <ThemeToggle />
+            <Link
+              href="/login"
+              className="button-motion rounded-soft inline-flex h-10 shrink-0 items-center border border-white/12 px-3 font-mono text-sm font-semibold text-white transition-colors hover:border-orange-400 hover:text-orange-300 focus:outline-none focus:ring-2 focus:ring-orange-400/60 sm:gap-2 sm:px-4"
+              aria-label="Login"
+            >
+              <Lock aria-hidden="true" size={15} strokeWidth={2.1} />
+              <span className="hidden sm:inline">Login</span>
+            </Link>
+          </div>
         )}
       </div>
     </header>

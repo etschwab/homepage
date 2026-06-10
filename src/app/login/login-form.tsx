@@ -77,7 +77,7 @@ function SubmitButton() {
       disabled={pending}
       className="inline-flex h-12 items-center justify-center gap-3 bg-orange-500 px-6 font-mono text-sm font-bold text-black transition-colors hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-300 disabled:cursor-not-allowed disabled:opacity-60"
     >
-      {pending ? "Pruefen..." : "Einloggen"}
+      {pending ? "Prüfen..." : "Einloggen"}
       <ArrowRight aria-hidden="true" size={17} />
     </button>
   );

@@ -1,7 +1,7 @@
 import { ArrowRight, Mail } from "lucide-react";
 import Link from "next/link";
 
-import { profile } from "@/data/profile";
+import { EmailLink } from "@/components/ui/email-link";
 import { SectionHeading } from "@/components/ui/section-heading";
 
 type ContactSectionProps = {
@@ -14,18 +14,15 @@ export function ContactSection({ isProtected = false }: ContactSectionProps) {
       <div className="site-container grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
         <SectionHeading
           eyebrow="Kontakt"
-          title="Bereit für den nächsten Schritt."
-          description="Der Kontaktbereich bleibt knapp und direkt. Später können Lebenslauf, Zeugnisse oder ein Kontaktformular ergänzt werden."
+          title="Kontakt aufnehmen."
+          description="Wenn du Fragen zu meiner IMS-Seite, einem Projekt oder einer Bewerbung hast, erreichst du mich per E-Mail."
         />
 
         <div className="flex flex-col gap-4 sm:flex-row lg:flex-col">
-          <a
-            href={`mailto:${profile.email}`}
-            className="button-motion rounded-soft inline-flex h-12 min-w-52 items-center justify-center gap-3 bg-orange-500 px-6 font-mono text-sm font-bold text-black transition-colors hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-300"
-          >
+          <EmailLink className="button-motion rounded-soft inline-flex h-12 min-w-52 items-center justify-center gap-3 bg-orange-500 px-6 font-mono text-sm font-bold text-black transition-colors hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-300">
             <Mail aria-hidden="true" size={17} />
             E-Mail senden
-          </a>
+          </EmailLink>
           {!isProtected ? (
             <Link
               href="/login"

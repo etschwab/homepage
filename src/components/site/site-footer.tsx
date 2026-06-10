@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { ImpressumModal } from "@/components/site/impressum-modal";
 
 export function SiteFooter() {
   return (
@@ -10,16 +10,11 @@ export function SiteFooter() {
           aria-label="Footer"
           className="flex flex-wrap items-center gap-x-5 gap-y-3"
         >
-          <Link
-            href="/impressum"
-            className="transition-colors hover:text-orange-300 focus:text-orange-300 focus:outline-none"
-          >
-            Impressum
-          </Link>
+          <ImpressumModal />
           <a
-            href="https://github.com/schwabetienne"
+            href="https://github.com/etschwab"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="transition-colors hover:text-orange-300 focus:text-orange-300 focus:outline-none"
           >
             GitHub
@@ -27,7 +22,7 @@ export function SiteFooter() {
           <a
             href="https://www.instagram.com/planaryofficial/"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="transition-colors hover:text-orange-300 focus:text-orange-300 focus:outline-none"
           >
             Instagram

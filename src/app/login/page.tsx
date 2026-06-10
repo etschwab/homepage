@@ -20,7 +20,7 @@ export default async function LoginPage() {
             href="/"
             className="font-mono text-sm text-zinc-400 transition-colors hover:text-orange-300"
           >
-            Zurueck zur Seite
+            Zurück zur Seite
           </Link>
 
           <div className="mt-10 flex items-center gap-3">
@@ -29,7 +29,7 @@ export default async function LoginPage() {
             </span>
             <div>
               <p className="font-mono text-sm text-orange-400">
-                Geschuetzter Bereich
+                Geschützter Bereich
               </p>
               <h1 className="text-2xl font-semibold text-white">Admin Login</h1>
             </div>
@@ -38,7 +38,7 @@ export default async function LoginPage() {
           <p className="mt-5 text-sm leading-6 text-zinc-400">
             Zugriff mit Nutzername <span className="font-mono text-orange-300">eti</span> und
             Passwort <span className="font-mono text-orange-300">12345</span>. Es gibt keine
-            Registrierung, nur diese geschuetzte Ansicht.
+            Registrierung, nur diese geschützte Ansicht.
           </p>
 
           <div className="mt-8">

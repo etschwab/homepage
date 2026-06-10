@@ -1,6 +1,7 @@
 import { ArrowRight, Mail } from "lucide-react";
 
 import { AnimatedHeroTitle } from "@/components/sections/animated-hero-title";
+import { EmailLink } from "@/components/ui/email-link";
 import { profile } from "@/data/profile";
 
 export function HeroSection() {
@@ -23,16 +24,15 @@ export function HeroSection() {
             href="#projekte"
             className="button-motion rounded-soft inline-flex h-12 items-center justify-center gap-3 bg-orange-500 px-7 font-mono text-sm font-bold text-black transition-colors hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-300"
           >
-            Projekte ansehen
+            Zu den Projekten
             <ArrowRight aria-hidden="true" size={17} />
           </a>
-          <a
-            href={`mailto:${profile.email}`}
+          <EmailLink
             className="button-motion rounded-soft inline-flex h-12 items-center justify-center gap-3 border border-white/12 px-7 font-mono text-sm font-bold text-white transition-colors hover:border-orange-400 hover:text-orange-300 focus:outline-none focus:ring-2 focus:ring-orange-300/70"
           >
             <Mail aria-hidden="true" size={17} />
             Kontakt
-          </a>
+          </EmailLink>
         </div>
       </div>
     </section>

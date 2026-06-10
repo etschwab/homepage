@@ -2,7 +2,6 @@ import { AboutSection } from "@/components/sections/about-section";
 import { ContactSection } from "@/components/sections/contact-section";
 import { HeroSection } from "@/components/sections/hero-section";
 import { PrivateSection } from "@/components/sections/private-section";
-import { SkillsSection } from "@/components/sections/skills-section";
 import { WorkSection } from "@/components/sections/work-section";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteHeader } from "@/components/site/site-header";
@@ -13,12 +12,17 @@ type PortfolioPageProps = {
   username?: string;
 };
 
-export function PortfolioPage({ isProtected = false, username }: PortfolioPageProps) {
+export function PortfolioPage({
+  isProtected = false,
+  username,
+}: PortfolioPageProps) {
   return (
     <>
       <SiteHeader isProtected={isProtected} username={username} />
       <main>
         <HeroSection />
+        <SectionDivider />
+        <AboutSection />
         <SectionDivider />
         {isProtected && username ? (
           <>
@@ -26,11 +30,7 @@ export function PortfolioPage({ isProtected = false, username }: PortfolioPagePr
             <SectionDivider />
           </>
         ) : null}
-        <SkillsSection />
-        <SectionDivider />
         <WorkSection />
-        <SectionDivider />
-        <AboutSection />
         <SectionDivider />
         <ContactSection isProtected={isProtected} />
       </main>

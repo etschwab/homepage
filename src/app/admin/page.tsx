@@ -4,5 +4,10 @@ import { verifySession } from "@/lib/auth/dal";
 export default async function AdminPage() {
   const session = await verifySession();
 
-  return <PortfolioPage isProtected username={session.username} />;
+  return (
+    <PortfolioPage
+      isProtected
+      username={session.username}
+    />
+  );
 }

@@ -5,6 +5,8 @@
   --foreground: #f4f4f5;
   --muted: #a1a1aa;
   --line: rgba(255, 255, 255, 0.1);
+  --panel: rgba(8, 8, 8, 0.78);
+  --panel-soft: rgba(255, 255, 255, 0.035);
   --accent: #f97316;
   --accent-strong: #fb923c;
   --radius-soft: 6px;
@@ -69,10 +71,10 @@ textarea {
 .plus-grid {
   position: absolute;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M14 10.5V17.5M10.5 14H17.5' stroke='%23343434' stroke-width='1.1' stroke-linecap='square'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M14 10.5V17.5M10.5 14H17.5' stroke='%23454545' stroke-width='1.2' stroke-linecap='square'/%3E%3C/svg%3E");
   background-size: 28px 28px;
   background-position: center top;
-  opacity: 0.58;
+  opacity: 0.76;
   animation: none;
   transform: none;
 }
@@ -81,8 +83,8 @@ textarea {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(8, 8, 8, 0.58), rgba(8, 8, 8, 0.18) 34%, rgba(8, 8, 8, 0.94)),
-    linear-gradient(90deg, rgba(8, 8, 8, 0.16), rgba(8, 8, 8, 0.62));
+    linear-gradient(180deg, rgba(8, 8, 8, 0.46), rgba(8, 8, 8, 0.12) 34%, rgba(8, 8, 8, 0.88)),
+    linear-gradient(90deg, rgba(8, 8, 8, 0.1), rgba(8, 8, 8, 0.5));
 }
 
 .text-balance {
@@ -324,6 +326,145 @@ html.has-scroll-reveal .section-divider.is-visible {
   transform: translateY(-4px);
 }
 
+.project-filter-results {
+  animation: project-filter-in 220ms ease both;
+}
+
+.project-image-frame {
+  position: relative;
+  display: grid;
+  min-height: 13rem;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 24% 20%, rgba(249, 115, 22, 0.24), transparent 34%),
+    linear-gradient(135deg, rgba(249, 115, 22, 0.12), rgba(255, 255, 255, 0.035)),
+    #101010;
+  background-position: center;
+  background-size: cover;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.project-image-frame-sm {
+  min-height: 8.5rem;
+  margin: -1.25rem -1.25rem 1.1rem;
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.project-image-frame::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  background-image: url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M14 10.5V17.5M10.5 14H17.5' stroke='%23ffffff' stroke-opacity='0.11' stroke-width='1.1' stroke-linecap='square'/%3E%3C/svg%3E");
+  opacity: 0.8;
+}
+
+.project-image-placeholder {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  gap: 0.5rem;
+  color: var(--accent-strong);
+  font-family: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
+  font-size: clamp(1.6rem, 3vw, 2.6rem);
+  font-weight: 800;
+}
+
+.project-image-label {
+  position: absolute;
+  right: 1rem;
+  bottom: 0.85rem;
+  z-index: 1;
+  font-family: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.52);
+}
+
+html.theme-light {
+  --background: #f7f7f8;
+  --foreground: #18181b;
+  --muted: #52525b;
+  --line: rgba(24, 24, 27, 0.14);
+  --panel: rgba(255, 255, 255, 0.86);
+  --panel-soft: rgba(24, 24, 27, 0.035);
+}
+
+html.theme-light body {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), var(--background) 38%),
+    var(--background);
+  color: var(--foreground);
+}
+
+html.theme-light .site-background {
+  background: var(--background);
+}
+
+html.theme-light .plus-grid {
+  background-image: url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M14 10.5V17.5M10.5 14H17.5' stroke='%23c7c7cc' stroke-width='1.15' stroke-linecap='square'/%3E%3C/svg%3E");
+  opacity: 0.72;
+}
+
+html.theme-light .background-shade {
+  background:
+    linear-gradient(180deg, rgba(247, 247, 248, 0.38), rgba(247, 247, 248, 0.12) 34%, rgba(247, 247, 248, 0.78)),
+    linear-gradient(90deg, rgba(247, 247, 248, 0.08), rgba(247, 247, 248, 0.5));
+}
+
+html.theme-light header,
+html.theme-light footer {
+  background: rgba(255, 255, 255, 0.86) !important;
+  border-color: rgba(24, 24, 27, 0.12) !important;
+}
+
+html.theme-light .motion-card,
+html.theme-light aside,
+html.theme-light section [class*="bg-black"],
+html.theme-light section [class*="bg-white/"] {
+  background-color: rgba(255, 255, 255, 0.76) !important;
+  border-color: rgba(24, 24, 27, 0.12) !important;
+}
+
+html.theme-light .motion-card:hover {
+  background-color: rgba(255, 255, 255, 0.94) !important;
+}
+
+html.theme-light .text-white {
+  color: #18181b !important;
+}
+
+html.theme-light .text-zinc-300,
+html.theme-light .text-zinc-400 {
+  color: #52525b !important;
+}
+
+html.theme-light .text-zinc-500 {
+  color: #71717a !important;
+}
+
+html.theme-light .border-white\/10,
+html.theme-light .border-white\/12 {
+  border-color: rgba(24, 24, 27, 0.12) !important;
+}
+
+html.theme-light .project-image-frame {
+  background:
+    radial-gradient(circle at 24% 20%, rgba(249, 115, 22, 0.18), transparent 34%),
+    linear-gradient(135deg, rgba(249, 115, 22, 0.1), rgba(24, 24, 27, 0.04)),
+    #ffffff;
+  border-color: rgba(24, 24, 27, 0.1);
+}
+
+html.theme-light .project-image-frame::after {
+  background-image: url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M14 10.5V17.5M10.5 14H17.5' stroke='%2318181b' stroke-opacity='0.08' stroke-width='1.1' stroke-linecap='square'/%3E%3C/svg%3E");
+}
+
+html.theme-light .project-image-label {
+  color: rgba(24, 24, 27, 0.46);
+}
+
 @keyframes header-in {
   from {
     opacity: 0;
@@ -417,6 +558,18 @@ html.has-scroll-reveal .section-divider.is-visible {
   to {
     opacity: 1;
     transform: scaleX(1);
+  }
+}
+
+@keyframes project-filter-in {
+  from {
+    opacity: 0.82;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

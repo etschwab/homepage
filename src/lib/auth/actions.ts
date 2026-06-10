@@ -25,7 +25,7 @@ export async function login(
   if (!parsed.success) {
     return {
       errors: parsed.error.flatten().fieldErrors,
-      message: "Bitte pruefe die Eingaben.",
+      message: "Bitte prüfe die Eingaben.",
     };
   }
 
@@ -35,7 +35,7 @@ export async function login(
   if (!rateLimit.allowed) {
     return {
       message:
-        "Zu viele Login-Versuche. Bitte warte kurz und probiere es spaeter erneut.",
+        "Zu viele Login-Versuche. Bitte warte kurz und probiere es später erneut.",
     };
   }
 

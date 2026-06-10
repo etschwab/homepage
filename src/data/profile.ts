@@ -1,63 +1,64 @@
 export const navItems = [
   { label: "Start", href: "#start" },
-  { label: "Skills", href: "#skills" },
+  { label: "Über mich", href: "#ueber-mich" },
   { label: "Projekte", href: "#projekte" },
-  { label: "Profil", href: "#profil" },
   { label: "Kontakt", href: "#kontakt" },
 ] as const;
 
 export const profile = {
-  brand: "<Etienne Schwab/>",
-  role: "Bewerbung als Entwickler",
+  brand: "Etienne Schwab",
+  role: "IMS Portfolio",
   name: "Etienne Schwab",
-  title: ["Schüler an der ", "IMS im Wankdorf"] as const,
+  title: ["IMS-Lernender", "Frontend & Webdesign"] as const,
   intro:
-    "Ich entwickle klare, performante Weboberflächen und lerne gern dort weiter, wo Design, Code und saubere Struktur zusammenkommen.",
+    "Hier sammle ich Projekte aus Schule, Freizeit und Webentwicklung. Die Seite wächst mit meiner Ausbildung und zeigt, woran ich gerade arbeite.",
   email: "etienne.schwab@bwdbern.ch",
-  location: "Schweiz",
-  availability: "Verfügbar für Lehrstelle, Praktikum oder Einstieg",
+  githubUsername: "etschwab",
+  location: "Muri-Gümligen",
+  availability:
+    "17 Jahre alt, IMS in Bern und mit viel Freude an Frontend-Entwicklung, Webdesign und eigenen Projektideen.",
 };
 
 export const workItems = [
   {
-    title: "Portfolio-Case",
+    title: "Portfolio-Website",
     meta: "Next.js / TypeScript",
     description:
-      "Platz für ein wichtiges Projekt mit Ziel, Rolle, eingesetzten Technologien und Ergebnis.",
+      "Diese Website wird als IMS-Projektportfolio aufgebaut und laufend erweitert.",
   },
   {
-    title: "Teamarbeit",
-    meta: "Planung / Umsetzung",
+    title: "Unterrichtsprojekte",
+    meta: "gibb / IMS",
     description:
-      "Kurzer Abschnitt fuer Schul-, Praxis- oder Kundenarbeit mit deinem konkreten Beitrag.",
+      "Projekte aus Modulen und ÜKs zeigen, welche Web- und Programmiergrundlagen ich anwende.",
   },
   {
-    title: "Lernprojekt",
-    meta: "UI / Backend",
+    title: "Eigene Ideen",
+    meta: "Freizeit / GitHub",
     description:
-      "Ein Beispiel, das zeigt, wie du Probleme analysierst, testest und sauber dokumentierst.",
+      "Private Lernprojekte zeigen, was ich ausserhalb des Unterrichts ausprobiere.",
   },
 ] as const;
 
 export const profileFacts = [
-  { label: "Fokus", value: "Webentwicklung" },
-  { label: "Arbeitsweise", value: "Strukturiert und lernbereit" },
-  { label: "Stack", value: "Next.js, React, TypeScript" },
+  { label: "Alter", value: "17 Jahre" },
+  { label: "Wohnort", value: "Muri-Gümligen" },
+  { label: "Ausbildung", value: "IMS in Bern" },
 ] as const;
 
 export const referenceStats = [
-  "IMS Schüler",
-  "innovativ",
-  "kreativ",
-  "lernbegierig",
-  "zukunftsorientiert",
+  "IMS-Lernender",
+  "Webentwicklung",
+  "TypeScript",
+  "React",
+  "GitHub",
 ] as const;
 
 export const skillLevels = [
   {
     name: "HTML",
     value: 80,
-    description: "Semantische Struktur, saubere Inhalte und klare Seitenaufteilung.",
+    description: "Semantische Struktur, klare Inhalte und saubere Seitenaufteilung.",
   },
   {
     name: "CSS",
@@ -87,7 +88,7 @@ export const skillLevels = [
 ] as const;
 
 export const strengths = [
-  "Saubere Struktur statt überladener Seiten",
-  "Verständliche Kommunikation und klare Prioritäten",
-  "Interesse an Sicherheit, Performance und guter UX",
+  "Seit über 10 Jahren Unihockey im Team.",
+  "Zuverlässiger Teamplayer mit Verantwortungsbewusstsein.",
+  "Fokus auf klare, moderne und intuitiv bedienbare Webanwendungen.",
 ] as const;

@@ -7,23 +7,23 @@ const privateActions = [
   {
     title: "Unterlagen",
     description:
-      "Platz fuer Lebenslauf, Zeugnisse und private Bewerbungsdateien.",
+      "Platz für Lebenslauf, Zeugnisse und private Bewerbungsdateien.",
     icon: FileText,
   },
   {
     title: "Downloads",
-    description: "Geschuetzte Buttons fuer PDF-Downloads oder Projektdateien.",
+    description: "Geschützte Buttons für PDF-Downloads oder Projektdateien.",
     icon: Download,
   },
   {
     title: "Status",
-    description: "Interne Notizen, naechste Schritte und Bewerbungsfortschritt.",
+    description: "Interne Notizen, naechste Schritte und Stand der IMS-Website.",
     icon: ShieldCheck,
   },
   {
     title: "Bearbeiten",
     description:
-      "Spaeter koennen hier Inhalte, Projekte oder Kontaktinfos gepflegt werden.",
+      "Später können hier Inhalte, Projekte oder Kontaktinfos gepflegt werden.",
     icon: Settings,
   },
 ] as const;
@@ -34,8 +34,8 @@ export function PrivateSection({ username }: { username: string }) {
       <div className="site-container">
         <SectionHeading
           eyebrow={`Login aktiv: ${username}`}
-          title="Geschuetzte Funktionen fuer die private Ansicht."
-          description="Dieser Bereich erscheint erst nach dem Login. Die Seite bleibt optisch gleich, bekommt aber zusaetzliche Moeglichkeiten fuer interne Inhalte."
+          title="Geschützter Bereich für sensible Daten."
+          description="Lebenslauf, Zeugnisse und private Bewerbungsinformationen werden nicht öffentlich gezeigt. Dieser Bereich ist nur nach dem Login sichtbar."
         />
 
         <div className="mt-9 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
