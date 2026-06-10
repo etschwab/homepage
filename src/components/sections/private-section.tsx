@@ -1,46 +1,35 @@
 import type { CSSProperties } from "react";
-import { Download, FileText, Settings, ShieldCheck } from "lucide-react";
+import {
+  Download,
+  FileText,
+  Settings,
+  ShieldCheck,
+  type LucideIcon,
+} from "lucide-react";
 
 import { SectionHeading } from "@/components/ui/section-heading";
+import { privateActions, siteCopy } from "@/data/profile";
 
-const privateActions = [
-  {
-    title: "Unterlagen",
-    description:
-      "Platz für Lebenslauf, Zeugnisse und private Bewerbungsdateien.",
-    icon: FileText,
-  },
-  {
-    title: "Downloads",
-    description: "Geschützte Buttons für PDF-Downloads oder Projektdateien.",
-    icon: Download,
-  },
-  {
-    title: "Status",
-    description: "Interne Notizen, naechste Schritte und Stand der IMS-Website.",
-    icon: ShieldCheck,
-  },
-  {
-    title: "Bearbeiten",
-    description:
-      "Später können hier Inhalte, Projekte oder Kontaktinfos gepflegt werden.",
-    icon: Settings,
-  },
-] as const;
+const actionIcons: Record<(typeof privateActions)[number]["icon"], LucideIcon> = {
+  download: Download,
+  file: FileText,
+  settings: Settings,
+  shield: ShieldCheck,
+};
 
 export function PrivateSection({ username }: { username: string }) {
   return (
-    <section id="intern" className="py-14 sm:py-16 lg:py-20">
+    <section id="intern" className="section-band py-16 sm:py-20 lg:py-24">
       <div className="site-container">
         <SectionHeading
-          eyebrow={`Login aktiv: ${username}`}
-          title="Geschützter Bereich für sensible Daten."
-          description="Lebenslauf, Zeugnisse und private Bewerbungsinformationen werden nicht öffentlich gezeigt. Dieser Bereich ist nur nach dem Login sichtbar."
+          eyebrow={`${siteCopy.private.eyebrowPrefix} ${username}`}
+          title={siteCopy.private.title}
+          description={siteCopy.private.description}
         />
 
         <div className="mt-9 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {privateActions.map((item, index) => {
-            const Icon = item.icon;
+            const Icon = actionIcons[item.icon];
 
             return (
               <article
@@ -48,9 +37,9 @@ export function PrivateSection({ username }: { username: string }) {
                 style={
                   { "--reveal-delay": `${index * 90}ms` } as CSSProperties
                 }
-                className="scroll-reveal motion-card rounded-soft border border-orange-400/25 bg-orange-400/[0.045] p-5"
+                className="motion-card scroll-reveal rounded-soft border border-cyan-300/20 bg-cyan-300/[0.055] p-5"
               >
-                <span className="grid size-10 place-items-center rounded-soft border border-orange-400/35 text-orange-300">
+                <span className="grid size-10 place-items-center rounded-soft border border-cyan-300/30 text-cyan-100">
                   <Icon aria-hidden="true" size={19} />
                 </span>
                 <h3 className="mt-8 text-xl font-semibold text-white">

@@ -7,35 +7,47 @@ export function ScrollRevealController() {
   const pathname = usePathname();
 
   useEffect(() => {
-    document.documentElement.classList.add("has-scroll-reveal");
+    let observer: IntersectionObserver | null = null;
 
-    const elements = Array.from(
-      document.querySelectorAll<HTMLElement>(".scroll-reveal, .section-divider"),
-    );
+    const frame = window.requestAnimationFrame(() => {
+      document.documentElement.classList.add("has-scroll-reveal");
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      elements.forEach((element) => element.classList.add("is-visible"));
-      return;
-    }
+      const elements = Array.from(
+        document.querySelectorAll<HTMLElement>(".scroll-reveal"),
+      );
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          entry.target.classList.toggle("is-visible", entry.isIntersecting);
-        });
-      },
-      {
-        rootMargin: "-6% 0px -10% 0px",
-        threshold: 0.18,
-      },
-    );
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        elements.forEach((element) => element.classList.add("is-visible"));
+        return;
+      }
 
-    elements.forEach((element) => {
-      element.classList.remove("is-visible");
-      observer.observe(element);
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) {
+              return;
+            }
+
+            entry.target.classList.add("is-visible");
+            observer?.unobserve(entry.target);
+          });
+        },
+        {
+          rootMargin: "-6% 0px -10% 0px",
+          threshold: 0.18,
+        },
+      );
+
+      elements.forEach((element) => {
+        element.classList.remove("is-visible");
+        observer?.observe(element);
+      });
     });
 
-    return () => observer.disconnect();
+    return () => {
+      window.cancelAnimationFrame(frame);
+      observer?.disconnect();
+    };
   }, [pathname]);
 
   return null;

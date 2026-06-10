@@ -1,215 +1,85 @@
-import type { ReactNode } from "react";
-import {
-  Building2,
-  Code2,
-  ExternalLink,
-  Gamepad2,
-  GraduationCap,
-  Target,
-  Users,
-  type LucideIcon,
-} from "lucide-react";
+import { ExternalLink } from "lucide-react";
+import type { CSSProperties } from "react";
 
 import { SectionHeading } from "@/components/ui/section-heading";
-import { profile, profileFacts, strengths } from "@/data/profile";
-
-type AboutCard = {
-  title: string;
-  eyebrow: string;
-  icon: LucideIcon;
-  content: ReactNode;
-};
-
-const aboutCards: AboutCard[] = [
-  {
-    title: "Hobbys und Teamfähigkeit",
-    eyebrow: "Team",
-    icon: Users,
-    content: (
-      <>
-        Seit über <strong className="font-semibold text-white">10 Jahren</strong>{" "}
-        spiele ich Unihockey im Team. Dadurch habe ich gelernt,
-        Verantwortung zu übernehmen, mit anderen zusammenzuarbeiten und mich
-        aktiv einzubringen. Diese Erfahrungen machen mich auch ausserhalb des
-        Sports zu einem zuverlässigen Teamplayer.
-      </>
-    ),
-  },
-  {
-    title: "Dart, Computer und GeoGuessr",
-    eyebrow: "Freizeit",
-    icon: Gamepad2,
-    content: (
-      <>
-        Zuhause spiele ich gerne <strong className="font-semibold text-white">Dart</strong>{" "}
-        oder verbringe Zeit am Computer. Eines meiner Lieblingsspiele ist{" "}
-        <strong className="font-semibold text-white">GeoGuessr</strong>, das ich
-        oft gemeinsam mit{" "}
-        <a
-          href="https://nilton-barroso.planary.ch"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 font-semibold text-orange-300 transition-colors hover:text-orange-200"
-        >
-          Nilton
-          <ExternalLink aria-hidden="true" size={13} />
-        </a>{" "}
-        spiele.
-      </>
-    ),
-  },
-  {
-    title: "Informatik und Webdesign",
-    eyebrow: "Fokus",
-    icon: Code2,
-    content: (
-      <>
-        Im Bereich Informatik interessieren mich besonders{" "}
-        <strong className="font-semibold text-white">Frontend-Entwicklung</strong>{" "}
-        und <strong className="font-semibold text-white">Webdesign</strong>. Mir
-        gefällt es, Webseiten und Webanwendungen zu gestalten, die nicht nur
-        gut aussehen, sondern auch einfach und intuitiv zu bedienen sind.
-      </>
-    ),
-  },
-  {
-    title: "Projekte mit modernen Technologien",
-    eyebrow: "Tech",
-    icon: Target,
-    content: (
-      <>
-        Ich habe bereits mehrere Projekte mit modernen Technologien wie{" "}
-        <strong className="font-semibold text-white">React</strong>,{" "}
-        <strong className="font-semibold text-white">NestJS</strong> und{" "}
-        <strong className="font-semibold text-white">Next.js</strong> umgesetzt.
-        Dabei ist mir wichtig, dass Design, Struktur und Bedienbarkeit
-        zusammenpassen.
-      </>
-    ),
-  },
-];
+import { aboutSection, profile } from "@/data/profile";
 
 export function AboutSection() {
   return (
-    <section id="ueber-mich" className="py-14 sm:py-16 lg:py-20">
-      <div className="site-container grid gap-8 lg:grid-cols-[0.88fr_1.12fr] lg:items-start">
+    <section id="ueber-mich" className="section-band py-16 sm:py-20 lg:py-24">
+      <div className="site-container grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
         <div className="lg:sticky lg:top-28">
           <SectionHeading
-            eyebrow="Über mich"
-            title="Persönlich, zuverlässig und mit Freude an Webdesign."
-            description="Ich heisse Etienne Schwab, bin 17 Jahre alt und wohne in Muri-Gümligen. Zurzeit besuche ich die IMS in Bern."
+            eyebrow={aboutSection.eyebrow}
+            title={aboutSection.title}
+            description={aboutSection.description}
           />
 
-          <div className="mt-6 grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
-            {profileFacts.map((fact) => (
+          <dl className="mt-8 grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
+            {aboutSection.facts.map((fact) => (
               <div
                 key={fact.label}
-                className="scroll-reveal motion-card rounded-soft border border-white/10 p-4"
+                className="rounded-soft border border-white/10 bg-white/[0.035] p-4"
               >
-                <p className="font-mono text-xs uppercase tracking-normal text-zinc-500">
+                <dt className="font-mono text-xs uppercase tracking-normal text-zinc-500">
                   {fact.label}
-                </p>
-                <p className="mt-3 text-sm leading-6 text-white">{fact.value}</p>
+                </dt>
+                <dd className="mt-2 text-sm font-medium text-zinc-100">
+                  {fact.value}
+                </dd>
               </div>
             ))}
-          </div>
+          </dl>
         </div>
 
-        <div className="grid gap-3">
-          <div className="scroll-reveal motion-card rounded-soft border border-white/10 bg-black/30 p-5 sm:p-6">
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="grid size-10 shrink-0 place-items-center rounded-soft border border-orange-400/35 text-orange-300">
-                <GraduationCap aria-hidden="true" size={19} />
-              </span>
-              <div>
-                <p className="font-mono text-xs uppercase tracking-normal text-zinc-500">
-                  Kurze Vorstellung
-                </p>
-                <p className="font-mono text-sm text-orange-400">
-                  {profile.location} · IMS in Bern
-                </p>
-              </div>
-            </div>
-            <p className="mt-5 text-lg leading-8 text-zinc-300">
+        <div className="grid gap-4">
+          <article className="scroll-reveal rounded-soft border border-white/10 bg-black/35 p-6 shadow-sm sm:p-7">
+            <p className="font-mono text-xs uppercase tracking-normal text-cyan-200">
+              {aboutSection.introLabel}
+            </p>
+            <p className="mt-4 text-lg leading-8 text-zinc-100">
               {profile.availability}
             </p>
-            <p className="mt-4 text-sm leading-7 text-zinc-400">
-              Diese Website ist mein persönliches Portfolio. Sie zeigt, woran
-              ich gerade arbeite, welche Technologien mich interessieren und wie
-              ich Projekte Schritt für Schritt weiterentwickle.
-            </p>
-          </div>
+            <div className="mt-5 grid gap-4 text-sm leading-7 text-zinc-400 sm:text-base">
+              {aboutSection.paragraphs.map((paragraph, index) => (
+                <p key={`${paragraph.text}-${index}`}>
+                  {paragraph.text}
+                  {"linkHref" in paragraph ? (
+                    <a
+                      href={paragraph.linkHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-cyan-100 underline decoration-cyan-200/30 underline-offset-4 transition-colors hover:text-white"
+                    >
+                      {paragraph.linkLabel}
+                      <ExternalLink aria-hidden="true" size={13} />
+                    </a>
+                  ) : null}
+                  {"suffix" in paragraph ? paragraph.suffix : null}
+                </p>
+              ))}
+            </div>
+          </article>
 
-          <div className="grid gap-3 md:grid-cols-2">
-            {aboutCards.map(({ title, eyebrow, icon: Icon, content }) => (
+          <div className="grid gap-4 md:grid-cols-3">
+            {aboutSection.cards.map((card, index) => (
               <article
-                key={title}
-                className="scroll-reveal motion-card rounded-soft border border-white/10 bg-white/[0.02] p-5"
+                key={card.title}
+                className="motion-card scroll-reveal rounded-soft border border-white/10 bg-white/[0.035] p-5"
+                style={{ "--reveal-delay": `${index * 90}ms` } as CSSProperties}
               >
-                <div className="flex items-center gap-3">
-                  <span className="grid size-10 shrink-0 place-items-center rounded-soft border border-white/10 text-orange-300">
-                    <Icon aria-hidden="true" size={18} />
-                  </span>
-                  <div>
-                    <p className="font-mono text-xs uppercase tracking-normal text-zinc-500">
-                      {eyebrow}
-                    </p>
-                    <h3 className="text-base font-semibold text-white">
-                      {title}
-                    </h3>
-                  </div>
-                </div>
-                <p className="mt-4 text-sm leading-7 text-zinc-400">{content}</p>
+                <p className="font-mono text-xs uppercase tracking-normal text-zinc-500">
+                  {card.label}
+                </p>
+                <h3 className="mt-3 text-lg font-semibold text-white">
+                  {card.title}
+                </h3>
+                <p className="mt-3 text-sm leading-7 text-zinc-400">
+                  {card.description}
+                </p>
               </article>
             ))}
           </div>
-
-          <ul className="grid gap-2.5">
-            {strengths.map((strength) => (
-              <li
-                key={strength}
-                className="scroll-reveal motion-card rounded-soft flex items-start gap-3 border border-white/10 bg-white/[0.02] p-4 text-sm leading-6 text-zinc-300"
-              >
-                <Target
-                  aria-hidden="true"
-                  className="mt-0.5 shrink-0 text-orange-400"
-                  size={17}
-                />
-                {strength}
-              </li>
-            ))}
-          </ul>
-
-          <article className="scroll-reveal rounded-soft border border-orange-400/25 bg-orange-400/[0.045] p-5 sm:p-6">
-            <div className="flex items-center gap-3">
-              <span className="grid size-10 shrink-0 place-items-center rounded-soft border border-orange-400/30 text-orange-300">
-                <Building2 aria-hidden="true" size={18} />
-              </span>
-              <div>
-                <p className="font-mono text-xs uppercase tracking-normal text-orange-300">
-                  Planary
-                </p>
-                <h3 className="text-base font-semibold text-white">
-                  Klare digitale Lösungen für konkrete Probleme.
-                </h3>
-              </div>
-            </div>
-            <p className="mt-4 text-sm leading-7 text-zinc-300">
-              Ausserdem bin ich Mitglied der Firma{" "}
-              <a
-                href="https://planary.ch"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 font-semibold text-orange-300 transition-colors hover:text-orange-200"
-              >
-                Planary
-                <ExternalLink aria-hidden="true" size={13} />
-              </a>
-              . Bei Planary entwickeln wir einfache, klare Webanwendungen, die
-              sich auf konkrete Probleme konzentrieren und dafür passende
-              digitale Lösungen bieten.
-            </p>
-          </article>
         </div>
       </div>
     </section>

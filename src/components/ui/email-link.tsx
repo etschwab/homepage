@@ -2,7 +2,7 @@
 
 import type { AnchorHTMLAttributes, ReactNode } from "react";
 
-const emailParts = ["etienne.schwab", "bwdbern", "ch"] as const;
+import { profile } from "@/data/profile";
 
 type EmailLinkProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> & {
   children: ReactNode;
@@ -22,8 +22,7 @@ export function EmailLink({ children, onClick, ...props }: EmailLinkProps) {
         }
 
         event.preventDefault();
-        const email = `${emailParts[0]}@${emailParts[1]}.${emailParts[2]}`;
-        window.location.href = `mailto:${email}`;
+        window.location.href = `mailto:${profile.email}`;
       }}
     >
       {children}

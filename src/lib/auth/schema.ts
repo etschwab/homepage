@@ -1,13 +1,15 @@
 import { z } from "zod";
 
+import { siteCopy } from "@/data/profile";
+
 export const loginSchema = z.object({
   username: z
     .string()
     .trim()
     .toLowerCase()
-    .min(1, "Bitte gib den Nutzernamen ein.")
-    .max(32, "Der Nutzername ist zu lang."),
-  password: z.string().min(1, "Bitte gib das Passwort ein.").max(128),
+    .min(1, siteCopy.login.usernameRequired)
+    .max(32, siteCopy.login.usernameTooLong),
+  password: z.string().min(1, siteCopy.login.passwordRequired).max(128),
 });
 
 export type LoginState = {

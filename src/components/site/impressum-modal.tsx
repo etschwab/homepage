@@ -4,13 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { Mail, X } from "lucide-react";
 
 import { EmailLink } from "@/components/ui/email-link";
-import { profile } from "@/data/profile";
-
-const imprintRows = [
-  { label: "Verantwortlich", value: "Etienne Schwab" },
-  { label: "Standort", value: "Schweiz" },
-  { label: "Art der Website", value: "Persönliche Portfolio- und Bewerbungsseite" },
-] as const;
+import { profile, siteCopy } from "@/data/profile";
 
 export function ImpressumModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -46,14 +40,14 @@ export function ImpressumModal() {
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="transition-colors hover:text-orange-300 focus:text-orange-300 focus:outline-none"
+        className="transition-colors hover:text-cyan-100 focus:text-cyan-100 focus:outline-none"
       >
-        Impressum
+        {siteCopy.footer.imprint}
       </button>
 
       {isOpen ? (
         <div
-          className="fixed inset-0 z-[80] flex items-end justify-center bg-black/70 px-3 py-4 backdrop-blur-sm sm:items-center sm:p-6"
+          className="modal-backdrop fixed inset-0 z-[80] grid place-items-center bg-black/70 px-4 py-6 backdrop-blur-sm"
           role="presentation"
           onMouseDown={(event) => {
             if (event.target === event.currentTarget) {
@@ -66,24 +60,26 @@ export function ImpressumModal() {
             aria-modal="true"
             aria-labelledby={titleId}
             aria-describedby={descriptionId}
-            className="rounded-soft w-full max-w-2xl border border-white/10 bg-[var(--panel)] p-5 text-left shadow-2xl shadow-black/50 outline-none backdrop-blur-md sm:p-7"
+            className="modal-panel rounded-soft max-h-[min(44rem,calc(100svh-3rem))] w-full max-w-2xl overflow-y-auto border border-white/10 bg-[#050607] p-5 text-left shadow-2xl outline-none sm:p-7"
           >
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="font-mono text-sm text-orange-400">Impressum</p>
+                <p className="font-mono text-sm text-cyan-200">
+                  {siteCopy.footer.imprint}
+                </p>
                 <h2
                   id={titleId}
                   className="mt-3 text-2xl font-semibold text-white sm:text-3xl"
                 >
-                  Angaben zur Website
+                  {siteCopy.imprint.title}
                 </h2>
               </div>
               <button
                 ref={closeButtonRef}
                 type="button"
                 onClick={() => setIsOpen(false)}
-                className="rounded-soft grid size-10 shrink-0 place-items-center border border-white/10 text-zinc-400 transition-colors hover:border-orange-400 hover:text-orange-300 focus:outline-none focus:ring-2 focus:ring-orange-400/60"
-                aria-label="Impressum schliessen"
+                className="rounded-soft grid size-10 shrink-0 place-items-center border border-white/10 text-zinc-400 transition-colors hover:border-cyan-300/40 hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-300/30"
+                aria-label={siteCopy.imprint.closeLabel}
               >
                 <X aria-hidden="true" size={18} />
               </button>
@@ -93,32 +89,30 @@ export function ImpressumModal() {
               id={descriptionId}
               className="mt-5 text-sm leading-7 text-zinc-400"
             >
-              Diese Website ist eine persönliche Portfolio- und Bewerbungsseite
-              von {profile.name}. Die folgenden Angaben öffnen sich als Modal,
-              ohne die aktuelle Seite zu verlassen.
+              {siteCopy.imprint.description}
             </p>
 
             <dl className="mt-6 grid gap-3 sm:grid-cols-3">
-              {imprintRows.map((row) => (
+              {siteCopy.imprint.rows.map((row) => (
                 <div
                   key={row.label}
-                  className="rounded-soft border border-white/10 bg-white/[0.03] p-4"
+                  className="rounded-soft border border-white/10 bg-white/[0.035] p-4"
                 >
                   <dt className="font-mono text-xs uppercase tracking-normal text-zinc-500">
                     {row.label}
                   </dt>
-                  <dd className="mt-2 text-sm leading-6 text-white">
+                  <dd className="mt-2 text-sm leading-6 text-zinc-100">
                     {row.value}
                   </dd>
                 </div>
               ))}
             </dl>
 
-            <div className="mt-6 rounded-soft border border-orange-400/25 bg-orange-400/[0.045] p-4">
-              <p className="font-mono text-xs uppercase tracking-normal text-orange-300">
-                Kontakt
+            <div className="mt-6 rounded-soft border border-cyan-300/20 bg-cyan-300/10 p-4">
+              <p className="font-mono text-xs uppercase tracking-normal text-cyan-100">
+                {siteCopy.imprint.contact}
               </p>
-              <EmailLink className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-orange-300 transition-colors hover:text-orange-200">
+              <EmailLink className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-cyan-100 transition-colors hover:text-white">
                 <Mail aria-hidden="true" size={16} />
                 {profile.email}
               </EmailLink>

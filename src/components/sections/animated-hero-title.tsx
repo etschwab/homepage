@@ -3,84 +3,75 @@
 import { useEffect, useMemo, useState } from "react";
 
 type AnimatedHeroTitleProps = {
-  name: string;
-  title: readonly [string, string];
+  text: string;
+  rolePrefix: string;
+  roles: readonly string[];
 };
 
-type Cursor = {
-  line: number;
-  char: number;
-};
-
-export function AnimatedHeroTitle({ name, title }: AnimatedHeroTitleProps) {
-  const lines = useMemo(
-    () => ["Hallo, ich bin", `${name}.`, title[0], title[1]],
-    [name, title],
+export function AnimatedHeroTitle({
+  text,
+  rolePrefix,
+  roles,
+}: AnimatedHeroTitleProps) {
+  const [typedText, setTypedText] = useState("");
+  const [roleIndex, setRoleIndex] = useState(0);
+  const currentRole = useMemo(
+    () => roles[roleIndex % Math.max(roles.length, 1)] ?? "",
+    [roleIndex, roles],
   );
-  const [cursor, setCursor] = useState<Cursor>({ line: 0, char: 0 });
 
   useEffect(() => {
-    if (cursor.line >= lines.length) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const frame = window.requestAnimationFrame(() => setTypedText(text));
+
+      return () => window.cancelAnimationFrame(frame);
+    }
+
+    if (typedText.length >= text.length) {
       return;
     }
 
-    const currentLine = lines[cursor.line];
-    const lineDone = cursor.char >= currentLine.length;
-    const delay = lineDone ? 260 : cursor.char === 0 ? 180 : 32;
-
     const timeout = window.setTimeout(() => {
-      if (lineDone) {
-        setCursor({ line: cursor.line + 1, char: 0 });
-        return;
-      }
-
-      setCursor({ line: cursor.line, char: cursor.char + 1 });
-    }, delay);
+      setTypedText(text.slice(0, typedText.length + 1));
+    }, typedText.length === 0 ? 260 : 72);
 
     return () => window.clearTimeout(timeout);
-  }, [cursor, lines]);
+  }, [text, typedText]);
 
-  const activeLine = Math.min(cursor.line, lines.length - 1);
-  const finished = cursor.line >= lines.length;
+  useEffect(() => {
+    if (roles.length <= 1) {
+      return;
+    }
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    const interval = window.setInterval(() => {
+      setRoleIndex((current) => (current + 1) % roles.length);
+    }, 2600);
+
+    return () => window.clearInterval(interval);
+  }, [roles]);
 
   return (
-    <h1
-      aria-label={lines.join(" ")}
-      className="hero-title relative mt-7 text-3xl font-bold leading-[1.04] tracking-normal text-white sm:text-5xl sm:leading-[1.02] md:text-6xl lg:text-7xl"
-    >
-      <span aria-hidden="true" className="invisible block">
-        {lines.map((line, index) => (
-          <span
-            key={`shadow-${index}-${line}`}
-            className={index < 2 ? "block" : "block text-zinc-400"}
-          >
-            {line}
-          </span>
-        ))}
-      </span>
-
-      <span aria-hidden="true" className="absolute inset-0 block">
-        {lines.map((line, index) => {
-          const safeLine = line ?? "";
-          const text =
-            index < cursor.line
-              ? safeLine
-              : index === cursor.line
-                ? safeLine.slice(0, cursor.char)
-                : "";
-          const showCursor = finished ? index === lines.length - 1 : index === activeLine;
-
-          return (
-            <span
-              key={`typed-${index}-${safeLine}`}
-              className={index < 2 ? "block" : "block text-zinc-400"}
-            >
-              {text}
-              {showCursor ? <span className="typing-caret" /> : null}
-            </span>
-          );
-        })}
-      </span>
-    </h1>
+    <div>
+      <h1 className="text-balance text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-7xl">
+        <span>{typedText || text.slice(0, 1)}</span>
+        <span className="typewriter-caret" aria-hidden="true" />
+      </h1>
+      <p className="mt-5 flex flex-wrap items-center gap-2 text-xl font-medium text-zinc-300 sm:text-2xl">
+        <span className="font-mono text-sm uppercase tracking-normal text-zinc-500">
+          {rolePrefix}
+        </span>
+        <span
+          key={currentRole}
+          className="rotating-role text-cyan-100"
+          aria-live="polite"
+        >
+          {currentRole}
+        </span>
+      </p>
+    </div>
   );
 }

@@ -1,31 +1,32 @@
 import { ImpressumModal } from "@/components/site/impressum-modal";
+import { links, siteCopy } from "@/data/profile";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-white/10 bg-[#080808]/82 py-8 backdrop-blur-md">
+    <footer className="border-t border-white/10 bg-black/50 py-8">
       <div className="site-container flex flex-col gap-5 font-mono text-sm text-zinc-500 md:flex-row md:items-center md:justify-between">
-        <p>© 2026 Etienne Schwab</p>
+        <p>{siteCopy.footer.copyright}</p>
 
         <nav
-          aria-label="Footer"
+          aria-label={siteCopy.footer.ariaLabel}
           className="flex flex-wrap items-center gap-x-5 gap-y-3"
         >
           <ImpressumModal />
           <a
-            href="https://github.com/etschwab"
+            href={links.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="transition-colors hover:text-orange-300 focus:text-orange-300 focus:outline-none"
+            className="transition-colors hover:text-cyan-100 focus:text-cyan-100 focus:outline-none"
           >
-            GitHub
+            {siteCopy.footer.github}
           </a>
           <a
-            href="https://www.instagram.com/planaryofficial/"
+            href={links.instagram}
             target="_blank"
             rel="noopener noreferrer"
-            className="transition-colors hover:text-orange-300 focus:text-orange-300 focus:outline-none"
+            className="transition-colors hover:text-cyan-100 focus:text-cyan-100 focus:outline-none"
           >
-            Instagram
+            {siteCopy.footer.instagram}
           </a>
         </nav>
       </div>

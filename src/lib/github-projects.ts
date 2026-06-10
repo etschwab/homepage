@@ -1,5 +1,11 @@
 import "server-only";
 
+import {
+  projectCategories,
+  projectDetails,
+  projectNotes,
+  siteCopy,
+} from "@/data/profile";
 import type { GithubProject } from "@/types/projects";
 
 type GithubRepo = {
@@ -17,64 +23,6 @@ type GithubRepo = {
 const GITHUB_HEADERS = {
   Accept: "application/vnd.github+json",
   "User-Agent": "ims-portfolio",
-};
-
-const projectNotes: Record<string, string> = {
-  homepage:
-    "Persönliche IMS-Portfolioseite mit klarem Aufbau, geschütztem Bereich, GitHub-Projekten und einer interaktiven Projektübersicht.",
-  MultiTrack:
-    "Ein Lernprojekt für strukturierte Datensätze und mehrere parallele Einträge. Der Fokus liegt auf sauberer Organisation und nachvollziehbarer Bedienung.",
-  scamble:
-    "Kleines Experimentierprojekt, mit dem ich Code-Struktur, Ablage und einfache Logik ausprobiert habe.",
-  snb:
-    "Webprojekt mit Live-Demo. Im Vordergrund stehen semantisches HTML, saubere Gestaltung und ein veröffentlichtes Deployment.",
-  smartain:
-    "MVP-App für Teams, Spieler, Trainings und Spiele. Das Projekt verbindet Next.js, Supabase und Vercel zu einer nutzbaren Verwaltungsoberfläche.",
-  BookLoan:
-    "Webapplikation für Bibliotheken, Bücher und Ausleihen. Ziel ist eine einfache Verwaltung mit klaren Abläufen.",
-  Uek294:
-    "ÜK-294-Projekt mit React und Vite. Hier ging es um Komponenten, Frontend-Grundlagen und einen sauberen Entwicklungsworkflow.",
-  ToDoList:
-    "Todo-App zum Planen und Abhaken von Aufgaben. Das Projekt trainiert Zustandslogik und direkte Interaktion im Browser.",
-  EMMA:
-    "Game-Launcher für ESP32 mit TFT-Display und Keypad. Mehrere kleine Spiele werden in einer kompakten App zusammengeführt.",
-  m347:
-    "Modul-347-Projekt mit Docker und Nginx. Eine Website wird in einem Container gebaut, gestartet und bereitgestellt.",
-  planarylogin:
-    "Login- und Registrierungsbereich für Planary. Im Fokus stehen Formulare, Validierung und eine klare Authentifizierungsstrecke.",
-  TenniSoft26:
-    "Tennis-Projekt zur digitalen Organisation. Es sammelt Ideen für Verwaltung, Planung und bessere Abläufe im Vereinssport.",
-  TenniSoft:
-    "Tennis-Organisation als Lernprojekt. Der Schwerpunkt liegt auf Struktur, Planung und einer einfachen digitalen Übersicht.",
-};
-
-const projectDetails: Record<string, string> = {
-  homepage:
-    "Diese Website ist mein zentrales IMS-Portfolio. Sie verbindet einen persönlichen Einstieg, einen geschützten Bereich für sensible Daten und eine Projektübersicht, die direkt aus GitHub gespeist wird. Beim Aufbau achte ich auf klare Navigation, moderne Gestaltung und eine gute Bedienung auf Desktop und Mobile.",
-  MultiTrack:
-    "MultiTrack ist ein Lernprojekt rund um mehrere parallele Einträge oder Tracks. Ich nutze es, um Daten sinnvoll zu strukturieren, Oberflächen übersichtlich zu halten und Funktionen Schritt für Schritt nachvollziehbar aufzubauen.",
-  scamble:
-    "Scamble ist ein kleineres Experimentierprojekt. Es dient mir als Spielraum für Code-Struktur, Benennung und einfache Logik, ohne dass das Projekt künstlich gross werden muss.",
-  snb:
-    "SNB ist ein Webprojekt mit veröffentlichter Demo. Dabei stehen HTML-Struktur, Gestaltung und Deployment im Vordergrund. Das Projekt zeigt, wie eine kleine Website sauber aufgebaut und online erreichbar gemacht wird.",
-  smartain:
-    "Smartain ist eine MVP-App für Teamverwaltung, Spieler, Trainings und Spiele. Besonders spannend ist hier die Kombination aus Next.js, Supabase und Vercel, weil Frontend, Daten und Deployment zusammenkommen.",
-  BookLoan:
-    "BookLoan ist eine Webapplikation für Bibliotheken, Bücher und Ausleihen. Das Projekt trainiert typische Verwaltungsabläufe: Daten erfassen, anzeigen, ordnen und für Benutzer verständlich machen.",
-  Uek294:
-    "Dieses ÜK-294-Projekt arbeitet mit React und Vite. Im Fokus stehen Komponenten, Zustandslogik und ein sauberer Entwicklungsworkflow. Es ist ein gutes Beispiel für Unterrichtsinhalte, die direkt in einem Frontend-Projekt umgesetzt wurden.",
-  ToDoList:
-    "Die Todo-Liste ist ein klassisches Lernprojekt, aber mit echtem Nutzen: Aufgaben erfassen, planen und abhaken. Dadurch konnte ich Interaktion, Zustand und einfache Benutzerführung im Browser üben.",
-  EMMA:
-    "EMMA ist ein Game-Launcher für einen ESP32 mit TFT-Display und Keypad. Das Projekt ist spannend, weil es nicht nur Webentwicklung zeigt, sondern auch hardwarenahe Logik und mehrere kleine Spiele in einer App verbindet.",
-  m347:
-    "Im Modul-347-Projekt wird eine Website mit Nginx in einem Docker-Container betrieben. Dadurch habe ich geübt, wie Webserver, Container und Deployment-Grundlagen zusammenhängen.",
-  planarylogin:
-    "Planarylogin ist ein Login- und Registrierungsbereich mit TypeScript. Der Fokus liegt auf Formularen, Validierung und einer klaren Authentifizierungsstrecke, die später in ein grösseres Projekt passen kann.",
-  TenniSoft26:
-    "TenniSoft26 sammelt Ideen für digitale Tennis-Organisation. Das Projekt hilft mir, Verwaltungsprozesse zu denken und in Software-Strukturen zu übersetzen.",
-  TenniSoft:
-    "TenniSoft ist ein Lernprojekt für Tennis-Organisation. Im Mittelpunkt stehen Planung, Struktur und eine einfache digitale Übersicht für Abläufe im Vereinssport.",
 };
 
 const fallbackProjectSeeds = [
@@ -156,6 +104,7 @@ const fallbackProjects: GithubProject[] = fallbackProjectSeeds.map((project) => 
   homepage: "homepage" in project ? project.homepage : null,
   imageSrc: null,
   language: project.language,
+  category: projectCategories[project.name] ?? "personal",
   updatedAt: project.updatedAt,
   topics: [],
   archived: false,
@@ -189,7 +138,7 @@ function repoToProject(repo: GithubRepo): GithubProject {
   const description =
     projectNotes[repo.name] ??
     repo.description ??
-    `Öffentliches Repository mit ${repo.language ?? "Code"} als Schwerpunkt.`;
+    siteCopy.projects.fallbackDescription;
 
   return {
     name: repo.name,
@@ -200,6 +149,7 @@ function repoToProject(repo: GithubRepo): GithubProject {
     homepage: repo.homepage || null,
     imageSrc: null,
     language: repo.language ?? "Sonstige",
+    category: projectCategories[repo.name] ?? "personal",
     updatedAt: repo.updated_at,
     topics: repo.topics ?? [],
     archived: repo.archived,

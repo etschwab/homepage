@@ -1,10 +1,14 @@
+import { siteCopy } from "@/data/profile";
+
 export default function Loading() {
   return (
     <div className="loading-screen">
       <div className="loader-mark" aria-hidden="true">
-        ES
+        {siteCopy.loading.mark}
       </div>
-      <p className="font-mono text-sm text-zinc-400">Lädt Portfolio...</p>
+      <p className="font-mono text-sm text-zinc-500">
+        {siteCopy.loading.text}
+      </p>
     </div>
   );
 }

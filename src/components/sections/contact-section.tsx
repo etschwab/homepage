@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { EmailLink } from "@/components/ui/email-link";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { contactSection, siteCopy } from "@/data/profile";
 
 type ContactSectionProps = {
   isProtected?: boolean;
@@ -10,25 +11,25 @@ type ContactSectionProps = {
 
 export function ContactSection({ isProtected = false }: ContactSectionProps) {
   return (
-    <section id="kontakt" className="py-14 sm:py-16 lg:py-20">
+    <section id="kontakt" className="section-band py-16 sm:py-20 lg:py-24">
       <div className="site-container grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
         <SectionHeading
-          eyebrow="Kontakt"
-          title="Kontakt aufnehmen."
-          description="Wenn du Fragen zu meiner IMS-Seite, einem Projekt oder einer Bewerbung hast, erreichst du mich per E-Mail."
+          eyebrow={contactSection.eyebrow}
+          title={contactSection.title}
+          description={contactSection.description}
         />
 
-        <div className="flex flex-col gap-4 sm:flex-row lg:flex-col">
-          <EmailLink className="button-motion rounded-soft inline-flex h-12 min-w-52 items-center justify-center gap-3 bg-orange-500 px-6 font-mono text-sm font-bold text-black transition-colors hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-300">
+        <div className="scroll-reveal flex flex-col gap-4 sm:flex-row lg:flex-col">
+          <EmailLink className="button-motion rounded-soft inline-flex h-12 min-w-52 items-center justify-center gap-3 bg-cyan-200 px-6 font-mono text-sm font-bold text-black hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-300/40">
             <Mail aria-hidden="true" size={17} />
-            E-Mail senden
+            {siteCopy.actions.email}
           </EmailLink>
           {!isProtected ? (
             <Link
               href="/login"
-              className="button-motion rounded-soft inline-flex h-12 min-w-52 items-center justify-center gap-3 border border-white/12 px-6 font-mono text-sm font-bold text-white transition-colors hover:border-orange-400 hover:text-orange-300 focus:outline-none focus:ring-2 focus:ring-orange-300/70"
+              className="button-motion rounded-soft inline-flex h-12 min-w-52 items-center justify-center gap-3 border border-white/10 px-6 font-mono text-sm font-bold text-zinc-100 hover:border-cyan-300/45 hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-300/30"
             >
-              Admin Login
+              {siteCopy.actions.login}
               <ArrowRight aria-hidden="true" size={17} />
             </Link>
           ) : null}
