@@ -22,7 +22,7 @@ export function AboutSection() {
               alt="Portrait von Etienne Schwab"
               width={900}
               height={1200}
-              className="h-full w-full object-cover object-[50%_31%]"
+              className="h-full w-full object-cover object-[50%_56%]"
               sizes="(max-width: 1024px) 92vw, 31vw"
             />
           </div>
