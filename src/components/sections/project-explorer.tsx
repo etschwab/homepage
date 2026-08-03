@@ -4,10 +4,10 @@ import { useMemo, useState } from "react";
 import { ArrowUpRight, ExternalLink, Search } from "lucide-react";
 
 import { siteCopy, type ProjectCategory } from "@/data/profile";
-import type { GithubProject } from "@/types/projects";
+import type { PortfolioProject } from "@/types/projects";
 
 type ProjectExplorerProps = {
-  projects: GithubProject[];
+  projects: PortfolioProject[];
   username: string;
 };
 
@@ -38,16 +38,17 @@ export function ProjectExplorer({ projects, username }: ProjectExplorerProps) {
 
   if (!projects.length) {
     return (
-      <div className="mt-10 rounded-soft border border-white/10 bg-white/[0.035] p-5 text-sm leading-6 text-zinc-400">
+      <div className="mt-10 rounded-[1.75rem] border border-white/70 bg-white/62 shadow-[0_18px_50px_rgba(17,19,24,0.06)] backdrop-blur-md p-5 text-sm leading-6 text-zinc-500">
         {siteCopy.projects.empty}
       </div>
     );
   }
 
   return (
-    <div className="mt-10 grid gap-6">
-      <div className="flex flex-col gap-3 border-y border-white/10 py-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex items-center gap-2 font-mono text-xs text-zinc-500">
+    <div className="mt-6 grid gap-6">
+      <div className="grid gap-4 md:grid-cols-[1fr_auto] md:items-center">
+        <div className="flex items-center gap-3 font-mono text-xs text-zinc-500">
+          <span className="h-6 w-px bg-sky-200/55" aria-hidden="true" />
           <Search aria-hidden="true" size={15} />
           <span>
             {filteredProjects.length} {siteCopy.projects.countSeparator}{" "}
@@ -72,10 +73,10 @@ export function ProjectExplorer({ projects, username }: ProjectExplorerProps) {
                   setActiveFilter(filter.id);
                   setSelectedName(nextProjects[0]?.name ?? "");
                 }}
-                className={`rounded-soft border px-3 py-2 font-mono text-xs font-medium transition focus:outline-none focus:ring-2 focus:ring-cyan-300/30 ${
+                className={`rounded-soft border px-3 py-2 font-mono text-xs font-medium transition focus:outline-none focus:ring-2 focus:ring-sky-200/20 ${
                   isActive
-                    ? "border-cyan-300/50 bg-cyan-300/15 text-cyan-100"
-                    : "border-white/10 bg-white/[0.025] text-zinc-400 hover:border-cyan-300/35 hover:text-white"
+                    ? "border-sky-300/70 bg-sky-200/55 text-sky-950 shadow-sm"
+                    : "border-black/10 bg-white/55 text-zinc-500 hover:border-sky-300/60 hover:bg-white/85 hover:text-zinc-950"
                 }`}
                 aria-pressed={isActive}
               >
@@ -99,18 +100,18 @@ export function ProjectExplorer({ projects, username }: ProjectExplorerProps) {
                 key={project.name}
                 type="button"
                 onClick={() => setSelectedName(project.name)}
-                className={`motion-card rounded-soft group border bg-black/35 p-5 text-left transition focus:outline-none focus:ring-2 focus:ring-cyan-300/30 ${
+                className={`motion-card group rounded-[1.75rem] border p-5 text-left transition focus:outline-none focus:ring-2 focus:ring-sky-200/40 ${
                   isSelected
-                    ? "border-cyan-300/40 shadow-[0_0_45px_rgba(103,232,249,0.08)]"
-                    : "border-white/10 hover:border-cyan-300/30"
+                    ? "border-sky-300/70 bg-sky-100/65 shadow-[0_18px_50px_rgba(83,174,232,0.16)]"
+                    : "border-white/70 bg-white/62 hover:border-sky-300/70 hover:bg-white/85"
                 }`}
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="rounded-soft border border-white/10 px-2 py-1 font-mono text-xs text-zinc-400">
+                    <span className="rounded-full border border-black/10 px-2 py-1 font-mono text-xs text-zinc-500">
                       {project.language}
                     </span>
-                    <span className="rounded-soft border border-cyan-300/20 bg-cyan-300/10 px-2 py-1 font-mono text-xs text-cyan-100">
+                    <span className="rounded-[1.5rem] border border-sky-200/50 bg-sky-100/55 px-2 py-1 font-mono text-xs text-sky-700/90">
                       {siteCopy.projects.categories[project.category]}
                     </span>
                   </div>
@@ -118,22 +119,22 @@ export function ProjectExplorer({ projects, username }: ProjectExplorerProps) {
                     aria-hidden="true"
                     className={`transition-colors ${
                       isSelected
-                        ? "text-cyan-100"
-                        : "text-zinc-600 group-hover:text-zinc-200"
+                        ? "text-sky-700"
+                        : "text-zinc-500 group-hover:text-zinc-800"
                     }`}
                     size={18}
                   />
                 </div>
 
-                <h3 className="mt-6 text-2xl font-semibold text-white">
+                <h3 className="mt-6 text-2xl font-semibold text-zinc-950">
                   {project.displayName}
                 </h3>
-                <p className="mt-4 line-clamp-3 text-sm leading-6 text-zinc-400">
+                <p className="mt-4 line-clamp-3 text-sm leading-6 text-zinc-500">
                   {project.description}
                 </p>
 
                 <p className="mt-5 font-mono text-xs text-zinc-500">
-                  {siteCopy.projects.githubPrefix}/{username}
+                  {getSourceText(project, username)}
                 </p>
               </button>
             );
@@ -141,39 +142,39 @@ export function ProjectExplorer({ projects, username }: ProjectExplorerProps) {
         </div>
 
         {selectedProject ? (
-          <aside className="rounded-soft sticky top-24 border border-white/10 bg-black/55 p-5 shadow-sm backdrop-blur-sm">
+          <aside className="sticky top-24 rounded-[2rem] border border-white/70 bg-white/72 p-6 shadow-[0_24px_80px_rgba(17,19,24,0.08)] backdrop-blur-md">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="font-mono text-xs uppercase tracking-normal text-cyan-200">
+                <p className="font-mono text-xs uppercase tracking-normal text-sky-700/80">
                   {siteCopy.projects.abstract}
                 </p>
-                <h3 className="mt-3 text-3xl font-semibold text-white">
+                <h3 className="mt-3 text-3xl font-semibold text-zinc-950">
                   {selectedProject.displayName}
                 </h3>
               </div>
-              <span className="rounded-soft border border-white/10 px-2 py-1 font-mono text-xs text-zinc-400">
+              <span className="rounded-full border border-black/10 px-2 py-1 font-mono text-xs text-zinc-500">
                 {selectedProject.language}
               </span>
             </div>
 
-            <p className="mt-5 text-sm leading-7 text-zinc-400">
+            <p className="mt-5 text-sm leading-7 text-zinc-500">
               {selectedProject.detail}
             </p>
 
             <div className="mt-6 grid gap-3 text-sm sm:grid-cols-2 xl:grid-cols-1">
-              <div className="rounded-soft border border-white/10 bg-white/[0.025] p-3">
+              <div className="rounded-2xl border border-black/10 bg-white/60 p-4">
                 <p className="font-mono text-xs text-zinc-500">
                   {siteCopy.projects.source}
                 </p>
-                <p className="mt-1 text-zinc-100">
-                  {siteCopy.projects.githubDomain}/{username}
+                <p className="mt-1 text-zinc-900">
+                  {getSourceText(selectedProject, username)}
                 </p>
               </div>
-              <div className="rounded-soft border border-white/10 bg-white/[0.025] p-3">
+              <div className="rounded-2xl border border-black/10 bg-white/60 p-4">
                 <p className="font-mono text-xs text-zinc-500">
                   {siteCopy.projects.status}
                 </p>
-                <p className="mt-1 text-zinc-100">
+                <p className="mt-1 text-zinc-900">
                   {selectedProject.archived
                     ? siteCopy.projects.archivedStatus
                     : siteCopy.projects.publicStatus}
@@ -186,17 +187,18 @@ export function ProjectExplorer({ projects, username }: ProjectExplorerProps) {
                 href={selectedProject.htmlUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="button-motion rounded-soft inline-flex h-11 items-center justify-center gap-2 bg-cyan-200 px-5 font-mono text-sm font-bold text-black hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-300/40"
+                className="action-primary button-motion inline-flex h-12 items-center justify-center gap-2 rounded-full px-5 font-mono text-sm font-bold focus:outline-none focus:ring-2 focus:ring-sky-200/40"
               >
-                {siteCopy.actions.repository}
+                {selectedProject.primaryActionLabel}
                 <ExternalLink aria-hidden="true" size={16} />
               </a>
-              {selectedProject.homepage ? (
+              {selectedProject.homepage &&
+              selectedProject.homepage !== selectedProject.htmlUrl ? (
                 <a
                   href={selectedProject.homepage}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="button-motion rounded-soft inline-flex h-11 items-center justify-center gap-2 border border-white/10 px-5 font-mono text-sm font-bold text-zinc-100 hover:border-cyan-300/45 hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-300/30"
+                  className="action-secondary button-motion inline-flex h-12 items-center justify-center gap-2 rounded-full px-5 font-mono text-sm font-bold focus:outline-none focus:ring-2 focus:ring-sky-200/40"
                 >
                   {siteCopy.actions.demo}
                   <ExternalLink aria-hidden="true" size={16} />
@@ -211,7 +213,7 @@ export function ProjectExplorer({ projects, username }: ProjectExplorerProps) {
 }
 
 function filterProjects(
-  projects: GithubProject[],
+  projects: PortfolioProject[],
   activeFilter: ProjectFilter,
 ) {
   if (activeFilter === "all") {
@@ -219,4 +221,19 @@ function filterProjects(
   }
 
   return projects.filter((project) => project.category === activeFilter);
+}
+
+function getSourceText(project: PortfolioProject, username: string) {
+  if (project.sourceLabel !== "GitHub") {
+    return project.sourceLabel;
+  }
+
+  try {
+    const url = new URL(project.htmlUrl);
+    const [owner] = url.pathname.split("/").filter(Boolean);
+
+    return `${url.hostname}/${owner ?? username}`;
+  } catch {
+    return `${siteCopy.projects.githubDomain}/${username}`;
+  }
 }

@@ -1,12 +1,10 @@
 export type ProjectCategory = "gibb" | "personal";
 
 export const navItems = [
-  { label: "Über mich", href: "#ueber-mich" },
-  { label: "Bildungsweg", href: "#bildungsweg" },
-  { label: "Skills", href: "#skills" },
-  { label: "Projekte", href: "#projekte" },
-  { label: "Hobbys", href: "#hobbys" },
-  { label: "Kontakt", href: "#kontakt" },
+  { label: "Über mich", href: "/ueber-mich" },
+  { label: "Bildungsweg", href: "/bildungsweg" },
+  { label: "Projekte", href: "/projekte" },
+  { label: "Kontakt", href: "/kontakt" },
 ] as const;
 
 export const links = {
@@ -20,12 +18,6 @@ export const profile = {
   brand: "Etienne Schwab",
   role: "IMS Portfolio",
   name: "Etienne Schwab",
-  title: ["IMS-Lernender", "Frontend", "Webdesign"] as const,
-  rotatingRoles: [
-    "Informatik-Lernender",
-    "Web Developer",
-    "Problem Solver",
-  ] as const,
   intro:
     "Ich gestalte Webseiten und Webanwendungen, die ruhig aussehen, klar funktionieren und sich einfach bedienen lassen.",
   email: "etienne.schwab@bwdbern.ch",
@@ -39,16 +31,17 @@ export const siteCopy = {
   actions: {
     contact: "Kontakt",
     email: "E-Mail senden",
-    login: "Admin Login",
+    login: "Privater Bereich",
     logout: "Logout",
     projects: "Projekte ansehen",
     repository: "Repository öffnen",
+    website: "Website öffnen",
     demo: "Live Demo",
   },
   header: {
     startLabel: "Zur Startsektion",
     logoAlt: "Logo von Etienne Schwab",
-    internalLink: "Intern",
+    internalLink: "Privat",
     protectedLabel: "Eingeloggt als",
   },
   loading: {
@@ -58,7 +51,7 @@ export const siteCopy = {
   login: {
     backLink: "Zurück zur Seite",
     eyebrow: "Geschützter Bereich",
-    title: "Admin Login",
+    title: "Privater Bereich",
     descriptionStart: "Zugriff mit Nutzername",
     descriptionMiddle: "und Passwort",
     descriptionEnd: "Es gibt keine Registrierung, nur diese geschützte Ansicht.",
@@ -135,16 +128,8 @@ export const siteCopy = {
   },
 } as const;
 
-export const heroSection = {
-  eyebrow: profile.role,
-  typedText: profile.name,
-  rolePrefix: "Aktuell:",
-  roles: profile.rotatingRoles,
-  intro: profile.intro,
-} as const;
-
 export const aboutSection = {
-  eyebrow: "Lebenslauf / Über mich",
+  eyebrow: "Über mich",
   title: "Persönlich, zuverlässig und gerne nah am Produkt.",
   description:
     "Ich heisse Etienne Schwab, bin 17 Jahre alt und wohne in Muri-Gümligen. Zurzeit besuche ich die IMS in Bern.",
@@ -256,16 +241,6 @@ export const hobbiesSection = {
       linkHref: links.nilton,
     },
   ],
-} as const;
-
-export const mediaSection = {
-  eyebrow: "Video / Audio",
-  title: "Platz für eingebettete Inhalte.",
-  description:
-    "Hier ist ein sauberer Slot für ein späteres Video, eine Präsentation oder eine kurze Audio-Erklärung vorgesehen.",
-  placeholderTitle: "Media-Slot",
-  placeholderDescription:
-    "Noch kein Inhalt hinterlegt. Später kann hier ein Video- oder Audio-Element eingebettet werden.",
 } as const;
 
 export const contactSection = {
@@ -400,10 +375,12 @@ export const privateActions = [
 ] as const;
 
 export const projectNotes: Record<string, string> = {
+  Anamorph:
+    "Browserbasiertes Perspective-Puzzle: Aus einer 2D-Skizze entsteht eine 3D-Struktur, die nur aus bestimmten Blickwinkeln lösbar wird.",
+  planary:
+    "Planary ist eine Website und Projektplattform für klare digitale Lösungen. Der Fokus liegt auf einfacher Kommunikation, Struktur und Webauftritt.",
   homepage:
     "Persönliche IMS-Portfolioseite mit klarem Aufbau, geschütztem Bereich, GitHub-Projekten und einer interaktiven Projektübersicht.",
-  MultiTrack:
-    "Lernprojekt für strukturierte Datensätze und mehrere parallele Einträge. Der Fokus liegt auf Organisation und nachvollziehbarer Bedienung.",
   scamble:
     "Kleines Experimentierprojekt, mit dem ich Code-Struktur, Ablage und einfache Logik ausprobiert habe.",
   snb:
@@ -412,16 +389,12 @@ export const projectNotes: Record<string, string> = {
     "MVP-App für Teams, Spieler, Trainings und Spiele. Das Projekt verbindet Next.js, Supabase und Vercel.",
   BookLoan:
     "Webapplikation für Bibliotheken, Bücher und Ausleihen. Ziel ist eine einfache Verwaltung mit klaren Abläufen.",
-  Uek294:
-    "ÜK-294-Projekt mit React und Vite. Im Fokus stehen Komponenten, Frontend-Grundlagen und Entwicklungsworkflow.",
   ToDoList:
     "Todo-App zum Planen und Abhaken von Aufgaben. Das Projekt trainiert Zustandslogik und direkte Interaktion im Browser.",
   EMMA:
     "Game-Launcher für ESP32 mit TFT-Display und Keypad. Mehrere kleine Spiele werden in einer kompakten App zusammengeführt.",
   m347:
     "Modul-347-Projekt mit Docker und Nginx. Eine Website wird in einem Container gebaut, gestartet und bereitgestellt.",
-  planarylogin:
-    "Login- und Registrierungsbereich für Planary. Im Fokus stehen Formulare, Validierung und eine klare Authentifizierungsstrecke.",
   TenniSoft26:
     "Tennis-Projekt zur digitalen Organisation. Es sammelt Ideen für Verwaltung, Planung und bessere Abläufe im Vereinssport.",
   TenniSoft:
@@ -429,10 +402,12 @@ export const projectNotes: Record<string, string> = {
 };
 
 export const projectDetails: Record<string, string> = {
+  Anamorph:
+    "Anamorph ist ein interaktives 3D-Puzzle mit React, Vite, TypeScript, Tailwind CSS und Three.js. Spielende zeichnen Plattformen und Wege als 2D-Skizze; daraus wird eine 3D-Struktur, bei der Wege nur aus bestimmten Rotationswinkeln visuell zusammenpassen und begehbar werden.",
+  planary:
+    "Planary steht für einfache, klare Webanwendungen und digitale Lösungen. In meinem Portfolio zeige ich es als persönliches Website-Projekt, weil dabei Gestaltung, Positionierung und verständliche Kommunikation genauso wichtig sind wie Code.",
   homepage:
     "Diese Website ist mein zentrales IMS-Portfolio. Sie verbindet einen persönlichen Einstieg, einen geschützten Bereich für sensible Daten und eine Projektübersicht, die direkt aus GitHub gespeist wird.",
-  MultiTrack:
-    "MultiTrack ist ein Lernprojekt rund um mehrere parallele Einträge oder Tracks. Ich nutze es, um Daten sinnvoll zu strukturieren und Oberflächen übersichtlich zu halten.",
   scamble:
     "Scamble ist ein kleineres Experimentierprojekt für Code-Struktur, Benennung und einfache Logik.",
   snb:
@@ -441,16 +416,12 @@ export const projectDetails: Record<string, string> = {
     "Smartain ist eine MVP-App für Teamverwaltung, Spieler, Trainings und Spiele. Spannend ist die Kombination aus Frontend, Daten und Deployment.",
   BookLoan:
     "BookLoan ist eine Webapplikation für Bibliotheken, Bücher und Ausleihen. Das Projekt trainiert typische Verwaltungsabläufe.",
-  Uek294:
-    "Dieses ÜK-294-Projekt arbeitet mit React und Vite. Es ist ein Beispiel für Unterrichtsinhalte, die direkt in einem Frontend-Projekt umgesetzt wurden.",
   ToDoList:
     "Die Todo-Liste ist ein klassisches Lernprojekt mit echtem Nutzen: Aufgaben erfassen, planen und abhaken.",
   EMMA:
     "EMMA ist ein Game-Launcher für einen ESP32 mit TFT-Display und Keypad und zeigt auch hardwarenahe Logik.",
   m347:
     "Im Modul-347-Projekt wird eine Website mit Nginx in einem Docker-Container betrieben.",
-  planarylogin:
-    "Planarylogin ist ein Login- und Registrierungsbereich mit TypeScript, Formularen und Validierung.",
   TenniSoft26:
     "TenniSoft26 sammelt Ideen für digitale Tennis-Organisation und einfache Verwaltungsprozesse.",
   TenniSoft:
@@ -458,17 +429,16 @@ export const projectDetails: Record<string, string> = {
 };
 
 export const projectCategories: Record<string, ProjectCategory> = {
+  Anamorph: "personal",
+  planary: "personal",
   homepage: "personal",
-  MultiTrack: "personal",
   scamble: "personal",
   snb: "gibb",
   smartain: "personal",
   BookLoan: "gibb",
-  Uek294: "gibb",
   ToDoList: "gibb",
   EMMA: "personal",
   m347: "gibb",
-  planarylogin: "personal",
   TenniSoft26: "personal",
   TenniSoft: "personal",
 };

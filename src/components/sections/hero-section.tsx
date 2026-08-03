@@ -1,57 +1,39 @@
-import { ArrowRight, Mail } from "lucide-react";
-import type { CSSProperties } from "react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
-import { AnimatedHeroTitle } from "@/components/sections/animated-hero-title";
-import { EmailLink } from "@/components/ui/email-link";
-import { heroSection, siteCopy } from "@/data/profile";
+import { profile, siteCopy } from "@/data/profile";
 
 export function HeroSection() {
   return (
-    <section
-      id="start"
-      className="site-container relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden py-20 sm:py-24"
-    >
-      <div
-        className="hero-particle left-[10%] top-[22%]"
-        style={{ animationDelay: "0ms" } as CSSProperties}
-      />
-      <div
-        className="hero-particle right-[18%] top-[30%]"
-        style={{ animationDelay: "1200ms" } as CSSProperties}
-      />
-      <div
-        className="hero-particle bottom-[24%] left-[58%]"
-        style={{ animationDelay: "2400ms" } as CSSProperties}
-      />
+    <section id="start" className="hero-screen relative overflow-hidden">
+      <div className="hero-stage" aria-hidden="true" />
 
-      <div className="scroll-reveal relative max-w-3xl">
-        <p className="font-mono text-sm font-medium uppercase tracking-normal text-cyan-200">
-          {heroSection.eyebrow}
-        </p>
-        <div className="mt-5">
-          <AnimatedHeroTitle
-            text={heroSection.typedText}
-            rolePrefix={heroSection.rolePrefix}
-            roles={heroSection.roles}
-          />
-        </div>
-        <p className="mt-7 max-w-2xl text-pretty text-lg leading-8 text-zinc-300">
-          {heroSection.intro}
-        </p>
-
-        <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-          <a
-            href="#projekte"
-            className="button-motion rounded-soft inline-flex h-12 items-center justify-center gap-3 bg-cyan-200 px-7 font-mono text-sm font-bold text-black hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-300/40"
+      <div className="site-frame hero-screen relative">
+        <div className="absolute bottom-20 left-0 z-10 max-w-[52rem] sm:bottom-12 lg:bottom-14">
+          <p className="mb-4 font-mono text-xs font-semibold uppercase tracking-normal text-white/88 sm:text-sm">
+            {profile.role} / Bern
+          </p>
+          <h1 className="hero-title text-[4.25rem] font-black uppercase leading-[0.8] tracking-normal text-white sm:text-[7rem] sm:leading-[0.76] md:text-[8.5rem] lg:text-[10.5rem]">
+            Etienne
+            <br />
+            Schwab
+          </h1>
+          <Link
+            href="/projekte"
+            className="hero-cta button-motion mt-7 inline-flex h-14 w-fit items-center justify-center gap-3 rounded-full border border-white/78 px-8 font-mono text-sm font-bold text-white backdrop-blur-sm hover:bg-white/16 focus:outline-none focus:ring-2 focus:ring-white/50 lg:hidden"
           >
             {siteCopy.actions.projects}
             <ArrowRight aria-hidden="true" size={17} />
-          </a>
-          <EmailLink className="button-motion rounded-soft inline-flex h-12 items-center justify-center gap-3 border border-white/10 px-7 font-mono text-sm font-bold text-zinc-100 hover:border-cyan-300/45 hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-300/30">
-            <Mail aria-hidden="true" size={17} />
-            {siteCopy.actions.contact}
-          </EmailLink>
+          </Link>
         </div>
+
+        <Link
+          href="/projekte"
+          className="hero-cta button-motion absolute bottom-12 right-0 hidden h-14 w-fit items-center justify-center gap-3 rounded-full border border-white/78 px-8 font-mono text-sm font-bold text-white backdrop-blur-sm hover:bg-white/16 focus:outline-none focus:ring-2 focus:ring-white/50 lg:inline-flex"
+        >
+          {siteCopy.actions.projects}
+          <ArrowRight aria-hidden="true" size={17} />
+        </Link>
       </div>
     </section>
   );

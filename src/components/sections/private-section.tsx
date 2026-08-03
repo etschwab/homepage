@@ -37,15 +37,15 @@ export function PrivateSection({ username }: { username: string }) {
                 style={
                   { "--reveal-delay": `${index * 90}ms` } as CSSProperties
                 }
-                className="motion-card scroll-reveal rounded-soft border border-cyan-300/20 bg-cyan-300/[0.055] p-5"
+                className="motion-card scroll-reveal rounded-[1.75rem] border border-white/70 bg-white/62 shadow-[0_18px_50px_rgba(17,19,24,0.06)] backdrop-blur-md p-5"
               >
-                <span className="grid size-10 place-items-center rounded-soft border border-cyan-300/30 text-cyan-100">
+                <span className="grid size-10 place-items-center rounded-soft border border-sky-200/20 text-sky-700/90">
                   <Icon aria-hidden="true" size={19} />
                 </span>
-                <h3 className="mt-8 text-xl font-semibold text-white">
+                <h3 className="mt-8 text-xl font-semibold text-zinc-950">
                   {item.title}
                 </h3>
-                <p className="mt-3 text-sm leading-6 text-zinc-400">
+                <p className="mt-3 text-sm leading-6 text-zinc-500">
                   {item.description}
                 </p>
               </article>

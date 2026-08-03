@@ -1,5 +1,10 @@
-import { PortfolioPage } from "@/components/site/portfolio-page";
+import { HeroSection } from "@/components/sections/hero-section";
+import { PageShell } from "@/components/site/page-shell";
 
 export default function Home() {
-  return <PortfolioPage />;
+  return (
+    <PageShell>
+      <HeroSection />
+    </PageShell>
+  );
 }

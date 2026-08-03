@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
-import { CursorGlow } from "@/components/site/cursor-glow";
 import { PlusBackground } from "@/components/site/plus-background";
 import { ScrollRevealController } from "@/components/site/scroll-reveal-controller";
 import "./globals.css";
@@ -40,7 +39,6 @@ export default function RootLayout({
     >
       <body>
         <PlusBackground />
-        <CursorGlow />
         <ScrollRevealController />
         {children}
       </body>

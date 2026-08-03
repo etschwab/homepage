@@ -16,7 +16,7 @@ export function LoginForm() {
   return (
     <form action={formAction} className="grid gap-5" noValidate>
       <div className="grid gap-2">
-        <label className="font-mono text-sm text-zinc-300" htmlFor="username">
+        <label className="font-mono text-sm text-zinc-700" htmlFor="username">
           {siteCopy.login.usernameLabel}
         </label>
         <div className="relative">
@@ -30,18 +30,18 @@ export function LoginForm() {
             name="username"
             type="text"
             autoComplete="username"
-            className="h-12 w-full rounded-soft border border-white/10 bg-black/40 pl-12 pr-4 text-white outline-none transition-colors placeholder:text-zinc-600 focus:border-cyan-300/50"
+            className="h-12 w-full rounded-soft border border-black/10 bg-white/80 pl-12 pr-4 text-zinc-950 outline-none transition-colors placeholder:text-zinc-500 focus:border-sky-200/35"
             placeholder={siteCopy.login.usernamePlaceholder}
             required
           />
         </div>
         {state.errors?.username ? (
-          <p className="text-sm text-cyan-100">{state.errors.username[0]}</p>
+          <p className="text-sm text-sky-700">{state.errors.username[0]}</p>
         ) : null}
       </div>
 
       <div className="grid gap-2">
-        <label className="font-mono text-sm text-zinc-300" htmlFor="password">
+        <label className="font-mono text-sm text-zinc-700" htmlFor="password">
           {siteCopy.login.passwordLabel}
         </label>
         <input
@@ -49,17 +49,17 @@ export function LoginForm() {
           name="password"
           type="password"
           autoComplete="current-password"
-          className="h-12 w-full rounded-soft border border-white/10 bg-black/40 px-4 text-white outline-none transition-colors placeholder:text-zinc-600 focus:border-cyan-300/50"
+          className="h-12 w-full rounded-soft border border-black/10 bg-white/80 px-4 text-zinc-950 outline-none transition-colors placeholder:text-zinc-500 focus:border-sky-200/35"
           placeholder={siteCopy.login.passwordPlaceholder}
           required
         />
         {state.errors?.password ? (
-          <p className="text-sm text-cyan-100">{state.errors.password[0]}</p>
+          <p className="text-sm text-sky-700">{state.errors.password[0]}</p>
         ) : null}
       </div>
 
       {state.message ? (
-        <p className="rounded-soft border border-cyan-300/25 bg-cyan-300/10 p-3 text-sm leading-6 text-cyan-50">
+        <p className="rounded-[1.5rem] border border-sky-200/50 bg-sky-100/55 p-3 text-sm leading-6 text-sky-950">
           {state.message}
         </p>
       ) : null}
@@ -76,7 +76,7 @@ function SubmitButton() {
     <button
       type="submit"
       disabled={pending}
-      className="button-motion inline-flex h-12 items-center justify-center gap-3 rounded-soft bg-cyan-200 px-6 font-mono text-sm font-bold text-black hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-300/40 disabled:cursor-not-allowed disabled:opacity-60"
+      className="action-primary button-motion inline-flex h-12 items-center justify-center gap-3 rounded-soft px-6 font-mono text-sm font-bold focus:outline-none focus:ring-2 focus:ring-sky-200/25 disabled:cursor-not-allowed disabled:opacity-60"
     >
       {pending ? siteCopy.login.pending : siteCopy.login.submit}
       <ArrowRight aria-hidden="true" size={17} />

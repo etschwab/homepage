@@ -20,14 +20,14 @@ export function ContactSection({ isProtected = false }: ContactSectionProps) {
         />
 
         <div className="scroll-reveal flex flex-col gap-4 sm:flex-row lg:flex-col">
-          <EmailLink className="button-motion rounded-soft inline-flex h-12 min-w-52 items-center justify-center gap-3 bg-cyan-200 px-6 font-mono text-sm font-bold text-black hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-300/40">
+          <EmailLink className="action-primary button-motion rounded-soft inline-flex h-12 min-w-52 items-center justify-center gap-3 px-6 font-mono text-sm font-bold focus:outline-none focus:ring-2 focus:ring-sky-200/25">
             <Mail aria-hidden="true" size={17} />
             {siteCopy.actions.email}
           </EmailLink>
           {!isProtected ? (
             <Link
               href="/login"
-              className="button-motion rounded-soft inline-flex h-12 min-w-52 items-center justify-center gap-3 border border-white/10 px-6 font-mono text-sm font-bold text-zinc-100 hover:border-cyan-300/45 hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-300/30"
+              className="action-secondary button-motion rounded-soft inline-flex h-12 min-w-52 items-center justify-center gap-3 px-6 font-mono text-sm font-bold focus:outline-none focus:ring-2 focus:ring-sky-200/20"
             >
               {siteCopy.actions.login}
               <ArrowRight aria-hidden="true" size={17} />

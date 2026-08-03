@@ -3,7 +3,7 @@ import { links, siteCopy } from "@/data/profile";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-white/10 bg-black/50 py-8">
+    <footer className="border-t border-black/10 bg-white/70 py-8">
       <div className="site-container flex flex-col gap-5 font-mono text-sm text-zinc-500 md:flex-row md:items-center md:justify-between">
         <p>{siteCopy.footer.copyright}</p>
 
@@ -16,7 +16,7 @@ export function SiteFooter() {
             href={links.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="transition-colors hover:text-cyan-100 focus:text-cyan-100 focus:outline-none"
+            className="transition-colors hover:text-sky-700 focus:text-sky-700 focus:outline-none"
           >
             {siteCopy.footer.github}
           </a>
@@ -24,7 +24,7 @@ export function SiteFooter() {
             href={links.instagram}
             target="_blank"
             rel="noopener noreferrer"
-            className="transition-colors hover:text-cyan-100 focus:text-cyan-100 focus:outline-none"
+            className="transition-colors hover:text-sky-700 focus:text-sky-700 focus:outline-none"
           >
             {siteCopy.footer.instagram}
           </a>

@@ -91,7 +91,7 @@ export function Timeline() {
             className="absolute bottom-0 left-4 top-0 w-px bg-white/10 md:left-1/2 md:-translate-x-1/2"
           >
             <div
-              className={`timeline-line-fill h-full w-full bg-cyan-200/70 ${
+              className={`timeline-line-fill h-full w-full bg-sky-200/45 ${
                 lineVisible ? "is-visible" : ""
               }`}
             />
@@ -116,22 +116,22 @@ export function Timeline() {
                 >
                   <div className="absolute left-4 top-2 -translate-x-1/2 md:left-1/2">
                     {item.current ? (
-                      <span className="absolute inline-flex size-4 rounded-full bg-cyan-300 opacity-60 animate-ping" />
+                      <span className="absolute inline-flex size-4 rounded-full bg-sky-200/25" />
                     ) : null}
                     <span
                       className={`relative grid rounded-full ring-8 ring-black ${
                         item.current
-                          ? "size-4 bg-cyan-200"
+                          ? "size-4 bg-sky-200"
                           : "mt-1 size-2.5 bg-zinc-600"
                       }`}
                     />
                   </div>
 
                   <article
-                    className={`motion-card rounded-soft border bg-black/35 p-5 md:p-6 ${
+                    className={`motion-card rounded-soft border bg-white/75 p-5 md:p-6 ${
                       item.current
-                        ? "border-cyan-300/40 shadow-[0_0_45px_rgba(103,232,249,0.08)]"
-                        : "border-white/10"
+                        ? "border-sky-200/35 bg-sky-50/80"
+                        : "border-black/10"
                     } ${isEven ? "md:col-start-1" : "md:col-start-2"}`}
                   >
                     <div className="flex flex-wrap items-center gap-2">
@@ -139,18 +139,18 @@ export function Timeline() {
                         {String(index + 1).padStart(2, "0")}
                       </p>
                       {item.current ? (
-                        <span className="rounded-full border border-cyan-300/25 bg-cyan-300/10 px-2 py-0.5 font-mono text-xs text-cyan-100">
+                        <span className="rounded-full border border-sky-200/20 bg-sky-50/80 px-2 py-0.5 font-mono text-xs text-sky-700/90">
                           {educationSection.currentLabel}
                         </span>
                       ) : null}
                     </div>
-                    <h3 className="mt-3 text-xl font-semibold text-white">
+                    <h3 className="mt-3 text-xl font-semibold text-zinc-950">
                       {item.school}
                     </h3>
-                    <p className="mt-2 font-mono text-xs text-cyan-100/80">
+                    <p className="mt-2 font-mono text-xs text-sky-700/75">
                       {item.period}
                     </p>
-                    <p className="mt-3 text-sm leading-6 text-zinc-400">
+                    <p className="mt-3 text-sm leading-6 text-zinc-500">
                       {item.description}
                     </p>
                   </article>

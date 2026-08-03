@@ -1,6 +1,6 @@
 import type { ProjectCategory } from "@/data/profile";
 
-export type GithubProject = {
+export type PortfolioProject = {
   name: string;
   displayName: string;
   description: string;
@@ -10,6 +10,8 @@ export type GithubProject = {
   imageSrc: string | null;
   language: string;
   category: ProjectCategory;
+  sourceLabel: string;
+  primaryActionLabel: string;
   updatedAt: string;
   topics: string[];
   archived: boolean;

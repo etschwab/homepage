@@ -5,9 +5,9 @@ import { siteCopy, skillGroups, skillHighlights } from "@/data/profile";
 
 export function SkillsSection() {
   return (
-    <section id="skills" className="section-band py-16 sm:py-20 lg:py-24">
+    <section id="skills" className="section-band py-10 sm:py-12 lg:py-14">
       <div className="site-container">
-        <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
+        <div className="grid gap-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
           <div className="grid content-start gap-5">
             <SectionHeading
               eyebrow={siteCopy.skills.eyebrow}
@@ -15,11 +15,11 @@ export function SkillsSection() {
               description={siteCopy.skills.description}
             />
 
-            <aside className="scroll-reveal rounded-soft border border-white/10 bg-white/[0.035] p-5">
-              <p className="font-mono text-xs font-semibold uppercase tracking-normal text-cyan-200">
+            <aside className="scroll-reveal rounded-[1.5rem] border border-white/60 bg-white/52 p-5 shadow-[0_14px_42px_rgba(17,19,24,0.05)] backdrop-blur-md">
+              <p className="font-mono text-xs font-semibold uppercase tracking-normal text-sky-700/80">
                 {siteCopy.skills.profileLabel}
               </p>
-              <p className="mt-3 text-sm leading-6 text-zinc-400">
+              <p className="mt-3 text-sm leading-6 text-zinc-500">
                 {siteCopy.skills.profileDescription}
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
@@ -29,7 +29,7 @@ export function SkillsSection() {
                     style={
                       { "--reveal-delay": `${index * 70}ms` } as CSSProperties
                     }
-                    className="motion-card rounded-soft border border-white/10 px-3 py-1.5 font-mono text-xs text-zinc-300 hover:border-cyan-300/35 hover:text-cyan-100 hover:shadow-[0_0_24px_rgba(103,232,249,0.08)]"
+                    className="motion-card rounded-soft border border-black/10 px-3 py-1.5 font-mono text-xs text-zinc-700 hover:border-sky-200/25 hover:text-sky-700"
                   >
                     {stat}
                   </span>
@@ -42,12 +42,12 @@ export function SkillsSection() {
             {skillGroups.map((group, groupIndex) => (
               <article
                 key={group.category}
-                className="motion-card scroll-reveal rounded-soft border border-white/10 bg-black/35 p-5 sm:p-6"
+                className="motion-card scroll-reveal rounded-[1.5rem] border border-white/60 bg-white/52 p-5 shadow-[0_14px_42px_rgba(17,19,24,0.05)] backdrop-blur-md sm:p-6"
                 style={
                   { "--reveal-delay": `${120 + groupIndex * 80}ms` } as CSSProperties
                 }
               >
-                <h3 className="font-mono text-sm font-semibold uppercase tracking-normal text-white">
+                <h3 className="font-mono text-sm font-semibold uppercase tracking-normal text-zinc-950">
                   {group.category}
                 </h3>
 
@@ -58,10 +58,10 @@ export function SkillsSection() {
                     return (
                       <div key={skill.name}>
                         <div className="flex items-center justify-between gap-3">
-                          <h4 className="text-sm font-semibold text-zinc-100">
+                          <h4 className="text-sm font-semibold text-zinc-900">
                             {skill.name}
                           </h4>
-                          <span className="font-mono text-xs text-cyan-100">
+                          <span className="font-mono text-xs text-sky-700/90">
                             {skill.value}%
                           </span>
                         </div>
@@ -71,7 +71,7 @@ export function SkillsSection() {
                           aria-valuemax={100}
                           aria-valuemin={0}
                           aria-valuenow={skill.value}
-                          className="mt-3 h-2 overflow-hidden rounded-full bg-white/[0.08]"
+                          className="mt-3 h-2 overflow-hidden rounded-full bg-black/10"
                           role="meter"
                         >
                           <div

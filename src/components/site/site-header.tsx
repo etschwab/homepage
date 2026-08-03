@@ -3,8 +3,7 @@ import Image from "next/image";
 import { Lock, LogOut, ShieldCheck } from "lucide-react";
 
 import { MainNav } from "@/components/site/main-nav";
-import { ScrollProgress } from "@/components/site/scroll-progress";
-import { navItems, profile, siteCopy } from "@/data/profile";
+import { navItems, siteCopy } from "@/data/profile";
 import { logout } from "@/lib/auth/actions";
 
 type SiteHeaderProps = {
@@ -14,42 +13,41 @@ type SiteHeaderProps = {
 
 export function SiteHeader({ isProtected = false, username }: SiteHeaderProps) {
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-black/72 backdrop-blur-xl">
-      <div className="site-container grid min-h-16 grid-cols-[1fr_auto] items-center gap-x-4 gap-y-3 py-3 md:flex md:flex-nowrap md:justify-between md:gap-6 md:py-0">
-        <a
-          href="#start"
-          className="order-1 inline-flex shrink-0 items-center gap-2 font-mono text-sm font-semibold tracking-normal text-white md:order-none"
+    <header className="site-header sticky top-0 z-50 -mb-20">
+      <div className="site-frame grid min-h-20 grid-cols-[auto_1fr_auto] items-center gap-3 py-4 md:grid-cols-[1fr_auto_1fr] md:gap-6">
+        <Link
+          href="/"
+          className="inline-flex shrink-0 items-center"
           aria-label={siteCopy.header.startLabel}
         >
           <Image
             src="/images/esch.png"
             alt={siteCopy.header.logoAlt}
-            width={28}
-            height={28}
-            className="rounded-full border border-white/15 object-cover"
+            width={52}
+            height={52}
+            className="h-11 w-11 rounded-[0.35rem] object-cover shadow-[0_16px_34px_rgba(17,19,24,0.16)] sm:h-12 sm:w-12"
             priority
           />
-          {profile.brand}
-        </a>
+        </Link>
 
         <MainNav
           items={navItems}
           internalItem={
             isProtected
-              ? { label: siteCopy.header.internalLink, href: "#intern" }
+              ? { label: siteCopy.header.internalLink, href: "/admin" }
               : undefined
           }
         />
 
         {isProtected ? (
-          <div className="order-2 flex shrink-0 items-center justify-self-end gap-2 md:order-none">
-            <span className="hidden items-center gap-2 rounded-soft border border-cyan-300/25 bg-cyan-300/10 px-3 py-2 font-mono text-xs text-cyan-100 sm:inline-flex">
+          <div className="flex shrink-0 items-center justify-self-end gap-2">
+            <span className="hidden items-center gap-2 font-mono text-xs font-semibold text-black/72 sm:inline-flex">
               <ShieldCheck aria-hidden="true" size={14} />
               {username}
             </span>
             <form action={logout}>
               <button
-                className="button-motion rounded-soft inline-flex h-10 items-center gap-2 border border-white/10 px-3 font-mono text-sm font-semibold text-zinc-200 hover:border-cyan-300/45 hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-300/30 sm:px-4"
+                className="button-motion inline-flex h-10 items-center gap-2 rounded-full border border-black/12 bg-white/28 px-3 font-mono text-sm font-semibold text-black/78 backdrop-blur-sm hover:border-sky-300/70 hover:bg-white/44 focus:outline-none focus:ring-2 focus:ring-sky-200/70 sm:px-4"
                 aria-label={siteCopy.actions.logout}
               >
                 <LogOut aria-hidden="true" size={15} strokeWidth={2.1} />
@@ -58,10 +56,10 @@ export function SiteHeader({ isProtected = false, username }: SiteHeaderProps) {
             </form>
           </div>
         ) : (
-          <div className="order-2 flex shrink-0 items-center justify-self-end gap-2 md:order-none">
+          <div className="flex shrink-0 items-center justify-self-end gap-2">
             <Link
               href="/login"
-              className="button-motion rounded-soft inline-flex h-10 shrink-0 items-center border border-white/10 px-3 font-mono text-sm font-semibold text-zinc-200 hover:border-cyan-300/45 hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-300/30 sm:gap-2 sm:px-4"
+              className="button-motion inline-flex h-10 shrink-0 items-center rounded-full border border-black/12 bg-white/28 px-3 font-mono text-sm font-semibold text-black/78 shadow-sm backdrop-blur-sm hover:border-sky-300/70 hover:bg-white/44 focus:outline-none focus:ring-2 focus:ring-sky-200/70 sm:gap-2 sm:px-4"
               aria-label={siteCopy.actions.login}
             >
               <Lock aria-hidden="true" size={15} strokeWidth={2.1} />
@@ -70,7 +68,6 @@ export function SiteHeader({ isProtected = false, username }: SiteHeaderProps) {
           </div>
         )}
       </div>
-      <ScrollProgress />
     </header>
   );
 }
