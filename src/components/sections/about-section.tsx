@@ -19,7 +19,7 @@ export function AboutSection() {
 
           <div className={`${styles.playerCard} scroll-reveal mt-6`}>
             <span aria-hidden="true" className={styles.cardMonogram}>
-              ES
+              DEV
             </span>
             <Image
               src="/images/etienne-portrait.png"
@@ -30,8 +30,23 @@ export function AboutSection() {
               sizes="(max-width: 1024px) 92vw, 31vw"
             />
             <div className={styles.playerIdentity}>
-              <p>{profile.role}</p>
-              <strong>{profile.name}</strong>
+              <p>Entwickler · Unihockey</p>
+              <strong>{profile.name.split(" ")[0]}</strong>
+              <dl className={styles.playerStats}>
+                <div>
+                  <dt>17</dt>
+                  <dd>Jahre</dd>
+                </div>
+                <div>
+                  <dt>190 cm</dt>
+                  <dd>Grösse</dd>
+                </div>
+                <div>
+                  <dt>10+</dt>
+                  <dd>Jahre Unihockey</dd>
+                </div>
+              </dl>
+              <p className={styles.playerMeta}>Muri-Gümligen · IMS Bern</p>
             </div>
           </div>
 

@@ -6,6 +6,8 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { education, educationSection } from "@/data/profile";
 import styles from "./timeline.module.css";
 
+const educationStages = [...education].reverse();
+
 export function Timeline() {
   const sectionRef = useRef<HTMLElement>(null);
   const [lineVisible, setLineVisible] = useState(false);
@@ -100,19 +102,21 @@ export function Timeline() {
           </div>
 
           <ol className="relative grid gap-8 md:gap-10">
-            {education.map((item, index) => {
+            {educationStages.map((item, index) => {
               const isVisible = visibleItems.has(index);
               const isEven = index % 2 === 0;
               const sideOffset = isEven
-                ? "translate-x-8 md:-translate-x-8"
-                : "translate-x-8 md:translate-x-8";
+                ? "translate-y-4 md:-translate-x-8 md:translate-y-0"
+                : "translate-y-4 md:translate-x-8 md:translate-y-0";
 
               return (
                 <li
                   key={item.school}
                   data-timeline-item={index}
                   className={`relative grid gap-4 pl-16 opacity-0 transition duration-700 ease-out md:grid-cols-2 md:gap-28 md:pl-0 ${
-                    isVisible ? "translate-x-0 opacity-100" : sideOffset
+                    isVisible
+                      ? "translate-x-0 translate-y-0 opacity-100"
+                      : sideOffset
                   }`}
                   style={{ transitionDelay: `${index * 100}ms` }}
                 >

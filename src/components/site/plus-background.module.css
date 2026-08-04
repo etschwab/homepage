@@ -1,13 +1,23 @@
 .floorballField {
   position: absolute;
-  right: -8vw;
-  bottom: -6vh;
-  width: min(78vw, 72rem);
+  right: -6vw;
+  bottom: -4vh;
+  width: min(76vw, 70rem);
   aspect-ratio: 2 / 1;
   transform: rotate(-7deg);
-  border: 1px solid rgba(255, 255, 255, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.46);
   border-radius: clamp(2rem, 5vw, 4.5rem);
-  opacity: 0.22;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), transparent 58%);
+  opacity: 0.12;
+  -webkit-mask-image: linear-gradient(110deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+  mask-image: linear-gradient(110deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+}
+
+.innerBoundary {
+  position: absolute;
+  inset: 4%;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: clamp(1.5rem, 4vw, 3.7rem);
 }
 
 .centerLine {
@@ -23,14 +33,14 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 18%;
+  width: 8%;
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
   border: 1px solid rgba(255, 255, 255, 0.42);
   border-radius: 999px;
 }
 
-.centerCircle::after {
+.centerSpot {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -38,15 +48,14 @@
   height: 0.25rem;
   transform: translate(-50%, -50%);
   border-radius: 999px;
-  content: "";
   background: rgba(255, 255, 255, 0.58);
 }
 
 .goalArea {
   position: absolute;
   top: 50%;
-  width: 12%;
-  height: 30%;
+  width: 8%;
+  height: 24%;
   transform: translateY(-50%);
   border: 1px solid rgba(255, 255, 255, 0.42);
 }
@@ -63,11 +72,58 @@
   border-radius: 45% 0 0 45%;
 }
 
+.goal {
+  position: absolute;
+  top: 50%;
+  width: 2.5%;
+  height: 14%;
+  transform: translateY(-50%);
+  border: 1px solid rgba(255, 255, 255, 0.52);
+  border-radius: 35%;
+}
+
+.goalLeft {
+  left: 4%;
+}
+
+.goalRight {
+  right: 4%;
+}
+
+.faceoffSpot {
+  position: absolute;
+  width: 0.22rem;
+  height: 0.22rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.spotTopLeft,
+.spotBottomLeft {
+  left: 25%;
+}
+
+.spotTopRight,
+.spotBottomRight {
+  right: 25%;
+}
+
+.spotTopLeft,
+.spotTopRight {
+  top: 27%;
+}
+
+.spotBottomLeft,
+.spotBottomRight {
+  bottom: 27%;
+}
+
 @media (max-width: 640px) {
   .floorballField {
-    right: -58vw;
-    bottom: 4vh;
-    width: 150vw;
-    opacity: 0.16;
+    right: 0;
+    bottom: 10vh;
+    width: 100%;
+    transform: none;
+    opacity: 0.07;
   }
 }

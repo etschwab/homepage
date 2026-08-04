@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import { PlusBackground } from "@/components/site/plus-background";
-import { ScrollRevealController } from "@/components/site/scroll-reveal-controller";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -39,7 +38,6 @@ export default function RootLayout({
     >
       <body>
         <PlusBackground />
-        <ScrollRevealController />
         {children}
       </body>
     </html>

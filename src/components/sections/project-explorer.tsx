@@ -88,7 +88,9 @@ export function ProjectExplorer({ projects, username }: ProjectExplorerProps) {
         </div>
       </div>
 
-      <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(20rem,0.72fr)] xl:items-start">
+      <div
+        className={`grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(20rem,0.72fr)] xl:items-start ${styles.projectStage}`}
+      >
         <div
           key={activeFilter}
           className="project-filter-results grid gap-4 md:grid-cols-2"
@@ -151,7 +153,7 @@ export function ProjectExplorer({ projects, username }: ProjectExplorerProps) {
 
         {selectedProject ? (
           <aside
-            className={`sticky top-24 rounded-[2rem] border border-white/70 bg-white/72 p-6 shadow-[0_24px_80px_rgba(17,19,24,0.08)] backdrop-blur-md ${styles.detailCase}`}
+            className={`rounded-[2rem] border border-white/70 bg-white/72 p-6 shadow-[0_24px_80px_rgba(17,19,24,0.08)] backdrop-blur-md ${styles.detailCase}`}
           >
             <div className="flex items-start justify-between gap-4">
               <div>
