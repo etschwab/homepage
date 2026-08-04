@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { SectionHeading } from "@/components/ui/section-heading";
 import { education, educationSection } from "@/data/profile";
+import styles from "./timeline.module.css";
 
 export function Timeline() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -85,19 +86,20 @@ export function Timeline() {
           description={educationSection.description}
         />
 
-        <div className="relative mt-12 md:mt-16">
+        <div className={`relative mt-12 md:mt-16 ${styles.trackStage}`}>
           <div
             aria-hidden="true"
-            className="absolute bottom-0 left-4 top-0 w-px bg-white/10 md:left-1/2 md:-translate-x-1/2"
+            className={styles.track}
           >
+            <span className={styles.finishLine} />
             <div
-              className={`timeline-line-fill h-full w-full bg-sky-200/45 ${
+              className={`timeline-line-fill ${styles.trackProgress} ${
                 lineVisible ? "is-visible" : ""
               }`}
             />
           </div>
 
-          <ol className="grid gap-8 md:gap-10">
+          <ol className="relative grid gap-8 md:gap-10">
             {education.map((item, index) => {
               const isVisible = visibleItems.has(index);
               const isEven = index % 2 === 0;
@@ -109,19 +111,21 @@ export function Timeline() {
                 <li
                   key={item.school}
                   data-timeline-item={index}
-                  className={`relative grid gap-4 pl-12 opacity-0 transition duration-700 ease-out md:grid-cols-2 md:gap-12 md:pl-0 ${
+                  className={`relative grid gap-4 pl-16 opacity-0 transition duration-700 ease-out md:grid-cols-2 md:gap-28 md:pl-0 ${
                     isVisible ? "translate-x-0 opacity-100" : sideOffset
                   }`}
                   style={{ transitionDelay: `${index * 100}ms` }}
                 >
-                  <div className="absolute left-4 top-2 -translate-x-1/2 md:left-1/2">
+                  <div
+                    className={`absolute left-[1.35rem] top-2 -translate-x-1/2 md:left-1/2 ${styles.trackMarker}`}
+                  >
                     {item.current ? (
-                      <span className="absolute inline-flex size-4 rounded-full bg-sky-200/25" />
+                      <span className="absolute inline-flex size-5 rounded-full bg-sky-200/30" />
                     ) : null}
                     <span
-                      className={`relative grid rounded-full ring-8 ring-black ${
+                      className={`relative grid rounded-full ring-[6px] ring-white/75 ${
                         item.current
-                          ? "size-4 bg-sky-200"
+                          ? "size-5 bg-sky-200"
                           : "mt-1 size-2.5 bg-zinc-600"
                       }`}
                     />

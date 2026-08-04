@@ -1,0 +1,73 @@
+.floorballField {
+  position: absolute;
+  right: -8vw;
+  bottom: -6vh;
+  width: min(78vw, 72rem);
+  aspect-ratio: 2 / 1;
+  transform: rotate(-7deg);
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: clamp(2rem, 5vw, 4.5rem);
+  opacity: 0.22;
+}
+
+.centerLine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.centerCircle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 999px;
+}
+
+.centerCircle::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.25rem;
+  height: 0.25rem;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  content: "";
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.goalArea {
+  position: absolute;
+  top: 50%;
+  width: 12%;
+  height: 30%;
+  transform: translateY(-50%);
+  border: 1px solid rgba(255, 255, 255, 0.42);
+}
+
+.goalAreaLeft {
+  left: -1px;
+  border-left: 0;
+  border-radius: 0 45% 45% 0;
+}
+
+.goalAreaRight {
+  right: -1px;
+  border-right: 0;
+  border-radius: 45% 0 0 45%;
+}
+
+@media (max-width: 640px) {
+  .floorballField {
+    right: -58vw;
+    bottom: 4vh;
+    width: 150vw;
+    opacity: 0.16;
+  }
+}

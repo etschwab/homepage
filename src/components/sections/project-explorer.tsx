@@ -1,10 +1,11 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ArrowUpRight, ExternalLink, Search } from "lucide-react";
+import { ArrowUpRight, ExternalLink, Search, Trophy } from "lucide-react";
 
 import { siteCopy, type ProjectCategory } from "@/data/profile";
 import type { PortfolioProject } from "@/types/projects";
+import styles from "./project-showcase.module.css";
 
 type ProjectExplorerProps = {
   projects: PortfolioProject[];
@@ -45,7 +46,7 @@ export function ProjectExplorer({ projects, username }: ProjectExplorerProps) {
   }
 
   return (
-    <div className="mt-6 grid gap-6">
+    <div className="relative z-[1] mt-6 grid gap-6">
       <div className="grid gap-4 md:grid-cols-[1fr_auto] md:items-center">
         <div className="flex items-center gap-3 font-mono text-xs text-zinc-500">
           <span className="h-6 w-px bg-sky-200/55" aria-hidden="true" />
@@ -100,20 +101,25 @@ export function ProjectExplorer({ projects, username }: ProjectExplorerProps) {
                 key={project.name}
                 type="button"
                 onClick={() => setSelectedName(project.name)}
-                className={`motion-card group rounded-[1.75rem] border p-5 text-left transition focus:outline-none focus:ring-2 focus:ring-sky-200/40 ${
+                className={`motion-card group rounded-[1.75rem] border p-5 text-left transition focus:outline-none focus:ring-2 focus:ring-sky-200/40 ${styles.trophyCase} ${
                   isSelected
                     ? "border-sky-300/70 bg-sky-100/65 shadow-[0_18px_50px_rgba(83,174,232,0.16)]"
                     : "border-white/70 bg-white/62 hover:border-sky-300/70 hover:bg-white/85"
                 }`}
               >
                 <div className="flex items-start justify-between gap-4">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="rounded-full border border-black/10 px-2 py-1 font-mono text-xs text-zinc-500">
-                      {project.language}
+                  <div className="flex items-start gap-3">
+                    <span className={styles.trophyMark} aria-hidden="true">
+                      <Trophy size={17} strokeWidth={1.7} />
                     </span>
-                    <span className="rounded-[1.5rem] border border-sky-200/50 bg-sky-100/55 px-2 py-1 font-mono text-xs text-sky-700/90">
-                      {siteCopy.projects.categories[project.category]}
-                    </span>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="rounded-full border border-black/10 px-2 py-1 font-mono text-xs text-zinc-500">
+                        {project.language}
+                      </span>
+                      <span className="rounded-[1.5rem] border border-sky-200/50 bg-sky-100/55 px-2 py-1 font-mono text-xs text-sky-700/90">
+                        {siteCopy.projects.categories[project.category]}
+                      </span>
+                    </div>
                   </div>
                   <ArrowUpRight
                     aria-hidden="true"
@@ -133,7 +139,9 @@ export function ProjectExplorer({ projects, username }: ProjectExplorerProps) {
                   {project.description}
                 </p>
 
-                <p className="mt-5 font-mono text-xs text-zinc-500">
+                <p
+                  className={`mt-5 font-mono text-xs text-zinc-500 ${styles.pedestal}`}
+                >
                   {getSourceText(project, username)}
                 </p>
               </button>
@@ -142,7 +150,9 @@ export function ProjectExplorer({ projects, username }: ProjectExplorerProps) {
         </div>
 
         {selectedProject ? (
-          <aside className="sticky top-24 rounded-[2rem] border border-white/70 bg-white/72 p-6 shadow-[0_24px_80px_rgba(17,19,24,0.08)] backdrop-blur-md">
+          <aside
+            className={`sticky top-24 rounded-[2rem] border border-white/70 bg-white/72 p-6 shadow-[0_24px_80px_rgba(17,19,24,0.08)] backdrop-blur-md ${styles.detailCase}`}
+          >
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="font-mono text-xs uppercase tracking-normal text-sky-700/80">

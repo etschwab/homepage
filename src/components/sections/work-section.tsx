@@ -2,6 +2,7 @@ import { ProjectExplorer } from "@/components/sections/project-explorer";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { profile, siteCopy } from "@/data/profile";
 import { getGithubProjects } from "@/lib/github-projects";
+import styles from "./project-showcase.module.css";
 
 export async function WorkSection() {
   const projects = await getGithubProjects(profile.githubUsername);
@@ -21,16 +22,19 @@ export async function WorkSection() {
           description={siteCopy.projects.description}
         />
 
-        <div className="mt-9 grid gap-3 rounded-[2rem] border border-white/60 bg-white/35 p-3 shadow-[0_24px_80px_rgba(17,19,24,0.06)] backdrop-blur-md sm:grid-cols-3">
-          <ProjectMetric label="Total" value={projects.length} />
-          <ProjectMetric label="Persönlich" value={personalProjects} />
-          <ProjectMetric label="gibb" value={schoolProjects} />
-        </div>
+        <div className={styles.showcase}>
+          <span aria-hidden="true" className={styles.glassReflection} />
+          <div className="relative z-[1] grid gap-3 sm:grid-cols-3">
+            <ProjectMetric label="Total" value={projects.length} />
+            <ProjectMetric label="Persönlich" value={personalProjects} />
+            <ProjectMetric label="gibb" value={schoolProjects} />
+          </div>
 
-        <ProjectExplorer
-          projects={projects}
-          username={profile.githubUsername}
-        />
+          <ProjectExplorer
+            projects={projects}
+            username={profile.githubUsername}
+          />
+        </div>
       </div>
     </section>
   );
@@ -38,7 +42,9 @@ export async function WorkSection() {
 
 function ProjectMetric({ label, value }: { label: string; value: number }) {
   return (
-    <div className="relative rounded-[1.4rem] border border-sky-200/45 bg-white/65 p-5">
+    <div
+      className={`relative rounded-[1.4rem] border border-sky-200/45 bg-white/65 p-5 ${styles.plaque}`}
+    >
       <span
         aria-hidden="true"
         className="absolute left-5 right-5 top-0 h-1 rounded-full bg-sky-300/75"

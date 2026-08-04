@@ -4,6 +4,7 @@ import type { CSSProperties } from "react";
 
 import { SectionHeading } from "@/components/ui/section-heading";
 import { aboutSection, profile } from "@/data/profile";
+import styles from "./about-section.module.css";
 
 export function AboutSection() {
   return (
@@ -16,15 +17,22 @@ export function AboutSection() {
             description={aboutSection.description}
           />
 
-          <div className="about-portrait scroll-reveal mt-6">
+          <div className={`${styles.playerCard} scroll-reveal mt-6`}>
+            <span aria-hidden="true" className={styles.cardMonogram}>
+              ES
+            </span>
             <Image
               src="/images/etienne-portrait.png"
               alt="Portrait von Etienne Schwab"
               width={900}
               height={1200}
-              className="h-full w-full object-cover object-[50%_56%]"
+              className={`${styles.playerPortrait} h-full w-full object-cover object-[50%_56%]`}
               sizes="(max-width: 1024px) 92vw, 31vw"
             />
+            <div className={styles.playerIdentity}>
+              <p>{profile.role}</p>
+              <strong>{profile.name}</strong>
+            </div>
           </div>
 
           <dl className="mt-4 grid gap-3 sm:grid-cols-3">
