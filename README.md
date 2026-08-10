@@ -1,18 +1,17 @@
-# Bewerbungs-Onepager
+# Portfolio von Etienne Schwab
 
-Next.js-Onepager fuer eine Bewerbungsseite mit dunklem Plus-Raster,
-Anker-Navigation und sicherer Login-Grundstruktur.
+Persönliche Portfolio- und Bewerbungswebsite mit den Bereichen Home, Über
+mich, Projekte und Dateien. Dokumente und Kontaktangaben werden nur nach dem
+Login angezeigt.
 
-## Getting Started
-
-Installieren und starten:
+## Lokal starten
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Die Website läuft danach unter [http://localhost:3000](http://localhost:3000).
 
 ## Login konfigurieren
 
@@ -23,24 +22,14 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 npm run auth:hash -- "ein-sehr-starkes-passwort"
 ```
 
-3. Den ausgegebenen Hash in `ADMIN_PASSWORD_HASH` eintragen.
-4. `SESSION_SECRET` mit einem zufaelligen Secret von mindestens 32 Bytes setzen.
+3. Nutzername, Hash und Session-Secret in `.env.local` eintragen.
 
-Der Admin-Bereich liegt unter `/admin`. Login und Logout laufen ueber Server
-Actions, die Session wird als `httpOnly` Cookie gespeichert.
+Der Login liegt unter `/login`. Nach erfolgreicher Anmeldung zeigt `/dateien`
+die geschützten Inhalte. Die Session wird als `httpOnly` Cookie gespeichert.
 
-## Struktur
-
-- `src/app/page.tsx` setzt den Onepager zusammen.
-- `src/components/sections` enthaelt die einzelnen Bereiche.
-- `src/components/site` enthaelt Header und Hintergrund.
-- `src/lib/auth` enthaelt Session, Passwortpruefung, Rate Limit und Actions.
-- `src/data/profile.ts` enthaelt die editierbaren Inhalte.
-
-## Scripts
+## Wichtige Befehle
 
 ```bash
-npm run dev
 npm run lint
 npm run build
 ```

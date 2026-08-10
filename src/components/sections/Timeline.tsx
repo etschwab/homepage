@@ -1,170 +1,39 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
-
-import { SectionHeading } from "@/components/ui/section-heading";
-import { education, educationSection } from "@/data/profile";
-import styles from "./timeline.module.css";
-
-const educationStages = [...education].reverse();
+import { education } from "@/data/profile";
 
 export function Timeline() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [lineVisible, setLineVisible] = useState(false);
-  const [visibleItems, setVisibleItems] = useState<Set<number>>(new Set());
-
-  useEffect(() => {
-    const section = sectionRef.current;
-
-    if (!section) {
-      return;
-    }
-
-    const items = Array.from(
-      section.querySelectorAll<HTMLElement>("[data-timeline-item]"),
-    );
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      const frame = window.requestAnimationFrame(() => {
-        setLineVisible(true);
-        setVisibleItems(new Set(items.map((_, index) => index)));
-      });
-
-      return () => window.cancelAnimationFrame(frame);
-    }
-
-    const sectionObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (entry?.isIntersecting) {
-          setLineVisible(true);
-          sectionObserver.disconnect();
-        }
-      },
-      { rootMargin: "0px 0px -18% 0px", threshold: 0.18 },
-    );
-
-    const itemObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) {
-            return;
-          }
-
-          const index = Number(
-            (entry.target as HTMLElement).dataset.timelineItem,
-          );
-
-          setVisibleItems((current) => {
-            const next = new Set(current);
-            next.add(index);
-            return next;
-          });
-
-          itemObserver.unobserve(entry.target);
-        });
-      },
-      { rootMargin: "0px 0px -12% 0px", threshold: 0.22 },
-    );
-
-    sectionObserver.observe(section);
-    items.forEach((item) => itemObserver.observe(item));
-
-    return () => {
-      sectionObserver.disconnect();
-      itemObserver.disconnect();
-    };
-  }, []);
-
   return (
-    <section
-      id="bildungsweg"
-      ref={sectionRef}
-      className="section-band py-16 sm:py-20 lg:py-24"
-    >
+    <section className="content-section timeline-section" aria-labelledby="education-title">
       <div className="site-container">
-        <SectionHeading
-          eyebrow={educationSection.eyebrow}
-          title={educationSection.title}
-          description={educationSection.description}
-        />
-
-        <div className={`relative mt-12 md:mt-16 ${styles.trackStage}`}>
-          <div
-            aria-hidden="true"
-            className={styles.track}
-          >
-            <span className={styles.finishLine} />
-            <div
-              className={`timeline-line-fill ${styles.trackProgress} ${
-                lineVisible ? "is-visible" : ""
-              }`}
-            />
+        <header className="section-heading-row">
+          <div>
+            <p className="section-label">Ausbildung</p>
+            <h2 id="education-title" className="section-title">
+              Bildungsweg
+            </h2>
           </div>
+          <p>Vier Stationen von der Primarschule bis zur aktuellen IMS-Ausbildung.</p>
+        </header>
 
-          <ol className="relative grid gap-8 md:gap-10">
-            {educationStages.map((item, index) => {
-              const isVisible = visibleItems.has(index);
-              const isEven = index % 2 === 0;
-              const sideOffset = isEven
-                ? "translate-y-4 md:-translate-x-8 md:translate-y-0"
-                : "translate-y-4 md:translate-x-8 md:translate-y-0";
-
-              return (
-                <li
-                  key={item.school}
-                  data-timeline-item={index}
-                  className={`relative grid gap-4 pl-16 opacity-0 transition duration-700 ease-out md:grid-cols-2 md:gap-28 md:pl-0 ${
-                    isVisible
-                      ? "translate-x-0 translate-y-0 opacity-100"
-                      : sideOffset
-                  }`}
-                  style={{ transitionDelay: `${index * 100}ms` }}
-                >
-                  <div
-                    className={`absolute left-[1.35rem] top-2 -translate-x-1/2 md:left-1/2 ${styles.trackMarker}`}
-                  >
-                    {item.current ? (
-                      <span className="absolute inline-flex size-5 rounded-full bg-sky-200/30" />
-                    ) : null}
-                    <span
-                      className={`relative grid rounded-full ring-[6px] ring-white/75 ${
-                        item.current
-                          ? "size-5 bg-sky-200"
-                          : "mt-1 size-2.5 bg-zinc-600"
-                      }`}
-                    />
-                  </div>
-
-                  <article
-                    className={`motion-card rounded-soft border bg-white/75 p-5 md:p-6 ${
-                      item.current
-                        ? "border-sky-200/35 bg-sky-50/80"
-                        : "border-black/10"
-                    } ${isEven ? "md:col-start-1" : "md:col-start-2"}`}
-                  >
-                    <div className="flex flex-wrap items-center gap-2">
-                      <p className="font-mono text-xs uppercase tracking-normal text-zinc-500">
-                        {String(index + 1).padStart(2, "0")}
-                      </p>
-                      {item.current ? (
-                        <span className="rounded-full border border-sky-200/20 bg-sky-50/80 px-2 py-0.5 font-mono text-xs text-sky-700/90">
-                          {educationSection.currentLabel}
-                        </span>
-                      ) : null}
-                    </div>
-                    <h3 className="mt-3 text-xl font-semibold text-zinc-950">
-                      {item.school}
-                    </h3>
-                    <p className="mt-2 font-mono text-xs text-sky-700/75">
-                      {item.period}
-                    </p>
-                    <p className="mt-3 text-sm leading-6 text-zinc-500">
-                      {item.description}
-                    </p>
-                  </article>
-                </li>
-              );
-            })}
+        <div className="education-track">
+          <ol className="education-list">
+            {education.map((item, index) => (
+              <li
+                key={`${item.period}-${item.school}`}
+                className={index === education.length - 1 ? "is-current" : undefined}
+              >
+                <span className="track-marker" aria-hidden="true">
+                  <span />
+                </span>
+                <div className="education-entry">
+                  <p className="education-period">{item.period}</p>
+                  <h3>{item.school}</h3>
+                  <p>{item.description}</p>
+                  {index === education.length - 1 ? (
+                    <span className="current-label">Aktuell</span>
+                  ) : null}
+                </div>
+              </li>
+            ))}
           </ol>
         </div>
       </div>

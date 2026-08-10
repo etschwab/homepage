@@ -1,60 +1,106 @@
-import { ProjectExplorer } from "@/components/sections/project-explorer";
-import { SectionHeading } from "@/components/ui/section-heading";
-import { profile, siteCopy } from "@/data/profile";
-import { getGithubProjects } from "@/lib/github-projects";
-import styles from "./project-showcase.module.css";
+import Image from "next/image";
+import { ExternalLink } from "lucide-react";
 
-export async function WorkSection() {
-  const projects = await getGithubProjects(profile.githubUsername);
-  const personalProjects = projects.filter(
-    (project) => project.category === "personal",
-  ).length;
-  const schoolProjects = projects.filter(
-    (project) => project.category === "gibb",
-  ).length;
+import {
+  featuredProjects,
+  type ProjectLink,
+} from "@/data/profile";
+import { ProjectArchive } from "@/components/sections/project-archive";
 
+export function WorkSection() {
   return (
-    <section id="projekte" className="section-band py-16 sm:py-20 lg:py-24">
-      <div className="site-container">
-        <SectionHeading
-          eyebrow={siteCopy.projects.eyebrow}
-          title={siteCopy.projects.title}
-          description={siteCopy.projects.description}
-        />
-
-        <div className={styles.showcase}>
-          <span aria-hidden="true" className={styles.glassReflection} />
-          <div className="relative z-[1] grid gap-3 sm:grid-cols-3">
-            <ProjectMetric label="Total" value={projects.length} />
-            <ProjectMetric label="Persönlich" value={personalProjects} />
-            <ProjectMetric label="gibb" value={schoolProjects} />
+    <section className="projects-page" aria-labelledby="projects-title">
+      <header className="editorial-hero editorial-hero-dark">
+        <div className="site-container editorial-grid">
+          <div className="editorial-marker" aria-hidden="true">
+            <span>03</span>
+            <small>Projekte</small>
           </div>
-
-          <ProjectExplorer
-            projects={projects}
-            username={profile.githubUsername}
-          />
+          <div className="editorial-heading">
+            <p className="section-label">Projektübersicht</p>
+            <h1 id="projects-title" className="page-title">Projekte</h1>
+          </div>
+          <p className="editorial-lead">
+            Drei ausgewählte Arbeiten im Fokus. Weitere Schul-, Web- und
+            Hardwareprojekte folgen kompakt darunter.
+          </p>
         </div>
+      </header>
+
+      <div className="site-container featured-projects">
+        {featuredProjects.map((project) => (
+          <article className="featured-project" key={project.name}>
+            <div
+              className={`project-image-wrap ${
+                project.imagePresentation === "phone"
+                  ? "project-image-wrap-phone"
+                  : ""
+              }`}
+            >
+              {project.imagePresentation === "phone" ? (
+                <Image
+                  src={project.imageSrc}
+                  alt=""
+                  fill
+                  sizes="(max-width: 767px) calc(100vw - 2rem), 48vw"
+                  className="project-image-backdrop"
+                  aria-hidden="true"
+                />
+              ) : null}
+              <Image
+                src={project.imageSrc}
+                alt={project.imageAlt}
+                fill
+                sizes="(max-width: 767px) calc(100vw - 2rem), 48vw"
+                className={`project-image ${
+                  project.imagePresentation === "phone"
+                    ? "project-image-phone"
+                    : ""
+                }`}
+                loading="eager"
+              />
+            </div>
+
+            <div className="featured-project-copy">
+              <p className="project-kind">{project.kind}</p>
+              <h2>{project.name}</h2>
+              <p className="project-description">{project.description}</p>
+              <p className="project-tech">{project.technologies.join(" · ")}</p>
+              <ProjectLinks links={project.links} />
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div className="site-container more-projects">
+        <div className="more-projects-heading">
+          <h2>Weitere Projekte</h2>
+          <p>Nach Bereich filtern und passende Projekte anzeigen.</p>
+        </div>
+        <ProjectArchive />
       </div>
     </section>
   );
 }
 
-function ProjectMetric({ label, value }: { label: string; value: number }) {
+function ProjectLinks({ links }: { links: readonly ProjectLink[] }) {
+  if (!links.length) {
+    return null;
+  }
+
   return (
-    <div
-      className={`relative rounded-[1.4rem] border border-sky-200/45 bg-white/65 p-5 ${styles.plaque}`}
-    >
-      <span
-        aria-hidden="true"
-        className="absolute left-5 right-5 top-0 h-1 rounded-full bg-sky-300/75"
-      />
-      <p className="font-mono text-xs uppercase tracking-normal text-sky-700/80">
-        {label}
-      </p>
-      <p className="mt-2 text-4xl font-semibold tracking-tight text-zinc-950">
-        {value}
-      </p>
+    <div className="project-links">
+      {links.map((link) => (
+        <a
+          key={link.href}
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {link.label}
+          <ExternalLink aria-hidden="true" size={13} />
+        </a>
+      ))}
     </div>
   );
 }

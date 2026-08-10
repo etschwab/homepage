@@ -3,32 +3,20 @@ import { links, siteCopy } from "@/data/profile";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-black/10 bg-white/70 py-8">
-      <div className="site-container flex flex-col gap-5 font-mono text-sm text-zinc-500 md:flex-row md:items-center md:justify-between">
-        <p>{siteCopy.footer.copyright}</p>
-
-        <nav
-          aria-label={siteCopy.footer.ariaLabel}
-          className="flex flex-wrap items-center gap-x-5 gap-y-3"
-        >
+    <footer className="site-footer">
+      <div className="site-container footer-inner">
+        <p className="footer-name">
+          <strong>{siteCopy.footer.name}</strong>
+          <span>Portfolio · Bern</span>
+        </p>
+        <nav aria-label={siteCopy.footer.ariaLabel}>
           <ImpressumModal />
-          <a
-            href={links.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-colors hover:text-sky-700 focus:text-sky-700 focus:outline-none"
-          >
+          <span aria-hidden="true">·</span>
+          <a href={links.github} target="_blank" rel="noopener noreferrer">
             {siteCopy.footer.github}
           </a>
-          <a
-            href={links.instagram}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-colors hover:text-sky-700 focus:text-sky-700 focus:outline-none"
-          >
-            {siteCopy.footer.instagram}
-          </a>
         </nav>
+        <p>{siteCopy.footer.copyright}</p>
       </div>
     </footer>
   );

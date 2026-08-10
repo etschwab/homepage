@@ -1,4 +1,5 @@
 import { SiteHeader } from "@/components/site/site-header";
+import { SiteFooter } from "@/components/site/site-footer";
 
 type PageShellProps = {
   children: React.ReactNode;
@@ -12,9 +13,10 @@ export function PageShell({
   username,
 }: PageShellProps) {
   return (
-    <>
+    <div className="page-root">
       <SiteHeader isProtected={isProtected} username={username} />
-      <main>{children}</main>
-    </>
+      <main className="page-main">{children}</main>
+      <SiteFooter />
+    </div>
   );
 }

@@ -1,39 +1,50 @@
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 
 import { profile, siteCopy } from "@/data/profile";
 
 export function HeroSection() {
   return (
-    <section id="start" className="hero-screen relative overflow-hidden">
-      <div className="hero-stage" aria-hidden="true" />
+    <section className="home-hero">
+      <div className="site-container home-hero-grid">
+        <div className="home-hero-copy">
+          <div className="home-cover-meta">
+            <span>Portfolio 2026</span>
+            <span>{profile.availability}</span>
+            <span>{profile.location}</span>
+          </div>
 
-      <div className="site-frame hero-screen relative">
-        <div className="absolute bottom-20 left-0 z-10 max-w-[52rem] sm:bottom-12 lg:bottom-14">
-          <p className="mb-4 font-mono text-xs font-semibold uppercase tracking-normal text-white/88 sm:text-sm">
-            {profile.role} / Bern
+          <p className="home-kicker">
+            <span className="page-index-inline" aria-hidden="true">01</span>
+            {profile.role}
           </p>
-          <h1 className="hero-title text-[4.25rem] font-black uppercase leading-[0.8] tracking-normal text-white sm:text-[7rem] sm:leading-[0.76] md:text-[8.5rem] lg:text-[10.5rem]">
-            Etienne
-            <br />
-            Schwab
+          <h1 aria-label={profile.name}>
+            <span>Etienne.</span>
+            <span>Schwab.</span>
+            <em>Entwickler.</em>
           </h1>
-          <Link
-            href="/projekte"
-            className="hero-cta button-motion mt-7 inline-flex h-14 w-fit items-center justify-center gap-3 rounded-full border border-white/78 px-8 font-mono text-sm font-bold text-white backdrop-blur-sm hover:bg-white/16 focus:outline-none focus:ring-2 focus:ring-white/50 lg:hidden"
-          >
+          <p className="home-intro">{profile.intro}</p>
+          <Link href="/projekte" className="primary-link">
             {siteCopy.actions.projects}
-            <ArrowRight aria-hidden="true" size={17} />
           </Link>
         </div>
 
-        <Link
-          href="/projekte"
-          className="hero-cta button-motion absolute bottom-12 right-0 hidden h-14 w-fit items-center justify-center gap-3 rounded-full border border-white/78 px-8 font-mono text-sm font-bold text-white backdrop-blur-sm hover:bg-white/16 focus:outline-none focus:ring-2 focus:ring-white/50 lg:inline-flex"
-        >
-          {siteCopy.actions.projects}
-          <ArrowRight aria-hidden="true" size={17} />
-        </Link>
+        <figure className="home-portrait">
+          <div className="home-image-frame">
+            <Image
+              src="/images/etienne-cutout-v2.png"
+              alt="Portrait von Etienne Schwab"
+              fill
+              priority
+              sizes="(max-width: 768px) calc(100vw - 2rem), 42vw"
+            />
+            <span className="home-year" aria-hidden="true">26</span>
+          </div>
+          <figcaption>
+            <span>Etienne Schwab</span>
+            <span>IMS Bern</span>
+          </figcaption>
+        </figure>
       </div>
     </section>
   );

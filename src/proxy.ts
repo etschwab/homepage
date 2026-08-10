@@ -15,7 +15,7 @@ export function proxy(request: NextRequest) {
   }
 
   if (pathname === "/login" && hasSessionCookie) {
-    return NextResponse.redirect(new URL("/admin", request.url));
+    return NextResponse.redirect(new URL("/dateien", request.url));
   }
 
   return NextResponse.next();

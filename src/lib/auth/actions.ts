@@ -50,10 +50,10 @@ export async function login(
 
   clearLoginAttempts(rateLimitKey);
   await createSession(credentials.username);
-  redirect("/admin");
+  redirect("/dateien");
 }
 
 export async function logout() {
   await deleteSession();
-  redirect("/login");
+  redirect("/dateien");
 }

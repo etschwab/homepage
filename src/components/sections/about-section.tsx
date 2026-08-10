@@ -1,121 +1,60 @@
-import Image from "next/image";
 import { ExternalLink } from "lucide-react";
-import type { CSSProperties } from "react";
 
-import { SectionHeading } from "@/components/ui/section-heading";
-import { aboutSection, profile } from "@/data/profile";
-import styles from "./about-section.module.css";
+import { aboutSection, links } from "@/data/profile";
 
 export function AboutSection() {
   return (
-    <section id="ueber-mich" className="section-band py-12 sm:py-14 lg:py-16">
-      <div className="site-container grid gap-7 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
-        <div className="lg:sticky lg:top-28">
-          <SectionHeading
-            eyebrow={aboutSection.eyebrow}
-            title={aboutSection.title}
-            description={aboutSection.description}
-          />
+    <section className="about-page" aria-labelledby="about-title">
+      <header className="editorial-hero editorial-hero-light">
+        <div className="site-container editorial-grid">
+          <div className="editorial-marker" aria-hidden="true">
+            <span>02</span>
+            <small>Porträt</small>
+          </div>
+          <div className="editorial-heading">
+            <p className="section-label">Persönlich</p>
+            <h1 id="about-title" className="page-title">
+              {aboutSection.title}
+            </h1>
+          </div>
+          <p className="editorial-lead">
+            Ausbildung, Frontend-Entwicklung und die wichtigsten Dinge, die
+            mich ausserhalb der Schule beschäftigen.
+          </p>
+        </div>
+      </header>
 
-          <div className={`${styles.playerCard} scroll-reveal mt-6`}>
-            <span aria-hidden="true" className={styles.cardMonogram}>
-              DEV
-            </span>
-            <Image
-              src="/images/etienne-portrait.png"
-              alt="Portrait von Etienne Schwab"
-              width={900}
-              height={1200}
-              className={`${styles.playerPortrait} h-full w-full object-cover object-[50%_56%]`}
-              sizes="(max-width: 1024px) 92vw, 31vw"
-            />
-            <div className={styles.playerIdentity}>
-              <p>Entwickler · Unihockey</p>
-              <strong>{profile.name.split(" ")[0]}</strong>
-              <dl className={styles.playerStats}>
-                <div>
-                  <dt>17</dt>
-                  <dd>Jahre</dd>
-                </div>
-                <div>
-                  <dt>190 cm</dt>
-                  <dd>Grösse</dd>
-                </div>
-                <div>
-                  <dt>10+</dt>
-                  <dd>Jahre Unihockey</dd>
-                </div>
-              </dl>
-              <p className={styles.playerMeta}>Muri-Gümligen · IMS Bern</p>
-            </div>
+      <div className="content-section about-content">
+        <div className="site-container split-layout">
+          <div>
+            <p className="section-label">Porträt</p>
+            <h2 className="section-title">Etienne Schwab</h2>
           </div>
 
-          <dl className="mt-4 grid gap-3 sm:grid-cols-3">
-            {aboutSection.facts.map((fact) => (
-              <div
-                key={fact.label}
-                className="rounded-[1.5rem] border border-white/60 bg-white/52 p-4 shadow-[0_14px_42px_rgba(17,19,24,0.05)] backdrop-blur-md"
-              >
-                <dt className="font-mono text-xs uppercase tracking-normal text-zinc-500">
-                  {fact.label}
-                </dt>
-                <dd className="mt-2 text-sm font-medium text-zinc-900">
-                  {fact.value}
-                </dd>
-              </div>
+          <div className="about-copy">
+            {aboutSection.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
             ))}
-          </dl>
-        </div>
-
-        <div className="grid gap-4">
-          <article className="scroll-reveal rounded-[1.5rem] border border-white/60 bg-white/52 p-5 shadow-[0_14px_42px_rgba(17,19,24,0.05)] backdrop-blur-md sm:p-6">
-            <p className="font-mono text-xs uppercase tracking-normal text-sky-700/80">
-              {aboutSection.introLabel}
-            </p>
-            <p className="mt-4 text-lg leading-8 text-zinc-900">
-              {profile.availability}
-            </p>
-            <div className="mt-5 grid gap-4 text-sm leading-7 text-zinc-500 sm:text-base">
-              {aboutSection.paragraphs.map((paragraph, index) => (
-                <p key={`${paragraph.text}-${index}`}>
-                  {paragraph.text}
-                  {"linkHref" in paragraph ? (
-                    <a
-                      href={paragraph.linkHref}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-sky-700/90 underline decoration-sky-200/25 underline-offset-4 transition-colors hover:text-zinc-950"
-                    >
-                      {paragraph.linkLabel}
-                      <ExternalLink aria-hidden="true" size={13} />
-                    </a>
-                  ) : null}
-                  {"suffix" in paragraph ? paragraph.suffix : null}
-                </p>
-              ))}
-            </div>
-          </article>
-
-          <div className="grid gap-3 md:grid-cols-3">
-            {aboutSection.cards.map((card, index) => (
-              <article
-                key={card.title}
-                className="motion-card scroll-reveal rounded-[1.5rem] border border-white/60 bg-white/52 p-5 shadow-[0_14px_42px_rgba(17,19,24,0.05)] backdrop-blur-md"
-                style={{ "--reveal-delay": `${index * 90}ms` } as CSSProperties}
-              >
-                <p className="font-mono text-xs uppercase tracking-normal text-zinc-500">
-                  {card.label}
-                </p>
-                <h3 className="mt-3 text-lg font-semibold text-zinc-950">
-                  {card.title}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-zinc-500">
-                  {card.description}
-                </p>
-              </article>
-            ))}
+            <a
+              href={links.planary}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-link"
+            >
+              Planary ansehen
+              <ExternalLink aria-hidden="true" size={14} />
+            </a>
           </div>
         </div>
+
+        <dl className="site-container fact-row">
+          {aboutSection.facts.map((fact) => (
+            <div key={fact.label}>
+              <dt>{fact.label}</dt>
+              <dd>{fact.value}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   );

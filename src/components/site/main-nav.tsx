@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useMemo, useState } from "react";
 
 type NavItem = {
+  index?: string;
   label: string;
   href: string;
 };
@@ -24,10 +25,10 @@ export function MainNav({ items, internalItem }: MainNavProps) {
   );
 
   return (
-    <div className="relative justify-self-end md:justify-self-center">
+    <div className="main-nav-wrap">
       <button
         type="button"
-        className="mobile-menu-toggle button-motion inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/12 bg-white/34 text-black/78 shadow-sm backdrop-blur-md hover:border-sky-300/70 hover:bg-white/52 focus:outline-none focus:ring-2 focus:ring-sky-200/70 md:hidden"
+        className="mobile-menu-toggle"
         aria-controls="main-navigation"
         aria-expanded={isOpen}
         aria-label={isOpen ? "Navigation schliessen" : "Navigation öffnen"}
@@ -42,29 +43,36 @@ export function MainNav({ items, internalItem }: MainNavProps) {
 
       <nav
         id="main-navigation"
-        className={`nav-scroll mobile-menu-panel font-mono text-sm ${
+        aria-label="Hauptnavigation"
+        className={`mobile-menu-panel ${
           isOpen ? "flex" : "hidden"
         } md:flex`}
       >
-        {navItems.map((item) => {
-          const isActive =
-            pathname === item.href ||
-            (item.href !== "/" && pathname.startsWith(`${item.href}/`));
+        <ul className="nav-list">
+          {navItems.map((item) => {
+            const isActive =
+              pathname === item.href ||
+              (item.href !== "/" && pathname.startsWith(`${item.href}/`));
 
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`nav-link focus:outline-none ${
-                isActive ? "is-active" : ""
-              }`}
-              aria-current={isActive ? "page" : undefined}
-              onClick={() => setIsOpen(false)}
-            >
-              {item.label}
-            </Link>
-          );
-        })}
+            return (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className={`nav-link ${isActive ? "is-active" : ""}`}
+                  aria-current={isActive ? "page" : undefined}
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item.index ? (
+                    <span className="nav-index" aria-hidden="true">
+                      {item.index}
+                    </span>
+                  ) : null}
+                  {item.label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
       </nav>
     </div>
   );

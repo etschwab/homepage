@@ -1,26 +1,33 @@
 import "server-only";
 
 import { timingSafeEqual } from "node:crypto";
+import { verify } from "@node-rs/argon2";
 
 type CredentialResult =
   | { ok: true; username: string }
   | { ok: false; reason: "invalid" };
 
-const ADMIN_USERNAME = "eti";
-const ADMIN_PASSWORD = "12345";
-
 export async function verifyAdminCredentials(
   username: string,
   password: string,
 ): Promise<CredentialResult> {
-  const usernameMatches = safeEqual(username, ADMIN_USERNAME);
-  const passwordMatches = safeEqual(password, ADMIN_PASSWORD);
+  const configuredUsername = process.env.ADMIN_USERNAME;
+  const configuredPasswordHash = process.env.ADMIN_PASSWORD_HASH;
+
+  if (!configuredUsername || !configuredPasswordHash) {
+    return { ok: false, reason: "invalid" };
+  }
+
+  const usernameMatches = safeEqual(username, configuredUsername);
+  const passwordMatches = await verify(configuredPasswordHash, password).catch(
+    () => false,
+  );
 
   if (!usernameMatches || !passwordMatches) {
     return { ok: false, reason: "invalid" };
   }
 
-  return { ok: true, username: ADMIN_USERNAME };
+  return { ok: true, username: configuredUsername };
 }
 
 function safeEqual(value: string, expected: string) {

@@ -1,56 +1,42 @@
-import type { CSSProperties } from "react";
-import {
-  Download,
-  FileText,
-  Settings,
-  ShieldCheck,
-  type LucideIcon,
-} from "lucide-react";
+import { FileText, LockKeyhole } from "lucide-react";
 
-import { SectionHeading } from "@/components/ui/section-heading";
-import { privateActions, siteCopy } from "@/data/profile";
-
-const actionIcons: Record<(typeof privateActions)[number]["icon"], LucideIcon> = {
-  download: Download,
-  file: FileText,
-  settings: Settings,
-  shield: ShieldCheck,
-};
+import { privateDocuments } from "@/data/private";
 
 export function PrivateSection({ username }: { username: string }) {
   return (
-    <section id="intern" className="section-band py-16 sm:py-20 lg:py-24">
-      <div className="site-container">
-        <SectionHeading
-          eyebrow={`${siteCopy.private.eyebrowPrefix} ${username}`}
-          title={siteCopy.private.title}
-          description={siteCopy.private.description}
-        />
+    <section className="files-private" aria-labelledby="files-private-title">
+      <div className="site-container split-layout">
+        <div>
+          <p className="section-label">
+            <span className="page-index-inline" aria-hidden="true">04</span>
+            Angemeldet als {username}
+          </p>
+          <h1 id="files-private-title" className="page-title">
+            Dateien
+          </h1>
+          <p className="files-lead">
+            Persönliche Dokumente und Nachweise sind nur in diesem geschützten
+            Bereich sichtbar.
+          </p>
+        </div>
 
-        <div className="mt-9 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-          {privateActions.map((item, index) => {
-            const Icon = actionIcons[item.icon];
-
-            return (
-              <article
-                key={item.title}
-                style={
-                  { "--reveal-delay": `${index * 90}ms` } as CSSProperties
-                }
-                className="motion-card scroll-reveal rounded-[1.75rem] border border-white/70 bg-white/62 shadow-[0_18px_50px_rgba(17,19,24,0.06)] backdrop-blur-md p-5"
-              >
-                <span className="grid size-10 place-items-center rounded-soft border border-sky-200/20 text-sky-700/90">
-                  <Icon aria-hidden="true" size={19} />
-                </span>
-                <h3 className="mt-8 text-xl font-semibold text-zinc-950">
-                  {item.title}
-                </h3>
-                <p className="mt-3 text-sm leading-6 text-zinc-500">
-                  {item.description}
-                </p>
-              </article>
-            );
-          })}
+        <div className="document-grid">
+          {privateDocuments.map((document) => (
+            <article className="document-card" key={document.title}>
+              <div className="document-card-icon">
+                <FileText aria-hidden="true" size={22} />
+                <span>PDF</span>
+              </div>
+              <div className="document-card-copy">
+                <h2>{document.title}</h2>
+                <p>{document.description}</p>
+              </div>
+              <p className="document-status">
+                <LockKeyhole aria-hidden="true" size={13} />
+                {document.status}
+              </p>
+            </article>
+          ))}
         </div>
       </div>
     </section>
