@@ -1,205 +1,74 @@
 "use client";
 
-import Image from "next/image";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { ExternalLink } from "lucide-react";
+import { useMemo, useState } from "react";
+import { ArrowUpRight } from "lucide-react";
 
-import {
-  featuredProjects,
-  moreProjects,
-  type ProjectGroup,
-  type ProjectLink,
-} from "@/data/profile";
+import { moreProjects, type ProjectGroup } from "@/data/profile";
 
 type Filter = "Alle" | ProjectGroup;
 
-type ProjectCard = {
-  name: string;
-  group: ProjectGroup;
-  category: string;
-  description: string;
-  technologies: readonly string[];
-  links: readonly ProjectLink[];
-  imageAlt?: string;
-  imagePresentation?: "cover" | "phone";
-  imageSrc?: string;
-};
-
-const filters: readonly Filter[] = [
-  "Alle",
-  "Web",
-  "Schule",
-  "Hardware",
-  "Desktop",
-];
-
-const highlightedProjects = [
-  {
-    ...featuredProjects[0],
-    group: "Schule",
-    category: featuredProjects[0].kind,
-  },
-  {
-    ...featuredProjects[1],
-    group: "Web",
-    category: featuredProjects[1].kind,
-  },
-  {
-    ...featuredProjects[2],
-    group: "Schule",
-    category: featuredProjects[2].kind,
-  },
-] satisfies readonly ProjectCard[];
-
-const allProjects = [
-  ...highlightedProjects,
-  ...moreProjects.map((project) => ({
-    ...project,
-    imagePresentation: "cover" as const,
-  })),
-] satisfies readonly ProjectCard[];
+const filters: readonly Filter[] = ["Alle", "Web", "Schule", "Hardware", "Desktop"];
 
 export function ProjectArchive() {
   const [activeFilter, setActiveFilter] = useState<Filter>("Alle");
-  const cardRefs = useRef<Array<HTMLElement | null>>([]);
   const projects = useMemo(
     () =>
       activeFilter === "Alle"
-        ? allProjects
-        : allProjects.filter((project) => project.group === activeFilter),
+        ? moreProjects
+        : moreProjects.filter((project) => project.group === activeFilter),
     [activeFilter],
   );
-
-  useEffect(() => {
-    cardRefs.current = cardRefs.current.slice(0, projects.length);
-    const cards = cardRefs.current.filter(Boolean) as HTMLElement[];
-
-    if (!cards.length) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          entry.target.classList.toggle(
-            "is-visible",
-            entry.isIntersecting,
-          );
-        });
-      },
-      {
-        rootMargin: "0px 0px -12% 0px",
-        threshold: 0.18,
-      },
-    );
-
-    cards.forEach((card) => {
-      card.classList.remove("is-visible");
-      observer.observe(card);
-    });
-
-    return () => observer.disconnect();
-  }, [projects]);
 
   return (
     <div className="project-archive">
       <div className="project-filters" aria-label="Projekte filtern">
-        {filters.map((filter) => (
-          <button
-            key={filter}
-            type="button"
-            className={activeFilter === filter ? "is-active" : undefined}
-            aria-pressed={activeFilter === filter}
-            onClick={() => setActiveFilter(filter)}
-          >
-            {filter}
-          </button>
-        ))}
+        <div>
+          {filters.map((filter) => (
+            <button
+              key={filter}
+              type="button"
+              className={activeFilter === filter ? "is-active" : undefined}
+              aria-pressed={activeFilter === filter}
+              onClick={() => setActiveFilter(filter)}
+            >
+              {filter}
+            </button>
+          ))}
+        </div>
         <span className="project-count" aria-live="polite">
-          {projects.length} Projekte
+          {projects.length} {projects.length === 1 ? "Projekt" : "Projekte"}
         </span>
       </div>
 
-      <div className="project-grid project-grid-unified">
+      <div className="project-list">
         {projects.map((project, index) => (
-          <article
-            className="featured-project project-card"
-            key={project.name}
-            ref={(element) => {
-              cardRefs.current[index] = element;
-            }}
-          >
-            <ProjectVisual project={project} />
-
-            <div className="featured-project-copy">
-              <p className="project-kind">{project.category}</p>
-              <h2>{project.name}</h2>
-              <p className="project-description">{project.description}</p>
-              <p className="project-tech">
-                {project.technologies.join(" · ")}
-              </p>
-              <ArchiveLinks links={project.links} />
+          <article className="project-row" key={project.name}>
+            <p className="project-row-index" aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
+            </p>
+            <div className="project-row-title">
+              <p>{project.category}</p>
+              <h3>{project.name}</h3>
+            </div>
+            <p className="project-row-description">{project.description}</p>
+            <p className="project-row-tech">{project.technologies.join(" · ")}</p>
+            <div className="project-row-links">
+              {project.links.map((link) => (
+                <a
+                  href={link.href}
+                  key={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="visually-hidden">{project.name}: </span>
+                  {link.label}
+                  <ArrowUpRight aria-hidden="true" size={14} />
+                </a>
+              ))}
             </div>
           </article>
         ))}
       </div>
-    </div>
-  );
-}
-
-function ProjectVisual({ project }: { project: ProjectCard }) {
-  if (!project.imageSrc) {
-    return (
-      <div className="project-image-wrap project-image-placeholder">
-        <span>{project.group}</span>
-        <strong>{project.name}</strong>
-      </div>
-    );
-  }
-
-  return (
-    <div
-      className={`project-image-wrap ${
-        project.imagePresentation === "phone" ? "project-image-wrap-phone" : ""
-      }`}
-    >
-      {project.imagePresentation === "phone" ? (
-        <Image
-          src={project.imageSrc}
-          alt=""
-          fill
-          sizes="(max-width: 767px) calc(100vw - 2rem), 32vw"
-          className="project-image-backdrop"
-          aria-hidden="true"
-        />
-      ) : null}
-      <Image
-        src={project.imageSrc}
-        alt={project.imageAlt ?? ""}
-        fill
-        sizes="(max-width: 767px) calc(100vw - 2rem), 32vw"
-        className={`project-image ${
-          project.imagePresentation === "phone" ? "project-image-phone" : ""
-        }`}
-      />
-    </div>
-  );
-}
-
-function ArchiveLinks({ links }: { links: readonly ProjectLink[] }) {
-  if (!links.length) return null;
-
-  return (
-    <div className="project-links project-card-links">
-      {links.map((link) => (
-        <a
-          key={link.href}
-          href={link.href}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {link.label}
-          <ExternalLink aria-hidden="true" size={13} />
-        </a>
-      ))}
     </div>
   );
 }

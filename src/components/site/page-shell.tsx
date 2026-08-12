@@ -14,8 +14,11 @@ export function PageShell({
 }: PageShellProps) {
   return (
     <div className="page-root">
+      <a className="skip-link" href="#main-content">
+        Zum Inhalt springen
+      </a>
       <SiteHeader isProtected={isProtected} username={username} />
-      <main className="page-main">{children}</main>
+      <main className="page-main" id="main-content">{children}</main>
       <SiteFooter />
     </div>
   );

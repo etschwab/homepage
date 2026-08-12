@@ -96,18 +96,22 @@ export const skillGroups = [
   {
     category: "Frontend",
     skills: ["React", "Next.js", "TypeScript", "HTML & CSS"],
+    context: "Anamorph · smartain · BookLoan",
   },
   {
     category: "Backend & Daten",
     skills: ["NestJS", "SQL & Datenbanken", "Supabase"],
+    context: "smartain",
   },
   {
     category: "Tools & DevOps",
     skills: ["Git", "GitLab", "Docker", "Azure", "AWS"],
+    context: "Modul 347 · Projekt-Repositories",
   },
   {
     category: "Mobile",
     skills: ["React Native", ".NET MAUI"],
+    context: "CarPin · TenniSoft",
   },
 ] as const;
 

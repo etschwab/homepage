@@ -7,7 +7,7 @@ export function ContactSection() {
     <section className="private-contact" aria-labelledby="contact-title">
       <div className="site-container split-layout">
         <div>
-          <p className="section-label">Privat</p>
+          <p className="section-eyebrow">Privat</p>
           <h2 id="contact-title" className="section-title">
             Kontakt
           </h2>

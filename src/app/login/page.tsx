@@ -1,10 +1,16 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { ShieldCheck } from "lucide-react";
 
 import { LoginForm } from "@/app/login/login-form";
 import { siteCopy } from "@/data/profile";
 import { readSession } from "@/lib/auth/session";
+
+export const metadata: Metadata = {
+  title: "Login",
+  robots: { index: false, follow: false },
+};
 
 export default async function LoginPage() {
   const session = await readSession();
@@ -21,13 +27,9 @@ export default async function LoginPage() {
         </Link>
 
         <div className="login-heading">
-          <span className="login-icon">
-            <ShieldCheck aria-hidden="true" size={22} />
-          </span>
-          <div>
-            <p className="section-label">{siteCopy.login.eyebrow}</p>
-            <h1>{siteCopy.login.title}</h1>
-          </div>
+          <span className="login-icon"><ShieldCheck aria-hidden="true" size={20} /></span>
+          <p className="section-eyebrow">{siteCopy.login.eyebrow}</p>
+          <h1>{siteCopy.login.title}</h1>
         </div>
 
         <p className="login-description">{siteCopy.login.description}</p>

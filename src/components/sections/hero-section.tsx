@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowDownRight } from "lucide-react";
 
 import { profile, siteCopy } from "@/data/profile";
 
@@ -8,24 +9,16 @@ export function HeroSection() {
     <section className="home-hero">
       <div className="site-container home-hero-grid">
         <div className="home-hero-copy">
-          <div className="home-cover-meta">
-            <span>Portfolio 2026</span>
-            <span>{profile.availability}</span>
-            <span>{profile.location}</span>
-          </div>
-
-          <p className="home-kicker">
-            <span className="page-index-inline" aria-hidden="true">01</span>
-            {profile.role}
-          </p>
-          <h1 aria-label={profile.name}>
-            <span>Etienne.</span>
-            <span>Schwab.</span>
-            <em>Entwickler.</em>
+          <p className="home-kicker">Portfolio · IMS Bern · 2026</p>
+          <h1>
+            Etienne
+            <em>Schwab.</em>
           </h1>
+          <p className="home-role">{profile.role}</p>
           <p className="home-intro">{profile.intro}</p>
-          <Link href="/projekte" className="primary-link">
+          <Link href="#selected-work" className="inline-link home-scroll-link">
             {siteCopy.actions.projects}
+            <ArrowDownRight aria-hidden="true" size={16} />
           </Link>
         </div>
 
@@ -38,13 +31,16 @@ export function HeroSection() {
               priority
               sizes="(max-width: 768px) calc(100vw - 2rem), 42vw"
             />
-            <span className="home-year" aria-hidden="true">26</span>
           </div>
           <figcaption>
-            <span>Etienne Schwab</span>
-            <span>IMS Bern</span>
+            <span>{profile.availability}</span>
+            <span>{profile.location}</span>
           </figcaption>
         </figure>
+
+        <p className="home-side-note" aria-hidden="true">
+          46.9480° N · 7.4474° E
+        </p>
       </div>
     </section>
   );

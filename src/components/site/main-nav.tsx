@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type NavItem = {
   index?: string;
@@ -24,8 +24,17 @@ export function MainNav({ items, internalItem }: MainNavProps) {
     [internalItem, items],
   );
 
+  useEffect(() => {
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") setIsOpen(false);
+    }
+
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, []);
+
   return (
-    <div className="main-nav-wrap">
+    <div className={`main-nav-wrap${isOpen ? " is-open" : ""}`}>
       <button
         type="button"
         className="mobile-menu-toggle"
@@ -44,7 +53,7 @@ export function MainNav({ items, internalItem }: MainNavProps) {
       <nav
         id="main-navigation"
         aria-label="Hauptnavigation"
-        className={`mobile-menu-panel${isOpen ? " is-open" : ""}`}
+        className="mobile-menu-panel"
       >
         <ul className="nav-list">
           {navItems.map((item) => {
@@ -60,11 +69,6 @@ export function MainNav({ items, internalItem }: MainNavProps) {
                   aria-current={isActive ? "page" : undefined}
                   onClick={() => setIsOpen(false)}
                 >
-                  {item.index ? (
-                    <span className="nav-index" aria-hidden="true">
-                      {item.index}
-                    </span>
-                  ) : null}
                   {item.label}
                 </Link>
               </li>

@@ -1,22 +1,12 @@
 import type { Metadata } from "next";
-import {
-  Barlow_Condensed,
-  Newsreader,
-  Source_Sans_3,
-} from "next/font/google";
+import { Newsreader, Source_Sans_3 } from "next/font/google";
 
-import { PlusBackground } from "@/components/site/plus-background";
+import { LightRays } from "@/components/site/light-rays";
 import "./globals.css";
 
 const sourceSans = Source_Sans_3({
   variable: "--font-source-sans",
   subsets: ["latin"],
-});
-
-const barlowCondensed = Barlow_Condensed({
-  variable: "--font-barlow-condensed",
-  subsets: ["latin"],
-  weight: ["600", "700", "800", "900"],
 });
 
 const newsreader = Newsreader({
@@ -26,13 +16,19 @@ const newsreader = Newsreader({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://etienneschwab.ch"),
-  title: "Etienne Schwab | IMS Portfolio",
+  title: {
+    default: "Etienne Schwab · IMS-Schüler & Entwickler",
+    template: "%s · Etienne Schwab",
+  },
   description:
-    "Portfolio von Etienne Schwab, IMS-Schüler und Entwickler aus der Region Bern.",
+    "Portfolio von Etienne Schwab, IMS-Schüler und Entwickler aus Bern – mit Web-, Schul-, Hardware- und Mobile-Projekten.",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "Etienne Schwab | IMS Portfolio",
+    title: "Etienne Schwab · IMS-Schüler & Entwickler",
     description:
-      "Portfolio von Etienne Schwab, IMS-Schüler und Entwickler aus der Region Bern.",
+      "Portfolio von Etienne Schwab mit ausgewählten Web-, Schul-, Hardware- und Mobile-Projekten.",
     type: "website",
     url: "/",
     images: [
@@ -46,7 +42,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Etienne Schwab | IMS Portfolio",
+    title: "Etienne Schwab · IMS-Schüler & Entwickler",
     description:
       "Portfolio von Etienne Schwab, IMS-Schüler und Entwickler aus der Region Bern.",
     images: ["/og.png"],
@@ -67,10 +63,18 @@ export default function RootLayout({
     <html
       lang="de"
       data-scroll-behavior="smooth"
-      className={`${sourceSans.variable} ${barlowCondensed.variable} ${newsreader.variable}`}
+      className={`${sourceSans.variable} ${newsreader.variable}`}
+      suppressHydrationWarning
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');var m=window.matchMedia('(prefers-color-scheme: dark)').matches;var v=t==='dark'||t==='light'?t:(m?'dark':'light');document.documentElement.dataset.theme=v;document.documentElement.style.colorScheme=v;}catch(e){document.documentElement.dataset.theme='dark';document.documentElement.style.colorScheme='dark';}})();`,
+          }}
+        />
+      </head>
       <body>
-        <PlusBackground />
+        <LightRays />
         {children}
       </body>
     </html>

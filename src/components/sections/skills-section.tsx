@@ -14,8 +14,14 @@ export function SkillsSection() {
         <div className="skill-list">
           {skillGroups.map((group) => (
             <article key={group.category}>
-              <h3>{group.category}</h3>
-              <p>{group.skills.join(" · ")}</p>
+              <div>
+                <h3>{group.category}</h3>
+                <p>{group.skills.join(" · ")}</p>
+              </div>
+              <p className="skill-context">
+                <span>Eingesetzt in</span>
+                {group.context}
+              </p>
             </article>
           ))}
         </div>

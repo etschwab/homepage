@@ -1,60 +1,64 @@
-import { ExternalLink } from "lucide-react";
+import Image from "next/image";
+import { ArrowUpRight } from "lucide-react";
 
 import { aboutSection, links } from "@/data/profile";
 
 export function AboutSection() {
   return (
     <section className="about-page" aria-labelledby="about-title">
-      <header className="editorial-hero editorial-hero-light">
-        <div className="site-container editorial-grid">
-          <div className="editorial-marker" aria-hidden="true">
-            <span>02</span>
-            <small>Porträt</small>
-          </div>
-          <div className="editorial-heading">
-            <p className="section-label">Persönlich</p>
-            <h1 id="about-title" className="page-title">
-              {aboutSection.title}
+      <header className="page-intro about-intro">
+        <div className="site-container page-intro-grid">
+          <p className="page-number" aria-hidden="true">02</p>
+          <div>
+            <p className="section-eyebrow">Persönlich</p>
+            <h1 id="about-title">
+              Über mich.<br />
+              <em>Ohne Kurzprofil-Floskeln.</em>
             </h1>
           </div>
-          <p className="editorial-lead">
-            Ausbildung, Frontend-Entwicklung und die wichtigsten Dinge, die
-            mich ausserhalb der Schule beschäftigen.
+          <p className="page-intro-lead">
+            Schüler der IMS Bern, Entwickler mit Interesse an klaren Frontends
+            und seit über zehn Jahren Unihockeyspieler.
           </p>
         </div>
       </header>
 
-      <div className="content-section about-content">
-        <div className="site-container split-layout">
-          <div>
-            <p className="section-label">Porträt</p>
-            <h2 className="section-title">Etienne Schwab</h2>
-          </div>
+      <div className="site-container about-story">
+        <figure className="about-portrait">
+          <Image
+            src="/images/etienne-portrait.png"
+            alt="Portrait von Etienne Schwab"
+            fill
+            sizes="(max-width: 800px) calc(100vw - 2rem), 42vw"
+          />
+          <figcaption>Muri-Gümligen · Region Bern</figcaption>
+        </figure>
 
-          <div className="about-copy">
-            {aboutSection.paragraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-            <a
-              href={links.planary}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-link"
-            >
-              Planary ansehen
-              <ExternalLink aria-hidden="true" size={14} />
-            </a>
-          </div>
-        </div>
-
-        <dl className="site-container fact-row">
-          {aboutSection.facts.map((fact) => (
-            <div key={fact.label}>
-              <dt>{fact.label}</dt>
-              <dd>{fact.value}</dd>
-            </div>
+        <div className="about-story-copy">
+          <p className="section-eyebrow">Etienne Schwab</p>
+          {aboutSection.paragraphs.map((paragraph, index) => (
+            <p className={index === 0 ? "about-story-lead" : undefined} key={paragraph}>
+              {paragraph}
+            </p>
           ))}
-        </dl>
+          <a
+            href={links.planary}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-link"
+          >
+            Planary ansehen <ArrowUpRight aria-hidden="true" size={15} />
+          </a>
+
+          <dl className="about-facts">
+            {aboutSection.facts.map((fact) => (
+              <div key={fact.label}>
+                <dt>{fact.label}</dt>
+                <dd>{fact.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </div>
     </section>
   );

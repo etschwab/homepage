@@ -1,24 +1,49 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import { interests } from "@/data/profile";
 
-const floorballMedia = [
+const floorballVideos = [
   {
-    src: "/images/unihockey/faceoff-1.jpeg",
-    alt: "Unihockey-Spielszene beim Bully",
+    src: "/images/unihockey/floorball-clip.mp4",
+    poster: "/images/unihockey/faceoff-1.jpeg",
+    label: "Clip 01",
   },
   {
-    src: "/images/unihockey/attack-1.jpeg",
-    alt: "Unihockey-Angriff in der Halle",
+    src: "/images/unihockey/floorball-clip-2.mp4",
+    poster: "/images/unihockey/faceoff-2.jpeg",
+    label: "Clip 02",
   },
   {
-    src: "/images/unihockey/faceoff-2.jpeg",
-    alt: "Unihockey-Spielszene mit Ball",
+    src: "/images/unihockey/floorball-clip-3.mp4",
+    poster: "/images/unihockey/attack-1.jpeg",
+    label: "Clip 03",
+  },
+  {
+    src: "/images/unihockey/floorball-clip-4.mp4",
+    poster: "/images/unihockey/faceoff-1.jpeg",
+    label: "Clip 04",
   },
 ] as const;
 
 export function InterestsSection() {
   const [floorball, dart, geoguessr] = interests;
+  const [activeVideo, setActiveVideo] = useState(0);
+  const currentVideo = floorballVideos[activeVideo];
+
+  function showPreviousVideo() {
+    setActiveVideo((current) =>
+      current === 0 ? floorballVideos.length - 1 : current - 1,
+    );
+  }
+
+  function showNextVideo() {
+    setActiveVideo((current) =>
+      current === floorballVideos.length - 1 ? 0 : current + 1,
+    );
+  }
 
   return (
     <section className="content-section interests-section" aria-labelledby="interests-title">
@@ -38,56 +63,65 @@ export function InterestsSection() {
 
         <div className="hobby-showcase">
           <article className="floorball-feature">
-            <Image
-              src={floorballMedia[0].src}
-              alt={floorballMedia[0].alt}
-              fill
-              sizes="(max-width: 900px) 100vw, 62vw"
-              priority={false}
-              className="floorball-feature-image"
-            />
-            <div className="floorball-feature-shade" aria-hidden="true" />
             <div className="floorball-feature-copy">
               <p className="interest-index">01 / Sport</p>
               <h3>{floorball.title}</h3>
               <p>{floorball.description}</p>
-              <div className="floorball-tags" aria-label="Unihockey Stichworte">
-                <span>10+ Jahre</span>
-                <span>Teamplay</span>
-                <span>Tempo</span>
+            </div>
+
+            <div className="floorball-slider" aria-label="Unihockey Video Slider">
+              <button
+                type="button"
+                className="floorball-slider-button floorball-slider-button-left"
+                onClick={showPreviousVideo}
+                aria-label="Vorheriges Unihockey Video"
+              >
+                <ChevronLeft aria-hidden="true" size={24} />
+              </button>
+
+              <figure className="floorball-slide">
+                <video
+                  key={currentVideo.src}
+                  aria-label={`Unihockey ${currentVideo.label}`}
+                  controls
+                  muted
+                  playsInline
+                  preload="metadata"
+                  poster={currentVideo.poster}
+                >
+                  <source src={currentVideo.src} type="video/mp4" />
+                </video>
+                <figcaption>
+                  <span>{currentVideo.label}</span>
+                  <span>
+                    {activeVideo + 1} / {floorballVideos.length}
+                  </span>
+                </figcaption>
+              </figure>
+
+              <button
+                type="button"
+                className="floorball-slider-button floorball-slider-button-right"
+                onClick={showNextVideo}
+                aria-label="Nächstes Unihockey Video"
+              >
+                <ChevronRight aria-hidden="true" size={24} />
+              </button>
+
+              <div className="floorball-slider-dots" aria-hidden="true">
+                {floorballVideos.map((video, index) => (
+                  <span
+                    key={video.src}
+                    className={index === activeVideo ? "is-active" : undefined}
+                  />
+                ))}
               </div>
             </div>
           </article>
 
-          <div className="hobby-side">
-            <div className="floorball-media-grid" aria-label="Unihockey Eindrücke">
-              <figure className="floorball-photo-tile floorball-photo-wide">
-                <Image
-                  src={floorballMedia[1].src}
-                  alt={floorballMedia[1].alt}
-                  fill
-                  sizes="(max-width: 900px) 100vw, 32vw"
-                />
-              </figure>
-              <figure className="floorball-video-tile">
-                <video
-                  aria-label="Kurzer Unihockey Clip"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="metadata"
-                  poster={floorballMedia[2].src}
-                >
-                  <source src="/images/unihockey/floorball-clip.mp4" type="video/mp4" />
-                </video>
-              </figure>
-            </div>
-
-            <div className="interest-side">
-              <InterestItem item={dart} index="02" />
-              <InterestItem item={geoguessr} index="03" />
-            </div>
+          <div className="interest-side" aria-label="Weitere Hobbys">
+            <InterestItem item={dart} index="02" />
+            <InterestItem item={geoguessr} index="03" />
           </div>
         </div>
       </div>
