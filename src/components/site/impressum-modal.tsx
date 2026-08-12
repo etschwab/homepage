@@ -2,7 +2,6 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import {
-  FileText,
   Mail,
   MapPin,
   ShieldCheck,
@@ -97,16 +96,6 @@ export function ImpressumModal() {
             </p>
 
             <div className="imprint-layout">
-              <aside
-                className="imprint-aside"
-                aria-hidden="true"
-              >
-                <FileText size={20} />
-                <span>ES</span>
-                <strong>2026</strong>
-                <p>Portfolio Bern</p>
-              </aside>
-
               <div className="imprint-content">
                 <dl className="modal-rows imprint-rows">
                   {siteCopy.imprint.rows.map((row, index) => {
