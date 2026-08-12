@@ -38,6 +38,48 @@ html {
   background: var(--paper);
 }
 
+@supports (view-transition-name: root) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 280ms;
+    animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  ::view-transition-old(root) {
+    animation-name: magazine-page-out;
+  }
+
+  ::view-transition-new(root) {
+    animation-name: magazine-page-in;
+  }
+}
+
+@keyframes magazine-page-out {
+  from {
+    opacity: 1;
+    transform: translateX(0) skewX(0deg);
+  }
+
+  to {
+    opacity: 0.42;
+    transform: translateX(-1rem) skewX(-1deg);
+  }
+}
+
+@keyframes magazine-page-in {
+  from {
+    clip-path: inset(0 0 0 5%);
+    opacity: 0;
+    transform: translateX(1.1rem) skewX(-1deg);
+  }
+
+  to {
+    clip-path: inset(0);
+    opacity: 1;
+    transform: translateX(0) skewX(0deg);
+  }
+}
+
 body {
   min-width: 20rem;
   min-height: 100%;
@@ -1711,7 +1753,7 @@ button:disabled {
 }
 
 .modal-panel {
-  width: min(100%, 42rem);
+  width: min(100%, 58rem);
   max-height: min(44rem, calc(100svh - 3rem));
   overflow-y: auto;
   border-top: 0.25rem solid var(--accent);
@@ -1749,6 +1791,7 @@ button:disabled {
 .modal-description {
   margin: 1rem 0 0;
   color: var(--ink-soft);
+  max-width: 42rem;
 }
 
 .modal-rows {
@@ -1778,6 +1821,119 @@ button:disabled {
 .modal-rows dd {
   margin: 0.4rem 0 0;
   font-size: 0.85rem;
+}
+
+.modal-rows a {
+  color: var(--accent-dark);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+}
+
+.imprint-layout {
+  display: grid;
+  grid-template-columns: minmax(9rem, 0.32fr) minmax(0, 1fr);
+  gap: clamp(1.25rem, 3vw, 2rem);
+  margin-top: 1.75rem;
+}
+
+.imprint-aside {
+  display: grid;
+  align-content: start;
+  gap: 0.45rem;
+  min-height: 13rem;
+  border: 1px solid var(--line-strong);
+  background: var(--ink);
+  color: var(--white);
+  padding: 1rem;
+}
+
+.imprint-aside span,
+.imprint-aside strong {
+  display: block;
+  font-family: var(--font-barlow-condensed), "Arial Narrow", sans-serif;
+  font-weight: 900;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.imprint-aside span {
+  margin-top: 0.8rem;
+  font-size: clamp(3rem, 7vw, 5rem);
+}
+
+.imprint-aside strong {
+  color: var(--accent);
+  font-size: 1.25rem;
+  letter-spacing: 0.12em;
+}
+
+.imprint-aside p {
+  margin: auto 0 0;
+  color: rgba(255, 253, 248, 0.74);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.imprint-content {
+  min-width: 0;
+}
+
+.imprint-rows {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  border: 1px solid var(--line-strong);
+  background: var(--line);
+}
+
+.imprint-rows > div {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  gap: 0.15rem 0.75rem;
+  align-items: start;
+  min-height: 6.1rem;
+  border: 0;
+  background: var(--paper-bright);
+  padding: 1rem;
+}
+
+.imprint-rows > div + div {
+  border-left: 0;
+  padding-left: 1rem;
+}
+
+.imprint-rows svg {
+  grid-row: span 2;
+  margin-top: 0.1rem;
+  color: var(--accent-dark);
+}
+
+.imprint-rows dt,
+.imprint-rows dd {
+  min-width: 0;
+}
+
+.imprint-rows dd {
+  overflow-wrap: anywhere;
+}
+
+.imprint-notes {
+  display: grid;
+  gap: 0.65rem;
+  margin-top: 1rem;
+  border-left: 0.2rem solid var(--accent);
+  padding-left: 1rem;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.imprint-notes p {
+  margin: 0;
 }
 
 .loading-screen {
@@ -2090,6 +2246,19 @@ button:disabled {
   .footer-inner > p:last-child {
     text-align: center;
   }
+
+  .imprint-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .imprint-aside {
+    min-height: auto;
+  }
+
+  .imprint-aside span {
+    margin-top: 0.35rem;
+    font-size: 3rem;
+  }
 }
 
 @media (max-width: 32rem) {
@@ -2148,11 +2317,24 @@ button:disabled {
   .document-card {
     min-height: 15rem;
   }
+
+  .modal-panel {
+    padding: 1.2rem;
+  }
+
+  .imprint-rows > div {
+    min-height: auto;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
   }
 
   *,

@@ -59,12 +59,21 @@ export const siteCopy = {
   imprint: {
     title: "Impressum",
     description:
-      "Diese Website ist das persönliche Portfolio von Etienne Schwab.",
+      "Angaben zur verantwortlichen Person, zum Kontakt und zum Zweck dieser persönlichen Portfolio- und Bewerbungswebsite.",
     closeLabel: "Impressum schliessen",
     rows: [
       { label: "Verantwortlich", value: "Etienne Schwab" },
+      {
+        label: "Kontakt",
+        value: "contact@etienneschwab.ch",
+        href: "mailto:contact@etienneschwab.ch",
+      },
       { label: "Standort", value: "Bern, Schweiz" },
       { label: "Zweck", value: "Portfolio und Bewerbung" },
+    ],
+    notes: [
+      "Die Inhalte dieser Website werden sorgfältig gepflegt und dienen der persönlichen Vorstellung von Etienne Schwab.",
+      "Externe Links führen zu Angeboten Dritter. Für deren Inhalte sind die jeweiligen Betreiber verantwortlich.",
     ],
   },
 } as const;

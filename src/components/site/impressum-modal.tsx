@@ -1,9 +1,18 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
-import { X } from "lucide-react";
+import {
+  FileText,
+  Mail,
+  MapPin,
+  ShieldCheck,
+  UserRound,
+  X,
+} from "lucide-react";
 
 import { siteCopy } from "@/data/profile";
+
+const rowIcons = [UserRound, Mail, MapPin, ShieldCheck] as const;
 
 export function ImpressumModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -87,14 +96,45 @@ export function ImpressumModal() {
               {siteCopy.imprint.description}
             </p>
 
-            <dl className="modal-rows">
-              {siteCopy.imprint.rows.map((row) => (
-                <div key={row.label}>
-                  <dt>{row.label}</dt>
-                  <dd>{row.value}</dd>
+            <div className="imprint-layout">
+              <aside
+                className="imprint-aside"
+                aria-hidden="true"
+              >
+                <FileText size={20} />
+                <span>ES</span>
+                <strong>2026</strong>
+                <p>Portfolio Bern</p>
+              </aside>
+
+              <div className="imprint-content">
+                <dl className="modal-rows imprint-rows">
+                  {siteCopy.imprint.rows.map((row, index) => {
+                    const Icon = rowIcons[index] ?? ShieldCheck;
+
+                    return (
+                      <div key={row.label}>
+                        <Icon aria-hidden="true" size={18} />
+                        <dt>{row.label}</dt>
+                        <dd>
+                          {"href" in row ? (
+                            <a href={row.href}>{row.value}</a>
+                          ) : (
+                            row.value
+                          )}
+                        </dd>
+                      </div>
+                    );
+                  })}
+                </dl>
+
+                <div className="imprint-notes">
+                  {siteCopy.imprint.notes.map((note) => (
+                    <p key={note}>{note}</p>
+                  ))}
                 </div>
-              ))}
-            </dl>
+              </div>
+            </div>
 
           </section>
         </div>
