@@ -50,14 +50,12 @@ export function InterestsSection() {
       <div className="site-container">
         <header className="section-heading-row">
           <div>
-            <p className="section-label">Abseits des Codes</p>
             <h2 id="interests-title" className="section-title">
-              Was mich begleitet
+              Unihockey, Dart und GeoGuessr
             </h2>
           </div>
           <p>
-            Sport, Präzision und ein gutes Auge für Details gehören für mich
-            genauso dazu wie die Entwicklung.
+            In meiner Freizeit bin ich meistens nicht am Laptop.
           </p>
         </header>
 
@@ -108,14 +106,6 @@ export function InterestsSection() {
                 <ChevronRight aria-hidden="true" size={24} />
               </button>
 
-              <div className="floorball-slider-dots" aria-hidden="true">
-                {floorballVideos.map((video, index) => (
-                  <span
-                    key={video.src}
-                    className={index === activeVideo ? "is-active" : undefined}
-                  />
-                ))}
-              </div>
             </div>
           </article>
 

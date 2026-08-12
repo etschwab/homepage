@@ -16,7 +16,6 @@ export default function ImpressumPage() {
       <section className="legal-page">
         <div className="site-container">
           <div className="legal-hero">
-            <p className="section-eyebrow">{siteCopy.footer.imprint}</p>
             <h1>{siteCopy.imprint.title}<em>.</em></h1>
             <p>{siteCopy.imprint.description}</p>
           </div>

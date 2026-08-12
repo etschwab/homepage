@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
-import { ArrowRight, KeyRound, User } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 import { siteCopy } from "@/data/profile";
 import { login } from "@/lib/auth/actions";
@@ -20,10 +20,6 @@ export function LoginForm() {
           {siteCopy.login.usernameLabel}
         </label>
         <div className="input-with-icon">
-          <User
-            aria-hidden="true"
-            size={17}
-          />
           <input
             id="username"
             name="username"
@@ -43,7 +39,6 @@ export function LoginForm() {
           {siteCopy.login.passwordLabel}
         </label>
         <div className="input-with-icon">
-          <KeyRound aria-hidden="true" size={17} />
           <input
             id="password"
             name="password"

@@ -1,5 +1,3 @@
-import { FileText, LockKeyhole } from "lucide-react";
-
 import { privateDocuments } from "@/data/private";
 
 export function PrivateSection({ username }: { username: string }) {
@@ -21,7 +19,6 @@ export function PrivateSection({ username }: { username: string }) {
           {privateDocuments.map((document, index) => (
             <article className="document-row" key={document.title}>
               <div className="document-card-icon">
-                <FileText aria-hidden="true" size={20} />
                 <span>0{index + 1}</span>
               </div>
               <div className="document-card-copy">
@@ -29,7 +26,6 @@ export function PrivateSection({ username }: { username: string }) {
                 <p>{document.description}</p>
               </div>
               <p className="document-status">
-                <LockKeyhole aria-hidden="true" size={13} />
                 {document.status}
               </p>
             </article>

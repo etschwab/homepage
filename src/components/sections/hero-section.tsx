@@ -38,9 +38,6 @@ export function HeroSection() {
           </figcaption>
         </figure>
 
-        <p className="home-side-note" aria-hidden="true">
-          46.9480° N · 7.4474° E
-        </p>
       </div>
     </section>
   );

@@ -4,7 +4,6 @@ export function HomeAbout() {
   return (
     <section className="home-about" aria-labelledby="home-about-title">
       <div className="site-container home-about-grid">
-        <p className="section-eyebrow">Kurz persönlich</p>
         <div>
           <h2 id="home-about-title">
             IMS Bern, Frontend<br />

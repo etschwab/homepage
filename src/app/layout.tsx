@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Newsreader, Source_Sans_3 } from "next/font/google";
 
-import { LightRays } from "@/components/site/light-rays";
+import { SmoothScroll } from "@/components/effects/smooth-scroll";
+import { GradientWavesBackground } from "@/components/site/gradient-waves-background";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 
 const sourceSans = Source_Sans_3({
@@ -62,19 +64,13 @@ export default function RootLayout({
   return (
     <html
       lang="de"
-      data-scroll-behavior="smooth"
+      data-theme="dark"
       className={`${sourceSans.variable} ${newsreader.variable}`}
       suppressHydrationWarning
     >
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('theme');var m=window.matchMedia('(prefers-color-scheme: dark)').matches;var v=t==='dark'||t==='light'?t:(m?'dark':'light');document.documentElement.dataset.theme=v;document.documentElement.style.colorScheme=v;}catch(e){document.documentElement.dataset.theme='dark';document.documentElement.style.colorScheme='dark';}})();`,
-          }}
-        />
-      </head>
       <body>
-        <LightRays />
+        <SmoothScroll />
+        <GradientWavesBackground />
         {children}
       </body>
     </html>

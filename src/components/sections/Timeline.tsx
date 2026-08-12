@@ -6,12 +6,11 @@ export function Timeline() {
       <div className="site-container">
         <header className="section-heading-row">
           <div>
-            <p className="section-label">Ausbildung</p>
             <h2 id="education-title" className="section-title">
               Bildungsweg
             </h2>
           </div>
-          <p>Vier Stationen von der Primarschule bis zur aktuellen IMS-Ausbildung.</p>
+          <p>Seit 2024 besuche ich die IMS mit Unterricht an der bwd und gibb.</p>
         </header>
 
         <div className="education-track">

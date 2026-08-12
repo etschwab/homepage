@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { LockKeyhole } from "lucide-react";
 
 import { ContactSection } from "@/components/sections/contact-section";
 import { PrivateSection } from "@/components/sections/private-section";
@@ -32,26 +31,19 @@ export default async function FilesPage() {
         <div className="site-container files-gate-grid">
           <p className="page-number" aria-hidden="true">04</p>
           <div className="files-gate-copy">
-            <span className="lock-mark" aria-hidden="true">
-              <LockKeyhole size={21} />
-            </span>
-            <p className="section-eyebrow">Geschützter Bereich</p>
             <h1>
-              Persönliche Dateien.<br />
-              <em>Nur mit Zugang.</em>
+              Persönliche<br />
+              <em>Dateien.</em>
             </h1>
             <p>
               Lebenslauf, Zeugnisse und weitere persönliche Dokumente sind
-              geschützt. Bitte melden Sie sich an, um darauf zuzugreifen.
+              geschützt. Melde dich an, um sie anzusehen.
             </p>
             <Link href="/login" className="action-link">
               {siteCopy.actions.login} <span aria-hidden="true">→</span>
             </Link>
           </div>
 
-          <p className="files-gate-note">
-            Der Login schützt persönliche Dokumente und Kontaktangaben.
-          </p>
         </div>
       </section>
     </PageShell>

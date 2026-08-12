@@ -1,3 +1,4 @@
+import { ScrollAnimations } from "@/components/effects/scroll-animations";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 
@@ -18,6 +19,7 @@ export function PageShell({
         Zum Inhalt springen
       </a>
       <SiteHeader isProtected={isProtected} username={username} />
+      <ScrollAnimations />
       <main className="page-main" id="main-content">{children}</main>
       <SiteFooter />
     </div>

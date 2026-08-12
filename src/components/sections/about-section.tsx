@@ -10,15 +10,13 @@ export function AboutSection() {
         <div className="site-container page-intro-grid">
           <p className="page-number" aria-hidden="true">02</p>
           <div>
-            <p className="section-eyebrow">Persönlich</p>
             <h1 id="about-title">
               Über mich.<br />
-              <em>Ohne Kurzprofil-Floskeln.</em>
+              <em>Schule, Code und Unihockey.</em>
             </h1>
           </div>
           <p className="page-intro-lead">
-            Schüler der IMS Bern, Entwickler mit Interesse an klaren Frontends
-            und seit über zehn Jahren Unihockeyspieler.
+            Ich bin 17, besuche die IMS Bern und entwickle am liebsten fürs Web.
           </p>
         </div>
       </header>
@@ -35,7 +33,6 @@ export function AboutSection() {
         </figure>
 
         <div className="about-story-copy">
-          <p className="section-eyebrow">Etienne Schwab</p>
           {aboutSection.paragraphs.map((paragraph, index) => (
             <p className={index === 0 ? "about-story-lead" : undefined} key={paragraph}>
               {paragraph}

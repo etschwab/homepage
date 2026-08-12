@@ -15,32 +15,27 @@ export function FeaturedProjects({ context = "home" }: FeaturedProjectsProps) {
       aria-labelledby={`${context}-featured-title`}
     >
       <div className="site-container">
-        <header className="section-heading">
-          <p className="section-eyebrow">Ausgewählte Arbeiten</p>
-          <h2 id={`${context}-featured-title`}>
-            Drei Projekte,<br />
-            <em>die zeigen, wie ich arbeite.</em>
-          </h2>
-          <p>
-            Web, Teamarbeit und Mobile: Die wichtigsten Projekte mit echten
-            Screenshots, Technologien und den vorhandenen Links.
-          </p>
-        </header>
+        {context === "home" ? (
+          <header className="section-heading">
+            <h2 id={`${context}-featured-title`}>
+              Anamorph, smartain<br />
+              <em>und CarPin.</em>
+            </h2>
+            <p>
+              Ein 3D-Puzzle, eine Team-App und eine mobile Parkplatz-App.
+            </p>
+          </header>
+        ) : (
+          <header className="projects-featured-heading">
+            <h2 id={`${context}-featured-title`}>Drei ausgewählte Arbeiten</h2>
+            <p>Anamorph, smartain und CarPin im Detail.</p>
+          </header>
+        )}
 
         <div className="featured-work-list">
           {featuredProjects.map((project, index) => (
             <article className="featured-work-item" key={project.name}>
               <div className="featured-work-visual">
-                {project.imagePresentation === "phone" ? (
-                  <Image
-                    src={project.imageSrc}
-                    alt=""
-                    fill
-                    sizes="(max-width: 800px) 100vw, 60vw"
-                    className="featured-work-backdrop"
-                    aria-hidden="true"
-                  />
-                ) : null}
                 <Image
                   src={project.imageSrc}
                   alt={project.imageAlt}

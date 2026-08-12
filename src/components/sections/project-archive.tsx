@@ -1,74 +1,238 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { ArrowUpRight, Search, X } from "lucide-react";
 
-import { moreProjects, type ProjectGroup } from "@/data/profile";
+import {
+  featuredProjects,
+  moreProjects,
+  type ProjectGroup,
+} from "@/data/profile";
 
 type Filter = "Alle" | ProjectGroup;
 
 const filters: readonly Filter[] = ["Alle", "Web", "Schule", "Hardware", "Desktop"];
+const featuredGroups: readonly ProjectGroup[] = ["Schule", "Web", "Schule"];
+
+const projects = [
+  ...featuredProjects.map((project, index) => ({
+    ...project,
+    group: featuredGroups[index],
+    category: project.kind,
+    featured: true as const,
+  })),
+  ...moreProjects.map((project) => ({
+    ...project,
+    imageSrc: undefined,
+    imageAlt: undefined,
+    featured: false as const,
+  })),
+];
+
+type Project = (typeof projects)[number];
 
 export function ProjectArchive() {
   const [activeFilter, setActiveFilter] = useState<Filter>("Alle");
-  const projects = useMemo(
-    () =>
-      activeFilter === "Alle"
-        ? moreProjects
-        : moreProjects.filter((project) => project.group === activeFilter),
-    [activeFilter],
-  );
+  const [query, setQuery] = useState("");
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
+  const visibleProjects = useMemo(() => {
+    const normalizedQuery = query.trim().toLocaleLowerCase("de-CH");
+
+    return projects.filter((project) => {
+      const matchesFilter =
+        activeFilter === "Alle" || project.group === activeFilter;
+      const searchableText = [
+        project.name,
+        project.category,
+        project.description,
+        project.group,
+        ...project.technologies,
+      ]
+        .join(" ")
+        .toLocaleLowerCase("de-CH");
+
+      return matchesFilter && searchableText.includes(normalizedQuery);
+    });
+  }, [activeFilter, query]);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    if (selectedProject && !dialog.open) dialog.showModal();
+    if (!selectedProject && dialog.open) dialog.close();
+  }, [selectedProject]);
+
+  useEffect(() => {
+    if (!selectedProject) return;
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setSelectedProject(null);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [selectedProject]);
 
   return (
-    <div className="project-archive">
-      <div className="project-filters" aria-label="Projekte filtern">
-        <div>
-          {filters.map((filter) => (
-            <button
-              key={filter}
-              type="button"
-              className={activeFilter === filter ? "is-active" : undefined}
-              aria-pressed={activeFilter === filter}
-              onClick={() => setActiveFilter(filter)}
-            >
-              {filter}
-            </button>
-          ))}
+    <div className="project-browser">
+      <div className="project-browser-tools">
+        <label className="project-search">
+          <Search aria-hidden="true" size={19} strokeWidth={1.7} />
+          <span className="visually-hidden">Projekte durchsuchen</span>
+          <input
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Projekt oder Technologie suchen"
+          />
+        </label>
+
+        <div className="project-filter-bar" aria-label="Projekte filtern">
+          <div>
+            {filters.map((filter) => (
+              <button
+                key={filter}
+                type="button"
+                className={activeFilter === filter ? "is-active" : undefined}
+                aria-pressed={activeFilter === filter}
+                onClick={() => setActiveFilter(filter)}
+              >
+                {filter}
+              </button>
+            ))}
+          </div>
+          <span aria-live="polite">
+            {visibleProjects.length} {visibleProjects.length === 1 ? "Projekt" : "Projekte"}
+          </span>
         </div>
-        <span className="project-count" aria-live="polite">
-          {projects.length} {projects.length === 1 ? "Projekt" : "Projekte"}
-        </span>
       </div>
 
-      <div className="project-list">
-        {projects.map((project, index) => (
-          <article className="project-row" key={project.name}>
-            <p className="project-row-index" aria-hidden="true">
-              {String(index + 1).padStart(2, "0")}
-            </p>
-            <div className="project-row-title">
-              <p>{project.category}</p>
-              <h3>{project.name}</h3>
+      {visibleProjects.length ? (
+        <div className="project-card-grid">
+          {visibleProjects.map((project, index) => (
+            <article
+              className={`project-card${project.featured ? " is-featured" : ""}`}
+              key={project.name}
+            >
+              <button
+                className="project-card-open"
+                type="button"
+                onClick={() => setSelectedProject(project)}
+                aria-label={`${project.name}: Projektdetails öffnen`}
+              >
+                {project.imageSrc ? (
+                  <div className="project-card-image">
+                    <Image
+                      src={project.imageSrc}
+                      alt={project.imageAlt ?? ""}
+                      fill
+                      priority={index === 0}
+                      sizes="(max-width: 800px) calc(100vw - 2rem), (max-width: 1200px) 50vw, 33vw"
+                      className={project.name === "CarPin" ? "is-phone" : undefined}
+                    />
+                    <span className="project-card-hover-label">
+                      Details ansehen <ArrowUpRight aria-hidden="true" size={16} />
+                    </span>
+                  </div>
+                ) : (
+                  <div className="project-card-graphic" aria-hidden="true">
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <strong>{project.name.slice(0, 2)}</strong>
+                    <i>Details ansehen</i>
+                  </div>
+                )}
+
+                <div className="project-card-body">
+                  <div className="project-card-heading">
+                    <p>{project.category}</p>
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                  </div>
+                  <h3>{project.name}</h3>
+                  <p className="project-card-description">{project.description}</p>
+                  <p className="project-card-tech">{project.technologies.join(" · ")}</p>
+                  <span className="project-card-detail-link">
+                    Projekt öffnen <ArrowUpRight aria-hidden="true" size={14} />
+                  </span>
+                </div>
+              </button>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <p className="project-empty-state">
+          Kein Projekt passt zu dieser Suche.
+        </p>
+      )}
+
+      <dialog
+        ref={dialogRef}
+        className="project-dialog"
+        aria-labelledby="project-dialog-title"
+        onCancel={() => setSelectedProject(null)}
+        onClose={() => setSelectedProject(null)}
+        onClick={(event) => {
+          if (event.target === dialogRef.current) setSelectedProject(null);
+        }}
+      >
+        {selectedProject ? (
+          <div className="project-dialog-panel">
+            <button
+              type="button"
+              className="project-dialog-close"
+              onClick={() => setSelectedProject(null)}
+              aria-label="Projektdetails schließen"
+            >
+              <X aria-hidden="true" size={20} />
+            </button>
+
+            {selectedProject.imageSrc ? (
+              <div className="project-dialog-image">
+                <Image
+                  src={selectedProject.imageSrc}
+                  alt={selectedProject.imageAlt ?? ""}
+                  fill
+                  sizes="(max-width: 800px) calc(100vw - 3rem), 44rem"
+                  className={selectedProject.name === "CarPin" ? "is-phone" : undefined}
+                />
+              </div>
+            ) : (
+              <div className="project-dialog-graphic" aria-hidden="true">
+                <strong>{selectedProject.name.slice(0, 2)}</strong>
+              </div>
+            )}
+
+            <div className="project-dialog-content">
+              <p>{selectedProject.category}</p>
+              <h2 id="project-dialog-title">{selectedProject.name}</h2>
+              <p className="project-dialog-description">{selectedProject.description}</p>
+              <p className="project-dialog-tech">
+                {selectedProject.technologies.join(" · ")}
+              </p>
+
+              {selectedProject.links.length ? (
+                <div className="project-dialog-links">
+                  {selectedProject.links.map((link) => (
+                    <a
+                      href={link.href}
+                      key={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {link.label}
+                      <ArrowUpRight aria-hidden="true" size={15} />
+                    </a>
+                  ))}
+                </div>
+              ) : (
+                <p className="project-dialog-note">Dokumentation auf Anfrage</p>
+              )}
             </div>
-            <p className="project-row-description">{project.description}</p>
-            <p className="project-row-tech">{project.technologies.join(" · ")}</p>
-            <div className="project-row-links">
-              {project.links.map((link) => (
-                <a
-                  href={link.href}
-                  key={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <span className="visually-hidden">{project.name}: </span>
-                  {link.label}
-                  <ArrowUpRight aria-hidden="true" size={14} />
-                </a>
-              ))}
-            </div>
-          </article>
-        ))}
-      </div>
+          </div>
+        ) : null}
+      </dialog>
     </div>
   );
 }

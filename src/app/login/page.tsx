@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { ShieldCheck } from "lucide-react";
 
 import { LoginForm } from "@/app/login/login-form";
 import { siteCopy } from "@/data/profile";
@@ -27,8 +26,6 @@ export default async function LoginPage() {
         </Link>
 
         <div className="login-heading">
-          <span className="login-icon"><ShieldCheck aria-hidden="true" size={20} /></span>
-          <p className="section-eyebrow">{siteCopy.login.eyebrow}</p>
           <h1>{siteCopy.login.title}</h1>
         </div>
 

@@ -14,7 +14,7 @@ export const profile = {
   name: "Etienne Schwab",
   role: "IMS-Schüler & Entwickler",
   intro:
-    "Ich bin 17 Jahre alt, besuche die IMS Bern und entwickle gerne Websites und digitale Anwendungen. Besonders interessieren mich klare Frontends, gute Bedienung und Projekte, bei denen aus einer Idee etwas Funktionierendes wird.",
+    "Ich bin 17, besuche die IMS Bern und entwickle Websites und digitale Anwendungen. Am liebsten arbeite ich am Frontend und sehe dabei direkt, was aus einer Idee entsteht.",
   location: "Bern, Schweiz",
   availability: "Offen für ein Praktikum",
 } as const;
@@ -38,7 +38,7 @@ export const siteCopy = {
     eyebrow: "Geschützter Bereich",
     title: "Anmelden",
     description:
-      "Melden Sie sich mit den persönlichen Zugangsdaten an, um auf Dokumente und Kontaktangaben zuzugreifen.",
+      "Mit deinen persönlichen Zugangsdaten kommst du zu den Dokumenten und Kontaktangaben.",
     usernameLabel: "Nutzername",
     usernamePlaceholder: "Nutzername",
     passwordLabel: "Passwort",
@@ -59,7 +59,7 @@ export const siteCopy = {
   imprint: {
     title: "Impressum",
     description:
-      "Angaben zur verantwortlichen Person, zum Kontakt und zum Zweck dieser persönlichen Portfolio- und Bewerbungswebsite.",
+      "Kontakt, verantwortliche Person und Zweck dieser Portfolio-Website.",
     closeLabel: "Impressum schliessen",
     rows: [
       { label: "Verantwortlich", value: "Etienne Schwab" },
@@ -72,8 +72,8 @@ export const siteCopy = {
       { label: "Zweck", value: "Portfolio und Bewerbung" },
     ],
     notes: [
-      "Die Inhalte dieser Website werden sorgfältig gepflegt und dienen der persönlichen Vorstellung von Etienne Schwab.",
-      "Externe Links führen zu Angeboten Dritter. Für deren Inhalte sind die jeweiligen Betreiber verantwortlich.",
+      "Diese Website dient der persönlichen Vorstellung von Etienne Schwab.",
+      "Für die Inhalte verlinkter Websites sind deren Betreiber verantwortlich.",
     ],
   },
 } as const;
@@ -83,7 +83,7 @@ export const aboutSection = {
   paragraphs: [
     "Ich heisse Etienne Schwab, bin 17 Jahre alt und komme aus Muri-Gümligen in der Region Bern. An der IMS Bern verbinde ich die kaufmännische Ausbildung mit Informatikunterricht an der gibb.",
     "Mich interessieren vor allem Frontend-Entwicklung, Webanwendungen und digitale Produkte, die verständlich aufgebaut sind. Bei Planary sammle ich zusätzlich Erfahrung mit echten Webprojekten.",
-    "Seit über zehn Jahren spiele ich Unihockey. In meiner Freizeit gehören auch Dart und GeoGuessr dazu – zwei Hobbys, bei denen Konzentration und ein gutes Auge wichtig sind.",
+    "Seit über zehn Jahren spiele ich Unihockey. Ausserdem spiele ich gerne Dart und GeoGuessr.",
   ],
   facts: [
     { label: "Alter", value: "17 Jahre" },
@@ -190,7 +190,7 @@ export const featuredProjects = [
     name: "smartain",
     kind: "Persönliches Projekt",
     description:
-      "Ein MVP für Teams, Spieler, Trainings und Spiele mit Anmeldung, Datenhaltung und Dashboard.",
+      "Eine Team-App, in der Spieler ihre Trainings und Spiele sehen und direkt zu- oder absagen können.",
     technologies: ["Next.js", "TypeScript", "Supabase", "PostgreSQL"],
     imagePresentation: "cover",
     imageSrc: "/images/projects/smartrain.webp",
