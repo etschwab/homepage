@@ -1,4 +1,5 @@
-import { ImpressumModal } from "@/components/site/impressum-modal";
+import Link from "next/link";
+
 import { links, siteCopy } from "@/data/profile";
 
 export function SiteFooter() {
@@ -10,7 +11,7 @@ export function SiteFooter() {
           <span>Portfolio · Bern</span>
         </p>
         <nav aria-label={siteCopy.footer.ariaLabel}>
-          <ImpressumModal />
+          <Link href="/impressum">{siteCopy.footer.imprint}</Link>
           <span aria-hidden="true">·</span>
           <a href={links.github} target="_blank" rel="noopener noreferrer">
             {siteCopy.footer.github}
