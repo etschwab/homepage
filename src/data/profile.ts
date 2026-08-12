@@ -161,6 +161,13 @@ export type ProjectLink = {
   href: string;
 };
 
+export type ProjectAbstract = {
+  goal: string;
+  implementation: string;
+  role: string;
+  learnings: string;
+};
+
 export type ProjectGroup = "Web" | "Schule" | "Hardware" | "Desktop";
 
 export const featuredProjects = [
@@ -169,6 +176,16 @@ export const featuredProjects = [
     kind: "Teamprojekt",
     description:
       "Ein browserbasiertes Perspektiv-Puzzle, das 2D-Skizzen in spielbare 3D-Strukturen verwandelt.",
+    abstract: {
+      goal:
+        "Ein räumliches Puzzle entwickeln, bei dem sich eine scheinbar zweidimensionale Skizze erst aus dem richtigen Blickwinkel zu einem begehbaren Weg zusammensetzt.",
+      implementation:
+        "Die Spielwelt läuft direkt im Browser. React und TypeScript strukturieren Oberfläche und Spiellogik, Three.js übernimmt die dreidimensionale Darstellung der Figuren, Plattformen und Perspektiven.",
+      role:
+        "Im Team war ich an Konzeption und Umsetzung der spielbaren Webanwendung beteiligt und verband die Benutzeroberfläche mit der 3D-Szene.",
+      learnings:
+        "Ich lernte, Zustände zwischen klassischer Weboberfläche und einer interaktiven 3D-Welt zu koordinieren und räumliche Ideen so zu vereinfachen, dass sie als Spiel verständlich bleiben.",
+    },
     technologies: ["React", "Vite", "TypeScript", "Three.js"],
     imagePresentation: "cover",
     imageSrc: "/images/projects/anamorph.webp",
@@ -191,6 +208,16 @@ export const featuredProjects = [
     kind: "Persönliches Projekt",
     description:
       "Eine Team-App, in der Spieler ihre Trainings und Spiele sehen und direkt zu- oder absagen können.",
+    abstract: {
+      goal:
+        "Teams eine zentrale Übersicht für Trainings, Spiele und Teilnahmen geben, damit Abmeldungen und Zusagen nicht über verschiedene Chats verteilt sind.",
+      implementation:
+        "Die Anwendung wurde mit Next.js und TypeScript aufgebaut. Supabase und PostgreSQL speichern Teams, Mitglieder und Termine; das Dashboard stellt die relevanten Informationen rollenbezogen dar.",
+      role:
+        "smartain ist ein persönliches Projekt. Von der Produktidee über Datenmodell und Authentifizierung bis zur Oberfläche habe ich die Anwendung selbst konzipiert und umgesetzt.",
+      learnings:
+        "Besonders wichtig waren ein sauberes relationales Datenmodell, verständliche Nutzerflüsse und die Verbindung von Frontend, Authentifizierung und persistenten Daten.",
+    },
     technologies: ["Next.js", "TypeScript", "Supabase", "PostgreSQL"],
     imagePresentation: "cover",
     imageSrc: "/images/projects/smartrain.webp",
@@ -208,6 +235,16 @@ export const featuredProjects = [
     kind: "Teamprojekt · Mobile App",
     description:
       "Eine mobile Anwendung, die einen Parkplatz speichert und dabei hilft, das Fahrzeug später wiederzufinden.",
+    abstract: {
+      goal:
+        "Den Standort eines geparkten Fahrzeugs schnell sichern und Nutzer später mit Karte und gespeicherten Informationen zuverlässig dorthin zurückführen.",
+      implementation:
+        "Die App basiert auf React Native, Expo und TypeScript. Kartenansicht, Standortdaten und eine für Smartphones optimierte Bedienung bilden den Kern der Anwendung.",
+      role:
+        "Im Team arbeitete ich an der Konzeption und Entwicklung der mobilen App sowie an der Umsetzung der zentralen Park- und Kartenfunktionen.",
+      learnings:
+        "Ich vertiefte den Umgang mit mobilen Komponenten, Standortdaten und Berechtigungen und lernte, eine Oberfläche für kurze Interaktionen unterwegs zu gestalten.",
+    },
     technologies: ["React Native", "Expo", "TypeScript", "Maps"],
     imagePresentation: "phone",
     imageSrc: "/images/projects/carpin.webp",
@@ -229,6 +266,16 @@ export const moreProjects = [
     category: "Webprojekt",
     description:
       "Website und Projektplattform für einfache, klar erklärte digitale Lösungen.",
+    abstract: {
+      goal:
+        "Digitale Leistungen und Projekte so präsentieren, dass Besucher Angebot, Nutzen und nächste Schritte ohne technische Vorkenntnisse verstehen.",
+      implementation:
+        "Die Inhalte werden mit einer klaren Informationshierarchie, responsiven Layouts und wiederverwendbaren Frontend-Bausteinen als Webauftritt umgesetzt.",
+      role:
+        "Ich sammle bei Planary Erfahrung mit realen Webprojekten und unterstütze die verständliche Gestaltung und technische Umsetzung von Webinhalten.",
+      learnings:
+        "Das Projekt zeigt mir, wie wichtig Abstimmung, verlässliche Umsetzung und eine konsequent nutzerorientierte Sprache in echten Kundenprojekten sind.",
+    },
     technologies: ["Webdesign", "Frontend"],
     links: [{ label: "Website", href: links.planary }],
   },
@@ -238,6 +285,16 @@ export const moreProjects = [
     category: "Schulprojekt",
     description:
       "Eine veröffentlichte Website mit Fokus auf semantisches HTML, Gestaltung und Deployment.",
+    abstract: {
+      goal:
+        "Eine vollständige Informationswebsite als Schulprojekt planen, visuell strukturieren und öffentlich erreichbar bereitstellen.",
+      implementation:
+        "Die Seite entstand mit semantischem HTML und CSS. Layout, Typografie und responsive Regeln wurden ohne grosses Framework aufgebaut und anschliessend auf Vercel veröffentlicht.",
+      role:
+        "Ich verantwortete Struktur, Gestaltung, Frontend-Umsetzung und Deployment des Projekts.",
+      learnings:
+        "Ich festigte die Grundlagen von sauberem HTML, CSS-Layouts, responsivem Design und dem Weg von lokalen Dateien zu einer veröffentlichten Website.",
+    },
     technologies: ["HTML", "CSS"],
     links: [
       { label: "GitHub", href: "https://github.com/etschwab/snb" },
@@ -250,6 +307,16 @@ export const moreProjects = [
     category: "Schulprojekt",
     description:
       "Webanwendung für die Verwaltung von Bibliotheken, Büchern und Ausleihen.",
+    abstract: {
+      goal:
+        "Bibliotheken, Medienbestand und Ausleihvorgänge in einer übersichtlichen Anwendung abbilden und wiederkehrende Verwaltungsaufgaben vereinfachen.",
+      implementation:
+        "Die TypeScript-Anwendung bildet Bücher, Nutzer und Ausleihen als klar getrennte Daten und Ansichten ab. Validierungen sorgen für nachvollziehbare Abläufe.",
+      role:
+        "Ich arbeitete an Datenstruktur, Anwendungslogik und Benutzeroberfläche des Schulprojekts.",
+      learnings:
+        "Dabei übte ich, fachliche Regeln in Datenmodelle und Funktionen zu übersetzen und grössere Abläufe in überschaubare Komponenten zu zerlegen.",
+    },
     technologies: ["TypeScript", "Web"],
     links: [
       { label: "GitHub", href: "https://github.com/etschwab/BookLoan" },
@@ -261,6 +328,16 @@ export const moreProjects = [
     category: "Schulprojekt",
     description:
       "Browser-App zum Erfassen, Planen und Abhaken von Aufgaben.",
+    abstract: {
+      goal:
+        "Eine leicht bedienbare Aufgabenliste schaffen, mit der Einträge schnell erfasst, organisiert und als erledigt markiert werden können.",
+      implementation:
+        "HTML und CSS bilden die Oberfläche, JavaScript verwaltet Eingaben, Statusänderungen und die dynamische Darstellung der Aufgaben im Browser.",
+      role:
+        "Ich setzte das Projekt selbstständig von der Grundstruktur bis zur Interaktionslogik um.",
+      learnings:
+        "Das Projekt vertiefte mein Verständnis für DOM-Manipulation, Event-Handling und die Trennung von Darstellung und Anwendungszustand.",
+    },
     technologies: ["JavaScript", "HTML", "CSS"],
     links: [
       { label: "GitHub", href: "https://github.com/etschwab/ToDoList" },
@@ -272,6 +349,16 @@ export const moreProjects = [
     category: "Schulprojekt",
     description:
       "Eine Website, die mit Nginx in einem Docker-Container betrieben wird.",
+    abstract: {
+      goal:
+        "Eine statische Website reproduzierbar in einem Container ausliefern und die Grundlagen containerisierter Web-Infrastruktur praktisch anwenden.",
+      implementation:
+        "Die Website wird durch Nginx bereitgestellt. Ein Dockerfile beschreibt Image und Deployment, sodass die gleiche Umgebung lokal und auf einem Zielsystem gestartet werden kann.",
+      role:
+        "Ich konfigurierte Website, Nginx und Containeraufbau im Rahmen des Schulmoduls.",
+      learnings:
+        "Ich lernte den Unterschied zwischen Anwendung und Laufzeitumgebung sowie den Umgang mit Images, Containern, Ports und reproduzierbaren Builds.",
+    },
     technologies: ["Docker", "Nginx", "HTML"],
     links: [
       { label: "GitHub", href: "https://github.com/etschwab/m347" },
@@ -283,6 +370,16 @@ export const moreProjects = [
     category: "Hardware & Programmierung",
     description:
       "Game-Launcher mit drei Spielen für einen ESP32 mit TFT-Display und Keypad.",
+    abstract: {
+      goal:
+        "Mehrere kleine Spiele auf begrenzter Hardware in einem gemeinsamen Launcher zugänglich machen und vollständig über Display und Keypad bedienen.",
+      implementation:
+        "C++ steuert Menü, Spielelogik, Eingaben und Darstellung auf einem ESP32 mit TFT-Display. Die einzelnen Spiele teilen sich Hardware und zentrale Navigation.",
+      role:
+        "Ich entwickelte Launcher, Bedienlogik und die Verbindung zwischen Software und den angeschlossenen Hardware-Komponenten.",
+      learnings:
+        "Ich lernte, mit begrenzten Ressourcen zu planen, Hardwarezustände zuverlässig auszulesen und grafische Rückmeldungen ohne klassische Weboberfläche umzusetzen.",
+    },
     technologies: ["C++", "ESP32"],
     links: [
       { label: "GitHub", href: "https://github.com/etschwab/EMMA" },
@@ -294,6 +391,16 @@ export const moreProjects = [
     category: "Hardware & Programmierung",
     description:
       "Selbst programmiertes Hardware-Spiel mit einer wachsenden Signalfolge.",
+    abstract: {
+      goal:
+        "Das bekannte Merkspiel als physische Anwendung umsetzen, bei der eine immer längere Folge erkannt und korrekt wiederholt werden muss.",
+      implementation:
+        "Programmcode erzeugt die Sequenz, steuert die Signale und prüft die Eingaben der Spielenden über angeschlossene Hardware-Komponenten.",
+      role:
+        "Ich plante Spielablauf und Zustände und setzte die Verbindung von Ein- und Ausgaben selbst um.",
+      learnings:
+        "Das Projekt stärkte mein Verständnis für Zustandsautomaten, zeitgesteuerte Abläufe und das systematische Testen von Hardware-Eingaben.",
+    },
     technologies: ["Hardware", "Programmierung"],
     links: [],
   },
@@ -303,6 +410,16 @@ export const moreProjects = [
     category: "Hardware & Systeme",
     description:
       "Einen Computer geplant, passende Komponenten ausgewählt und selbst zusammengebaut.",
+    abstract: {
+      goal:
+        "Einen auf den eigenen Bedarf abgestimmten Computer zusammenstellen, dessen Komponenten technisch und preislich sinnvoll zusammenspielen.",
+      implementation:
+        "Nach dem Vergleich von Prozessor, Mainboard, Speicher, Grafikkarte, Netzteil und Kühlung wurden alle Komponenten montiert, verkabelt und das System eingerichtet.",
+      role:
+        "Auswahl, Kompatibilitätsprüfung, Zusammenbau und Inbetriebnahme führte ich selbst durch.",
+      learnings:
+        "Ich lernte Hardware-Schnittstellen, thermische Anforderungen und Fehlerquellen beim Systembau praktisch kennen und übte strukturiertes Troubleshooting.",
+    },
     technologies: ["Hardware", "Systembau"],
     links: [],
   },
@@ -312,6 +429,16 @@ export const moreProjects = [
     category: "Desktopprojekt",
     description:
       "Windows-Anwendung für die Organisation rund um Tennis.",
+    abstract: {
+      goal:
+        "Wichtige Abläufe rund um Tennis in einer Desktop-Anwendung bündeln und typische Verwaltungsinformationen übersichtlich zugänglich machen.",
+      implementation:
+        "Die Anwendung wurde mit C# und .NET MAUI aufgebaut. Ansichten und Programmlogik sind getrennt und für die Bedienung unter Windows gestaltet.",
+      role:
+        "Ich arbeitete an Struktur, Oberfläche und Funktionen der Desktop-Anwendung.",
+      learnings:
+        "Dabei lernte ich die komponentenbasierte Entwicklung ausserhalb des Browsers und den Umgang mit Navigation und Zuständen in einer Desktop-App.",
+    },
     technologies: ["C#", ".NET MAUI"],
     links: [],
   },
@@ -321,6 +448,16 @@ export const moreProjects = [
     category: "Desktopprojekt",
     description:
       "Zwei-Personen-Spiel mit Spielstand und vollständiger Gewinnprüfung.",
+    abstract: {
+      goal:
+        "Das Brettspiel für zwei Personen digital abbilden und nach jedem Zug zuverlässig alle möglichen Gewinnrichtungen prüfen.",
+      implementation:
+        "Eine C#-Anwendung mit Windows Forms verwaltet Spielfeld, Rundenwechsel, Spielstand und die Prüfung horizontaler, vertikaler und diagonaler Viererreihen.",
+      role:
+        "Ich programmierte Benutzeroberfläche, Spiellogik und Auswertung selbst.",
+      learnings:
+        "Ich übte den Umgang mit zweidimensionalen Datenstrukturen, klaren Spielzuständen und Algorithmen, die mehrere Richtungen fehlerfrei prüfen.",
+    },
     technologies: ["C#", "Windows Forms"],
     links: [],
   },
@@ -330,6 +467,16 @@ export const moreProjects = [
     category: "Experiment",
     description:
       "Ein frühes Repository zum Ausprobieren von Ablage und Projektstruktur.",
+    abstract: {
+      goal:
+        "Grundlegende Arbeitsweisen mit einem Code-Repository ausprobieren und eine nachvollziehbare Struktur für kleine Experimente aufbauen.",
+      implementation:
+        "Kleine Programmierübungen und Dateien wurden geordnet, versioniert und über GitHub verwaltet.",
+      role:
+        "Das Repository entstand als persönliches Lern- und Experimentierprojekt.",
+      learnings:
+        "Ich machte erste praktische Erfahrungen mit Versionskontrolle, Commits, Dateistruktur und der Weiterentwicklung eines Projekts in kleinen Schritten.",
+    },
     technologies: ["Grundlagen"],
     links: [
       { label: "GitHub", href: "https://github.com/etschwab/scamble" },
@@ -340,6 +487,7 @@ export const moreProjects = [
   group: ProjectGroup;
   category: string;
   description: string;
+  abstract: ProjectAbstract;
   technologies: readonly string[];
   links: readonly ProjectLink[];
 }>;

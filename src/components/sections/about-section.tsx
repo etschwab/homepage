@@ -6,30 +6,19 @@ import { aboutSection, links } from "@/data/profile";
 export function AboutSection() {
   return (
     <section className="about-page" aria-labelledby="about-title">
-      <header className="page-intro about-intro">
-        <div className="site-container page-intro-grid">
-          <p className="page-number" aria-hidden="true">02</p>
-          <div>
-            <h1 id="about-title">
-              Über mich.<br />
-              <em>Schule, Code und Unihockey.</em>
-            </h1>
-          </div>
-          <p className="page-intro-lead">
-            Ich bin 17, besuche die IMS Bern und entwickle am liebsten fürs Web.
-          </p>
-        </div>
+      <header className="site-container about-title">
+        <h1 id="about-title">Über mich</h1>
       </header>
 
       <div className="site-container about-story">
         <figure className="about-portrait">
           <Image
-            src="/images/etienne-portrait.png"
-            alt="Portrait von Etienne Schwab"
+            src="/images/etienne-cutout-v2.png"
+            alt="Etienne Schwab"
             fill
             sizes="(max-width: 800px) calc(100vw - 2rem), 42vw"
+            priority
           />
-          <figcaption>Muri-Gümligen · Region Bern</figcaption>
         </figure>
 
         <div className="about-story-copy">

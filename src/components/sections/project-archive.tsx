@@ -129,12 +129,12 @@ export function ProjectArchive() {
                       src={project.imageSrc}
                       alt={project.imageAlt ?? ""}
                       fill
-                      priority={index === 0}
+                      loading={index === 0 ? "eager" : "lazy"}
                       sizes="(max-width: 800px) calc(100vw - 2rem), (max-width: 1200px) 50vw, 33vw"
                       className={project.name === "CarPin" ? "is-phone" : undefined}
                     />
                     <span className="project-card-hover-label">
-                      Details ansehen <ArrowUpRight aria-hidden="true" size={16} />
+                      Abstract ansehen <ArrowUpRight aria-hidden="true" size={16} />
                     </span>
                   </div>
                 ) : (
@@ -154,7 +154,7 @@ export function ProjectArchive() {
                   <p className="project-card-description">{project.description}</p>
                   <p className="project-card-tech">{project.technologies.join(" · ")}</p>
                   <span className="project-card-detail-link">
-                    Projekt öffnen <ArrowUpRight aria-hidden="true" size={14} />
+                    Projektabstract öffnen <ArrowUpRight aria-hidden="true" size={14} />
                   </span>
                 </div>
               </button>
@@ -211,6 +211,31 @@ export function ProjectArchive() {
               <p className="project-dialog-tech">
                 {selectedProject.technologies.join(" · ")}
               </p>
+
+              <section
+                className="project-abstract"
+                aria-labelledby="project-abstract-title"
+              >
+                <h3 id="project-abstract-title">Projektabstract</h3>
+                <dl>
+                  <div>
+                    <dt>Ziel</dt>
+                    <dd>{selectedProject.abstract.goal}</dd>
+                  </div>
+                  <div>
+                    <dt>Umsetzung</dt>
+                    <dd>{selectedProject.abstract.implementation}</dd>
+                  </div>
+                  <div>
+                    <dt>Meine Rolle</dt>
+                    <dd>{selectedProject.abstract.role}</dd>
+                  </div>
+                  <div>
+                    <dt>Was ich gelernt habe</dt>
+                    <dd>{selectedProject.abstract.learnings}</dd>
+                  </div>
+                </dl>
+              </section>
 
               {selectedProject.links.length ? (
                 <div className="project-dialog-links">

@@ -1,8 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowDownRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
-import { profile, siteCopy } from "@/data/profile";
+import { profile } from "@/data/profile";
 
 export function HeroSection() {
   return (
@@ -15,29 +14,15 @@ export function HeroSection() {
             <em>Schwab.</em>
           </h1>
           <p className="home-role">{profile.role}</p>
-          <p className="home-intro">{profile.intro}</p>
-          <Link href="#selected-work" className="inline-link home-scroll-link">
-            {siteCopy.actions.projects}
-            <ArrowDownRight aria-hidden="true" size={16} />
-          </Link>
-        </div>
-
-        <figure className="home-portrait">
-          <div className="home-image-frame">
-            <Image
-              src="/images/etienne-cutout-v2.png"
-              alt="Portrait von Etienne Schwab"
-              fill
-              priority
-              sizes="(max-width: 768px) calc(100vw - 2rem), 42vw"
-            />
+          <div className="home-landing-links" aria-label="Portfolio entdecken">
+            <Link href="/ueber-mich" className="action-link">
+              Über mich <ArrowUpRight aria-hidden="true" size={16} />
+            </Link>
+            <Link href="/projekte" className="inline-link">
+              Projekte <ArrowUpRight aria-hidden="true" size={16} />
+            </Link>
           </div>
-          <figcaption>
-            <span>{profile.availability}</span>
-            <span>{profile.location}</span>
-          </figcaption>
-        </figure>
-
+        </div>
       </div>
     </section>
   );

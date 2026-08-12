@@ -5,12 +5,14 @@ import { SiteFooter } from "@/components/site/site-footer";
 type PageShellProps = {
   children: React.ReactNode;
   isProtected?: boolean;
+  showFooter?: boolean;
   username?: string;
 };
 
 export function PageShell({
   children,
   isProtected = false,
+  showFooter = true,
   username,
 }: PageShellProps) {
   return (
@@ -21,7 +23,7 @@ export function PageShell({
       <SiteHeader isProtected={isProtected} username={username} />
       <ScrollAnimations />
       <main className="page-main" id="main-content">{children}</main>
-      <SiteFooter />
+      {showFooter ? <SiteFooter /> : null}
     </div>
   );
 }

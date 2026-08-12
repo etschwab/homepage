@@ -1,47 +1,52 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import { interests } from "@/data/profile";
 
-const floorballVideos = [
+const floorballMedia = [
   {
-    src: "/images/unihockey/floorball-clip.mp4",
-    poster: "/images/unihockey/faceoff-1.jpeg",
-    label: "Clip 01",
+    kind: "image",
+    src: "/images/unihockey/faceoff-1.jpeg",
+    alt: "Etienne Schwab bei einem Unihockey-Bully",
+    label: "Spielszene 01",
   },
   {
-    src: "/images/unihockey/floorball-clip-2.mp4",
-    poster: "/images/unihockey/faceoff-2.jpeg",
-    label: "Clip 02",
+    kind: "image",
+    src: "/images/unihockey/faceoff-2.jpeg",
+    alt: "Unihockey-Spielszene am Bullypunkt",
+    label: "Spielszene 02",
   },
   {
-    src: "/images/unihockey/floorball-clip-3.mp4",
-    poster: "/images/unihockey/attack-1.jpeg",
-    label: "Clip 03",
+    kind: "image",
+    src: "/images/unihockey/attack-1.jpeg",
+    alt: "Etienne Schwab im Angriff während eines Unihockeyspiels",
+    label: "Spielszene 03",
   },
   {
+    kind: "video",
     src: "/images/unihockey/floorball-clip-4.mp4",
-    poster: "/images/unihockey/faceoff-1.jpeg",
-    label: "Clip 04",
+    poster: "/images/unihockey/attack-1.jpeg",
+    label: "Matchclip",
   },
 ] as const;
 
 export function InterestsSection() {
   const [floorball, dart, geoguessr] = interests;
-  const [activeVideo, setActiveVideo] = useState(0);
-  const currentVideo = floorballVideos[activeVideo];
+  const [activeSlide, setActiveSlide] = useState(0);
+  const currentSlide = floorballMedia[activeSlide];
 
-  function showPreviousVideo() {
-    setActiveVideo((current) =>
-      current === 0 ? floorballVideos.length - 1 : current - 1,
+  function showPreviousSlide() {
+    setActiveSlide((current) =>
+      current === 0 ? floorballMedia.length - 1 : current - 1,
     );
   }
 
-  function showNextVideo() {
-    setActiveVideo((current) =>
-      current === floorballVideos.length - 1 ? 0 : current + 1,
+  function showNextSlide() {
+    setActiveSlide((current) =>
+      current === floorballMedia.length - 1 ? 0 : current + 1,
     );
   }
 
@@ -67,32 +72,45 @@ export function InterestsSection() {
               <p>{floorball.description}</p>
             </div>
 
-            <div className="floorball-slider" aria-label="Unihockey Video Slider">
+            <div className="floorball-slider" aria-label="Unihockey Medien-Slider">
               <button
                 type="button"
                 className="floorball-slider-button floorball-slider-button-left"
-                onClick={showPreviousVideo}
-                aria-label="Vorheriges Unihockey Video"
+                onClick={showPreviousSlide}
+                aria-label="Vorheriges Unihockey-Medium"
               >
                 <ChevronLeft aria-hidden="true" size={24} />
               </button>
 
               <figure className="floorball-slide">
-                <video
-                  key={currentVideo.src}
-                  aria-label={`Unihockey ${currentVideo.label}`}
-                  controls
-                  muted
-                  playsInline
-                  preload="metadata"
-                  poster={currentVideo.poster}
-                >
-                  <source src={currentVideo.src} type="video/mp4" />
-                </video>
+                <div className="floorball-media">
+                  {currentSlide.kind === "video" ? (
+                    <video
+                      key={currentSlide.src}
+                      aria-label={`Unihockey ${currentSlide.label}`}
+                      controls
+                      muted
+                      playsInline
+                      preload="metadata"
+                      poster={currentSlide.poster}
+                    >
+                      <source src={currentSlide.src} type="video/mp4" />
+                    </video>
+                  ) : (
+                    <Image
+                      key={currentSlide.src}
+                      src={currentSlide.src}
+                      alt={currentSlide.alt}
+                      fill
+                      loading={activeSlide === 0 ? "eager" : "lazy"}
+                      sizes="(max-width: 800px) calc(100vw - 2rem), 60vw"
+                    />
+                  )}
+                </div>
                 <figcaption>
-                  <span>{currentVideo.label}</span>
+                  <span>{currentSlide.label}</span>
                   <span>
-                    {activeVideo + 1} / {floorballVideos.length}
+                    {activeSlide + 1} / {floorballMedia.length}
                   </span>
                 </figcaption>
               </figure>
@@ -100,8 +118,8 @@ export function InterestsSection() {
               <button
                 type="button"
                 className="floorball-slider-button floorball-slider-button-right"
-                onClick={showNextVideo}
-                aria-label="Nächstes Unihockey Video"
+                onClick={showNextSlide}
+                aria-label="Nächstes Unihockey-Medium"
               >
                 <ChevronRight aria-hidden="true" size={24} />
               </button>

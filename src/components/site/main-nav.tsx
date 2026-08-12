@@ -50,7 +50,7 @@ export function MainNav({ items, internalItem }: MainNavProps) {
   return (
     <div className="main-nav-wrap">
       <nav id="main-navigation" aria-label="Hauptnavigation" className="mobile-menu-panel">
-        <ul className="nav-list nav-list-desktop">
+        <ul className="nav-list nav-list-desktop" style={{ gridColumn: 2 }}>
           {desktopItems.map((item) => {
             const isActive =
               pathname === item.href ||

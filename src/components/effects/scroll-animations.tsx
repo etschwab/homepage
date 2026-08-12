@@ -60,7 +60,7 @@ export function ScrollAnimations() {
             scrollTrigger: {
               trigger: element,
               start: "top 92%",
-              once: true,
+              toggleActions: "restart none restart none",
             },
             y: 0,
           },
