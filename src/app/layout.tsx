@@ -25,7 +25,7 @@ const newsreader = Newsreader({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://bewerben.vercel.app"),
+  metadataBase: new URL("https://etienneschwab.ch"),
   title: "Etienne Schwab | IMS Portfolio",
   description:
     "Portfolio von Etienne Schwab, IMS-Schüler und Entwickler aus der Region Bern.",
