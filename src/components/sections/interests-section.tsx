@@ -1,4 +1,21 @@
+import Image from "next/image";
+
 import { interests } from "@/data/profile";
+
+const floorballMedia = [
+  {
+    src: "/images/unihockey/faceoff-1.jpeg",
+    alt: "Unihockey-Spielszene beim Bully",
+  },
+  {
+    src: "/images/unihockey/attack-1.jpeg",
+    alt: "Unihockey-Angriff in der Halle",
+  },
+  {
+    src: "/images/unihockey/faceoff-2.jpeg",
+    alt: "Unihockey-Spielszene mit Ball",
+  },
+] as const;
 
 export function InterestsSection() {
   const [floorball, dart, geoguessr] = interests;
@@ -19,25 +36,58 @@ export function InterestsSection() {
           </p>
         </header>
 
-        <div className="interests-grid">
-          <article className="floorball-interest">
-            <div className="interest-court" aria-hidden="true">
-              <span className="court-center-line" />
-              <span className="court-center-circle" />
-              <span className="court-goal-area court-goal-area-left" />
-              <span className="court-goal-area court-goal-area-right" />
-            </div>
-            <p className="interest-number">10+</p>
-            <div className="interest-copy">
-              <p className="interest-index">01 / Jahre im Team</p>
+        <div className="hobby-showcase">
+          <article className="floorball-feature">
+            <Image
+              src={floorballMedia[0].src}
+              alt={floorballMedia[0].alt}
+              fill
+              sizes="(max-width: 900px) 100vw, 62vw"
+              priority={false}
+              className="floorball-feature-image"
+            />
+            <div className="floorball-feature-shade" aria-hidden="true" />
+            <div className="floorball-feature-copy">
+              <p className="interest-index">01 / Sport</p>
               <h3>{floorball.title}</h3>
               <p>{floorball.description}</p>
+              <div className="floorball-tags" aria-label="Unihockey Stichworte">
+                <span>10+ Jahre</span>
+                <span>Teamplay</span>
+                <span>Tempo</span>
+              </div>
             </div>
           </article>
 
-          <div className="interest-side">
-            <InterestItem item={dart} index="02" />
-            <InterestItem item={geoguessr} index="03" />
+          <div className="hobby-side">
+            <div className="floorball-media-grid" aria-label="Unihockey Eindrücke">
+              <figure className="floorball-photo-tile floorball-photo-wide">
+                <Image
+                  src={floorballMedia[1].src}
+                  alt={floorballMedia[1].alt}
+                  fill
+                  sizes="(max-width: 900px) 100vw, 32vw"
+                />
+              </figure>
+              <figure className="floorball-video-tile">
+                <video
+                  aria-label="Kurzer Unihockey Clip"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                  poster={floorballMedia[2].src}
+                >
+                  <source src="/images/unihockey/floorball-clip.mp4" type="video/mp4" />
+                </video>
+              </figure>
+            </div>
+
+            <div className="interest-side">
+              <InterestItem item={dart} index="02" />
+              <InterestItem item={geoguessr} index="03" />
+            </div>
           </div>
         </div>
       </div>

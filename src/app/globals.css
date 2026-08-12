@@ -762,93 +762,47 @@ button:disabled {
 }
 
 /* Interests */
-.interests-grid {
+.hobby-showcase {
   display: grid;
-  grid-template-columns: minmax(0, 1.06fr) minmax(20rem, 0.94fr);
+  grid-template-columns: minmax(0, 1.08fr) minmax(21rem, 0.92fr);
+  gap: 1px;
   margin-top: 3rem;
-  border-top: 1px solid var(--line-strong);
-  border-left: 1px solid var(--line);
+  border: 1px solid var(--line-strong);
+  background: var(--line-strong);
 }
 
-.floorball-interest {
+.floorball-feature {
   position: relative;
-  display: flex;
-  min-height: 24rem;
-  align-items: flex-end;
+  min-height: clamp(28rem, 58vw, 43rem);
   overflow: hidden;
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line-strong);
   background: var(--navy-deep);
   color: var(--white);
-  padding: clamp(1.5rem, 3vw, 2.5rem);
 }
 
-.interest-court {
+.floorball-feature-image,
+.floorball-photo-tile img {
+  object-fit: cover;
+}
+
+.floorball-feature-image {
+  filter: saturate(1.06) contrast(0.96);
+}
+
+.floorball-feature-shade {
   position: absolute;
-  inset: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 4.5rem;
-  transform: rotate(-4deg) scale(1.05);
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(13, 27, 39, 0.04), rgba(13, 27, 39, 0.82)),
+    linear-gradient(90deg, rgba(13, 27, 39, 0.66), rgba(13, 27, 39, 0.08) 58%);
 }
 
-.court-center-line {
+.floorball-feature-copy {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 1px;
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.court-center-circle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 4.8rem;
-  aspect-ratio: 1;
-  border: 1px solid rgba(255, 255, 255, 0.24);
-  border-radius: 999px;
-  transform: translate(-50%, -50%);
-}
-
-.court-goal-area {
-  position: absolute;
-  top: 50%;
-  width: 4rem;
-  height: 7rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transform: translateY(-50%);
-}
-
-.court-goal-area-left {
-  left: -1px;
-  border-left: 0;
-  border-radius: 0 999px 999px 0;
-}
-
-.court-goal-area-right {
-  right: -1px;
-  border-right: 0;
-  border-radius: 999px 0 0 999px;
-}
-
-.interest-number {
-  position: absolute;
-  top: -0.08em;
-  right: 0.08em;
-  margin: 0;
-  color: rgba(255, 121, 110, 0.28);
-  font-family: var(--font-barlow-condensed), "Arial Narrow", sans-serif;
-  font-size: clamp(8rem, 14vw, 13rem);
-  font-weight: 900;
-  letter-spacing: -0.08em;
-  line-height: 0.8;
-}
-
-.interest-copy {
-  position: relative;
+  right: clamp(1.25rem, 3vw, 2.4rem);
+  bottom: clamp(1.25rem, 3vw, 2.4rem);
+  left: clamp(1.25rem, 3vw, 2.4rem);
   z-index: 1;
-  max-width: 31rem;
+  max-width: 37rem;
 }
 
 .interest-index {
@@ -860,48 +814,95 @@ button:disabled {
   text-transform: uppercase;
 }
 
-.floorball-interest .interest-index {
+.floorball-feature .interest-index {
   color: #ff796e;
 }
 
-.interest-copy h3,
+.floorball-feature-copy h3,
 .interest-item h3 {
   margin: 0;
   font-family: var(--font-barlow-condensed), "Arial Narrow", sans-serif;
   font-weight: 800;
-  letter-spacing: -0.035em;
+  letter-spacing: 0;
   line-height: 0.9;
   text-transform: uppercase;
 }
 
-.interest-copy h3 {
-  font-size: clamp(3.2rem, 6vw, 5.6rem);
+.floorball-feature-copy h3 {
+  font-size: clamp(4rem, 9vw, 7.8rem);
 }
 
-.interest-copy > p:last-child {
+.floorball-feature-copy > p {
   max-width: 30rem;
   margin: 1.1rem 0 0;
-  color: rgba(255, 253, 248, 0.72);
+  color: rgba(255, 253, 248, 0.82);
   line-height: 1.65;
+}
+
+.floorball-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.35rem;
+}
+
+.floorball-tags span {
+  border: 1px solid rgba(255, 253, 248, 0.42);
+  background: rgba(255, 253, 248, 0.1);
+  padding: 0.35rem 0.65rem;
+  color: var(--white);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.hobby-side {
+  display: grid;
+  grid-template-rows: minmax(17rem, 1fr) auto;
+  gap: 1px;
+}
+
+.floorball-media-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+}
+
+.floorball-photo-tile,
+.floorball-video-tile {
+  position: relative;
+  min-height: 18rem;
+  margin: 0;
+  overflow: hidden;
+  background: var(--navy-deep);
+}
+
+.floorball-video-tile video {
+  width: 100%;
+  height: 100%;
+  min-height: 18rem;
+  display: block;
+  object-fit: cover;
 }
 
 .interest-side {
   display: grid;
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
 }
 
 .interest-item {
   display: flex;
-  min-height: 12rem;
+  min-height: 15rem;
   flex-direction: column;
   justify-content: center;
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line-strong);
+  background: var(--paper-bright);
   padding: clamp(1.5rem, 3vw, 2.5rem);
 }
 
 .interest-item h3 {
-  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-size: clamp(2.15rem, 4vw, 3.4rem);
 }
 
 .interest-item > p:last-child {
@@ -2030,18 +2031,21 @@ button:disabled {
     max-width: 40rem;
   }
 
-  .interests-grid {
+  .hobby-showcase {
     grid-template-columns: 1fr;
     margin-top: 2.25rem;
   }
 
-  .floorball-interest {
-    min-height: 22rem;
+  .floorball-feature {
+    min-height: 34rem;
+  }
+
+  .hobby-side {
+    grid-template-rows: auto;
   }
 
   .interest-side {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto;
   }
 
   .interest-item {
@@ -2185,16 +2189,13 @@ button:disabled {
     gap: 0.45rem;
   }
 
+  .floorball-media-grid,
   .interest-side {
     grid-template-columns: 1fr;
   }
 
-  .floorball-interest {
-    min-height: 24rem;
-  }
-
-  .interest-court {
-    inset: 1.25rem;
+  .floorball-feature {
+    min-height: 30rem;
   }
 
   .interest-item {

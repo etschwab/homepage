@@ -115,17 +115,17 @@ export const interests = [
   {
     title: "Unihockey",
     description:
-      "Seit über 10 Jahren spiele ich Unihockey im Team. Der Sport hat mich vor allem bei Teamarbeit, Verantwortung und Ausdauer geprägt.",
+      "Seit über 10 Jahren spiele ich Unihockey. Mir gefallen das Tempo, die Spielsituationen im Team und dass man in jeder Aktion schnell entscheiden muss.",
   },
   {
     title: "Dart",
     description:
-      "Zuhause spiele ich gerne Dart. Dabei gefallen mir Konzentration, Präzision und der direkte Fortschritt.",
+      "Zuhause spiele ich gerne Dart. Es ist ruhig, direkt und perfekt, um Präzision und Konzentration zu trainieren.",
   },
   {
     title: "GeoGuessr",
     description:
-      "GeoGuessr spiele ich gerne mit Freunden. Das verbindet Karten, Beobachtung und geografisches Denken.",
+      "GeoGuessr spiele ich gerne mit Freunden. Ich mag den Mix aus Karten, Beobachtung und kleinen Details, die plötzlich alles verraten.",
   },
 ] as const;
 
