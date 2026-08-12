@@ -1,7 +1,7 @@
 import "server-only";
 
 export const privateProfile = {
-  email: "etienne.schwab@bwdbern.ch",
+  email: "contact@etienneschwab.ch",
   location: "Muri-Gümligen, Region Bern",
 } as const;
 
