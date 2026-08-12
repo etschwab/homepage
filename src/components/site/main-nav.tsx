@@ -44,9 +44,7 @@ export function MainNav({ items, internalItem }: MainNavProps) {
       <nav
         id="main-navigation"
         aria-label="Hauptnavigation"
-        className={`mobile-menu-panel ${
-          isOpen ? "flex" : "hidden"
-        } md:flex`}
+        className={`mobile-menu-panel${isOpen ? " is-open" : ""}`}
       >
         <ul className="nav-list">
           {navItems.map((item) => {
