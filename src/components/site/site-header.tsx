@@ -7,12 +7,13 @@ import { navItems, siteCopy } from "@/data/profile";
 import { logout } from "@/lib/auth/actions";
 
 type SiteHeaderProps = {
-  isAuthenticated?: boolean;
+  isProtected?: boolean;
+  username?: string;
 };
 
-export function SiteHeader({ isAuthenticated = false }: SiteHeaderProps) {
+export function SiteHeader({ isProtected = false }: SiteHeaderProps) {
   return (
-    <header className={`site-header${isAuthenticated ? " has-session" : ""}`}>
+    <header className="site-header">
       <div className="site-container header-inner">
         <Link
           href="/"
@@ -35,7 +36,7 @@ export function SiteHeader({ isAuthenticated = false }: SiteHeaderProps) {
 
         <MainNav items={navItems} />
 
-        {isAuthenticated ? (
+        {isProtected ? (
           <div className="header-actions">
             <form action={logout} className="logout-form">
               <button type="submit" aria-label={siteCopy.actions.logout}>

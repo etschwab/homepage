@@ -200,11 +200,6 @@ body > :not(.global-gradient-waves) {
   box-shadow: 0 0 1.5rem -0.2rem rgba(147, 185, 191, 0.42);
 }
 
-.site-header.has-session .header-inner,
-.site-header.has-session.is-compact .header-inner {
-  width: min(calc(100% - 2rem), 80rem);
-}
-
 .wordmark {
   display: grid;
   min-width: 5.45rem;
@@ -301,10 +296,6 @@ body > :not(.global-gradient-waves) {
   font-weight: 700;
   line-height: 1;
   transition: background-color 180ms ease, transform 180ms ease;
-}
-
-.site-header.has-session .nav-action {
-  margin-right: 6.8rem;
 }
 
 .nav-action:hover,
@@ -2032,15 +2023,6 @@ h2 em,
   .site-header.is-compact .header-inner {
     width: auto;
     box-shadow: none;
-  }
-
-  .site-header.has-session .header-inner,
-  .site-header.has-session.is-compact .header-inner {
-    width: auto;
-  }
-
-  .site-header.has-session .nav-action {
-    margin-right: 0;
   }
 
   .wordmark {
