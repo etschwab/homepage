@@ -200,6 +200,11 @@ body > :not(.global-gradient-waves) {
   box-shadow: 0 0 1.5rem -0.2rem rgba(147, 185, 191, 0.42);
 }
 
+.site-header.has-session .header-inner,
+.site-header.has-session.is-compact .header-inner {
+  width: min(calc(100% - 2rem), 80rem);
+}
+
 .wordmark {
   display: grid;
   min-width: 5.45rem;
@@ -217,15 +222,11 @@ body > :not(.global-gradient-waves) {
   width: 2rem;
   height: 2rem;
   overflow: hidden;
-  background: var(--accent);
-  isolation: isolate;
 }
 
 .wordmark-logo img {
-  object-fit: cover;
-  filter: invert(1);
-  mix-blend-mode: multiply;
-  transform: scale(1.62);
+  object-fit: contain;
+  transform: scale(1.7);
 }
 
 .wordmark:hover {
@@ -302,6 +303,10 @@ body > :not(.global-gradient-waves) {
   transition: background-color 180ms ease, transform 180ms ease;
 }
 
+.site-header.has-session .nav-action {
+  margin-right: 6.8rem;
+}
+
 .nav-action:hover,
 .nav-action:focus-visible {
   background: var(--accent-hover);
@@ -333,6 +338,7 @@ body > :not(.global-gradient-waves) {
   align-items: center;
   gap: 0.5rem;
   border: 1px solid var(--border);
+  border-radius: 999px;
   background: transparent;
   padding: 0.55rem 0.85rem;
   font-size: 0.76rem;
@@ -749,7 +755,6 @@ h2 em,
 .about-portrait img {
   object-fit: contain;
   object-position: center bottom;
-  filter: saturate(0.88) contrast(1.02);
 }
 
 .about-story-copy {
@@ -1934,7 +1939,7 @@ h2 em,
 }
 
 .footer-name,
-.footer-copy {
+.footer-meta {
   margin: 0;
 }
 
@@ -1942,23 +1947,24 @@ h2 em,
   font-weight: 680;
 }
 
-.footer-inner nav {
+.footer-links {
   display: flex;
   gap: 1.5rem;
 }
 
-.footer-inner nav a {
+.footer-links a {
   color: var(--text-secondary);
   transition: color 180ms ease;
 }
 
-.footer-inner nav a:hover {
+.footer-links a:hover {
   color: var(--accent-hover);
 }
 
-.footer-copy {
+.footer-meta {
   justify-self: end;
   color: var(--text-muted);
+  white-space: nowrap;
 }
 
 .loading-screen {
@@ -2026,6 +2032,15 @@ h2 em,
   .site-header.is-compact .header-inner {
     width: auto;
     box-shadow: none;
+  }
+
+  .site-header.has-session .header-inner,
+  .site-header.has-session.is-compact .header-inner {
+    width: auto;
+  }
+
+  .site-header.has-session .nav-action {
+    margin-right: 0;
   }
 
   .wordmark {
@@ -2345,7 +2360,7 @@ h2 em,
     text-align: center;
   }
 
-  .footer-copy { justify-self: center; }
+  .footer-meta { justify-self: center; }
 }
 
 @media (prefers-reduced-motion: reduce) {

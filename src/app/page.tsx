@@ -3,7 +3,7 @@ import { PageShell } from "@/components/site/page-shell";
 
 export default function Home() {
   return (
-    <PageShell showFooter={false}>
+    <PageShell>
       <HeroSection />
     </PageShell>
   );

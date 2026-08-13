@@ -7,39 +7,21 @@ import { navItems, siteCopy } from "@/data/profile";
 import { logout } from "@/lib/auth/actions";
 
 type SiteHeaderProps = {
-  isProtected?: boolean;
-  username?: string;
+  isAuthenticated?: boolean;
 };
 
-export function SiteHeader({ isProtected = false }: SiteHeaderProps) {
+export function SiteHeader({ isAuthenticated = false }: SiteHeaderProps) {
   return (
-    <header className="site-header">
+    <header className={`site-header${isAuthenticated ? " has-session" : ""}`}>
       <div className="site-container header-inner">
         <Link
           href="/"
           className="wordmark"
           aria-label={siteCopy.header.startLabel}
-          style={{
-            display: "grid",
-            minWidth: "5.45rem",
-            height: "2.5rem",
-            placeItems: "center",
-            justifySelf: "start",
-            borderRadius: "999px",
-            background: "var(--accent)",
-          }}
         >
           <span
             className="wordmark-logo"
             aria-hidden="true"
-            style={{
-              position: "relative",
-              width: "2rem",
-              height: "2rem",
-              overflow: "hidden",
-              background: "var(--accent)",
-              isolation: "isolate",
-            }}
           >
             <Image
               src="/images/esch.png"
@@ -47,19 +29,13 @@ export function SiteHeader({ isProtected = false }: SiteHeaderProps) {
               fill
               priority
               sizes="32px"
-              style={{
-                objectFit: "cover",
-                filter: "invert(1)",
-                mixBlendMode: "multiply",
-                transform: "scale(1.62)",
-              }}
             />
           </span>
         </Link>
 
         <MainNav items={navItems} />
 
-        {isProtected ? (
+        {isAuthenticated ? (
           <div className="header-actions">
             <form action={logout} className="logout-form">
               <button type="submit" aria-label={siteCopy.actions.logout}>

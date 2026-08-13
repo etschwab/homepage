@@ -18,6 +18,7 @@ export function AboutSection() {
             fill
             sizes="(max-width: 800px) calc(100vw - 2rem), 42vw"
             priority
+            unoptimized
           />
         </figure>
 

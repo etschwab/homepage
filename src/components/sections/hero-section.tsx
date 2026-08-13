@@ -15,7 +15,7 @@ export function HeroSection() {
           </h1>
           <p className="home-role">{profile.role}</p>
           <div className="home-landing-links" aria-label="Portfolio entdecken">
-            <Link href="/ueber-mich" className="action-link">
+            <Link href="/ueber-mich" className="inline-link">
               Über mich <ArrowUpRight aria-hidden="true" size={16} />
             </Link>
             <Link href="/projekte" className="inline-link">

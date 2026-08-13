@@ -18,7 +18,7 @@ export default async function FilesPage() {
 
   if (session) {
     return (
-      <PageShell isProtected username={session.username}>
+      <PageShell>
         <PrivateSection username={session.username} />
         <ContactSection />
       </PageShell>
