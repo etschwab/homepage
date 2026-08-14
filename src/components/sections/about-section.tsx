@@ -12,14 +12,30 @@ export function AboutSection() {
 
       <div className="site-container about-story">
         <figure className="about-portrait">
-          <Image
-            src="/images/etienne-cutout-v2.png"
-            alt="Etienne Schwab"
-            fill
-            sizes="(max-width: 800px) calc(100vw - 2rem), 42vw"
-            priority
-            unoptimized
-          />
+          <div className="about-portrait-visual" style={{ position: "absolute" }}>
+            <span
+              className="about-portrait-logo"
+              aria-hidden="true"
+              style={{ position: "absolute" }}
+            >
+              <Image
+                src="/images/planary-logo-background.png"
+                alt=""
+                fill
+                sizes="(max-width: 800px) 55vw, 24vw"
+                priority
+              />
+            </span>
+            <Image
+              src="/images/etienne-cutout-v2.png"
+              alt="Etienne Schwab"
+              fill
+              sizes="(max-width: 800px) calc(100vw - 2rem), 42vw"
+              priority
+              unoptimized
+              className="about-portrait-person"
+            />
+          </div>
         </figure>
 
         <div className="about-story-copy">
