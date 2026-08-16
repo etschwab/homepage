@@ -15,12 +15,6 @@ const floorballMedia = [
   },
   {
     kind: "image",
-    src: "/images/unihockey/faceoff-2.jpeg",
-    alt: "Unihockey-Spielszene am Bullypunkt",
-    label: "Spielszene 02",
-  },
-  {
-    kind: "image",
     src: "/images/unihockey/attack-1.jpeg",
     alt: "Etienne Schwab im Angriff während eines Unihockeyspiels",
     label: "Spielszene 03",
