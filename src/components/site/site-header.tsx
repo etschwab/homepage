@@ -13,7 +13,7 @@ type SiteHeaderProps = {
 
 export function SiteHeader({ isProtected = false }: SiteHeaderProps) {
   return (
-    <header className="site-header">
+    <header className={`site-header${isProtected ? " has-protected-actions" : ""}`}>
       <div className="site-container header-inner">
         <Link
           href="/"
