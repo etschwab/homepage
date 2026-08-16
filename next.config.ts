@@ -2,6 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   devIndicators: false,
+  outputFileTracingIncludes: {
+    "/api/private-documents/*": ["./private-documents/**/*"],
+  },
   turbopack: {
     root: process.cwd(),
   },
