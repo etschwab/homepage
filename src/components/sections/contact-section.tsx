@@ -14,7 +14,9 @@ export function ContactSection() {
           <a href={`mailto:${privateProfile.email}`}>
             {privateProfile.email}
           </a>
-          <p>{privateProfile.location}</p>
+          <a href={`tel:${privateProfile.phoneHref}`}>
+            {privateProfile.phoneDisplay}
+          </a>
         </div>
       </div>
     </section>

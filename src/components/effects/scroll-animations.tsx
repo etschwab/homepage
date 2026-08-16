@@ -1,11 +1,7 @@
 "use client";
 
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
-
-gsap.registerPlugin(ScrollTrigger);
+import { useLayoutEffect } from "react";
 
 const contentSelector = [
   ".page-main h1",
@@ -26,8 +22,8 @@ const contentSelector = [
 export function ScrollAnimations() {
   const pathname = usePathname();
 
-  useEffect(() => {
-    const allElements = gsap.utils.toArray<HTMLElement>(contentSelector);
+  useLayoutEffect(() => {
+    const allElements = Array.from(document.querySelectorAll<HTMLElement>(contentSelector));
     const elements = allElements.filter((element) => {
       if (element.closest("dialog")) return false;
 
@@ -43,36 +39,45 @@ export function ScrollAnimations() {
       return true;
     });
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      gsap.set(elements, { clearProps: "all" });
-      return;
-    }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const context = gsap.context(() => {
-      elements.forEach((element) => {
-        gsap.fromTo(
-          element,
-          { autoAlpha: 0, y: 18 },
-          {
-            autoAlpha: 1,
-            duration: 0.72,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: element,
-              start: "top 92%",
-              toggleActions: "restart none restart none",
-            },
-            y: 0,
-          },
-        );
+    elements.forEach((element) => element.classList.add("reveal-pending"));
+
+    const reveal = (visibleElements: HTMLElement[]) => {
+      visibleElements.forEach((element, index) => {
+        element.style.setProperty("--reveal-delay", `${Math.min(index * 35, 175)}ms`);
+        element.classList.add("is-revealed");
       });
-    });
+    };
 
-    const refreshFrame = requestAnimationFrame(() => ScrollTrigger.refresh());
+    const initialElements = elements.filter(
+      (element) => element.getBoundingClientRect().top <= window.innerHeight * 0.96,
+    );
+    const initialSet = new Set(initialElements);
+    const deferredElements = elements.filter((element) => !initialSet.has(element));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entering = entries
+          .filter((entry) => entry.isIntersecting)
+          .map((entry) => entry.target as HTMLElement);
+
+        if (entering.length === 0) return;
+        reveal(entering);
+        entering.forEach((element) => observer.unobserve(element));
+      },
+      { rootMargin: "0px 0px -5% 0px", threshold: 0.04 },
+    );
+
+    deferredElements.forEach((element) => observer.observe(element));
+    const revealFrame = requestAnimationFrame(() => reveal(initialElements));
 
     return () => {
-      cancelAnimationFrame(refreshFrame);
-      context.revert();
+      cancelAnimationFrame(revealFrame);
+      observer.disconnect();
+      elements.forEach((element) => {
+        element.classList.remove("reveal-pending", "is-revealed");
+        element.style.removeProperty("--reveal-delay");
+      });
     };
   }, [pathname]);
 

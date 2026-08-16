@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ArrowRight, FolderLock, Grid2X2, House, UserRound } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo } from "react";
+import { useLayoutEffect, useMemo } from "react";
 
 type NavItem = {
   index?: string;
@@ -26,7 +26,7 @@ export function MainNav({ items, internalItem }: MainNavProps) {
   const desktopItems = navItems.slice(0, -1);
   const actionItem = navItems.at(-1);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const header = document.querySelector<HTMLElement>(".site-header");
     if (!header) return;
 

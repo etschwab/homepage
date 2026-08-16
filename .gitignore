@@ -25,6 +25,7 @@
 .DS_Store
 *.pem
 /tmp/
+/private-documents/
 
 # debug
 npm-debug.log*

@@ -9,6 +9,7 @@ import {
   moreProjects,
   type ProjectGroup,
 } from "@/data/profile";
+import { useModalScrollLock } from "@/hooks/use-modal-scroll-lock";
 
 type Filter = "Alle" | ProjectGroup;
 
@@ -24,8 +25,10 @@ const projects = [
   })),
   ...moreProjects.map((project) => ({
     ...project,
-    imageSrc: undefined,
-    imageAlt: undefined,
+    imageSrc: "imageSrc" in project ? project.imageSrc : undefined,
+    imageAlt: "imageAlt" in project ? project.imageAlt : undefined,
+    imagePresentation:
+      "imagePresentation" in project ? project.imagePresentation : undefined,
     featured: false as const,
   })),
 ];
@@ -37,6 +40,8 @@ export function ProjectArchive() {
   const [query, setQuery] = useState("");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
+
+  useModalScrollLock(Boolean(selectedProject));
 
   const visibleProjects = useMemo(() => {
     const normalizedQuery = query.trim().toLocaleLowerCase("de-CH");
@@ -131,7 +136,15 @@ export function ProjectArchive() {
                       fill
                       loading={index === 0 ? "eager" : "lazy"}
                       sizes="(max-width: 800px) calc(100vw - 2rem), (max-width: 1200px) 50vw, 33vw"
-                      className={project.name === "CarPin" ? "is-phone" : undefined}
+                      className={
+                        project.imagePresentation === "phone"
+                          ? "is-phone"
+                          : project.imagePresentation === "screenshot"
+                            ? "is-screenshot"
+                            : project.imagePresentation === "portrait"
+                              ? "is-portrait"
+                              : undefined
+                      }
                     />
                     <span className="project-card-hover-label">
                       Abstract ansehen <ArrowUpRight aria-hidden="true" size={16} />
@@ -169,7 +182,7 @@ export function ProjectArchive() {
 
       <dialog
         ref={dialogRef}
-        className="project-dialog"
+        className={`project-dialog${selectedProject?.imagePresentation === "portrait" ? " is-portrait-project" : ""}`}
         aria-labelledby="project-dialog-title"
         onCancel={() => setSelectedProject(null)}
         onClose={() => setSelectedProject(null)}
@@ -195,7 +208,15 @@ export function ProjectArchive() {
                   alt={selectedProject.imageAlt ?? ""}
                   fill
                   sizes="(max-width: 800px) calc(100vw - 3rem), 44rem"
-                  className={selectedProject.name === "CarPin" ? "is-phone" : undefined}
+                  className={
+                    selectedProject.imagePresentation === "phone"
+                      ? "is-phone"
+                      : selectedProject.imagePresentation === "screenshot"
+                        ? "is-screenshot"
+                        : selectedProject.imagePresentation === "portrait"
+                          ? "is-portrait"
+                          : undefined
+                  }
                 />
               </div>
             ) : (

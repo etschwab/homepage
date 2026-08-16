@@ -175,7 +175,7 @@ export const featuredProjects = [
     name: "Anamorph",
     kind: "Teamprojekt",
     description:
-      "Ein browserbasiertes Perspektiv-Puzzle, das 2D-Skizzen in spielbare 3D-Strukturen verwandelt.",
+      "Ein browserbasiertes Perspektiv-Puzzle, das 2D-Skizzen in spielbare 3D-Strukturen verwandelt. Erst aus dem richtigen Blickwinkel entsteht ein zusammenhängender Weg durch die schwebende Spielwelt.",
     abstract: {
       goal:
         "Ein räumliches Puzzle entwickeln, bei dem sich eine scheinbar zweidimensionale Skizze erst aus dem richtigen Blickwinkel zu einem begehbaren Weg zusammensetzt.",
@@ -207,7 +207,7 @@ export const featuredProjects = [
     name: "smartain",
     kind: "Persönliches Projekt",
     description:
-      "Eine Team-App, in der Spieler ihre Trainings und Spiele sehen und direkt zu- oder absagen können.",
+      "Eine zentrale Team-App für Trainings, Spiele und Zu- oder Absagen. Spieler sehen ihre nächsten Termine sofort, während Trainer Anwesenheiten und Teamaktivitäten übersichtlich verwalten können.",
     abstract: {
       goal:
         "Teams eine zentrale Übersicht für Trainings, Spiele und Teilnahmen geben, damit Abmeldungen und Zusagen nicht über verschiedene Chats verteilt sind.",
@@ -234,7 +234,7 @@ export const featuredProjects = [
     name: "CarPin",
     kind: "Teamprojekt · Mobile App",
     description:
-      "Eine mobile Anwendung, die einen Parkplatz speichert und dabei hilft, das Fahrzeug später wiederzufinden.",
+      "Eine mobile Anwendung, die den Standort eines geparkten Fahrzeugs speichert. Karte, Standortdaten und ergänzende Informationen helfen dabei, das Auto später schnell und zuverlässig wiederzufinden.",
     abstract: {
       goal:
         "Den Standort eines geparkten Fahrzeugs schnell sichern und Nutzer später mit Karte und gespeicherten Informationen zuverlässig dorthin zurückführen.",
@@ -262,10 +262,13 @@ export const featuredProjects = [
 export const moreProjects = [
   {
     name: "Planary",
+    imagePresentation: "screenshot",
+    imageSrc: "/images/projects/planary-dashboard.webp",
+    imageAlt: "Planary-Dashboard mit Projektübersicht und klar gegliederten Produktkarten",
     group: "Web",
     category: "Webprojekt",
     description:
-      "Website und Projektplattform für einfache, klar erklärte digitale Lösungen.",
+      "Eine Website und Projektplattform für verständlich erklärte digitale Lösungen. Klare Inhalte, ruhige Gestaltung und eine einfache Navigation machen Angebote und Projekte ohne technische Vorkenntnisse zugänglich.",
     abstract: {
       goal:
         "Digitale Leistungen und Projekte so präsentieren, dass Besucher Angebot, Nutzen und nächste Schritte ohne technische Vorkenntnisse verstehen.",
@@ -281,10 +284,13 @@ export const moreProjects = [
   },
   {
     name: "SNB",
+    imagePresentation: "screenshot",
+    imageSrc: "/images/projects/snb.webp",
+    imageAlt: "SNB-Projektseite mit Informationen zur Schweizerischen Nationalbank",
     group: "Schule",
     category: "Schulprojekt",
     description:
-      "Eine veröffentlichte Website mit Fokus auf semantisches HTML, Gestaltung und Deployment.",
+      "Eine veröffentlichte Informationswebsite über die Schweizerische Nationalbank. Das Schulprojekt verbindet semantisches HTML, ein eigenständiges responsives Design und die Bereitstellung als öffentlich erreichbare Website.",
     abstract: {
       goal:
         "Eine vollständige Informationswebsite als Schulprojekt planen, visuell strukturieren und öffentlich erreichbar bereitstellen.",
@@ -303,10 +309,13 @@ export const moreProjects = [
   },
   {
     name: "BookLoan",
+    imagePresentation: "screenshot",
+    imageSrc: "/images/projects/bookloan.webp",
+    imageAlt: "BookLoan-Dashboard mit Bibliotheken, Büchern und laufenden Ausleihen",
     group: "Schule",
     category: "Schulprojekt",
     description:
-      "Webanwendung für die Verwaltung von Bibliotheken, Büchern und Ausleihen.",
+      "Eine Webanwendung für die Verwaltung von Bibliotheken, Büchern und Ausleihen. Dashboards, Statusanzeigen und strukturierte Formulare bilden den gesamten Ausleihprozess nachvollziehbar ab.",
     abstract: {
       goal:
         "Bibliotheken, Medienbestand und Ausleihvorgänge in einer übersichtlichen Anwendung abbilden und wiederkehrende Verwaltungsaufgaben vereinfachen.",
@@ -324,10 +333,13 @@ export const moreProjects = [
   },
   {
     name: "ToDoList",
+    imagePresentation: "screenshot",
+    imageSrc: "/images/projects/todolist.webp",
+    imageAlt: "Helle To-Do-App mit Eingabefeldern, Filtern und Dark-Mode-Schalter",
     group: "Schule",
     category: "Schulprojekt",
     description:
-      "Browser-App zum Erfassen, Planen und Abhaken von Aufgaben.",
+      "Eine Browser-App zum Erfassen, Priorisieren und Abhaken persönlicher Aufgaben. Kategorien, Fälligkeiten und Filter sorgen dafür, dass auch längere Aufgabenlisten übersichtlich bleiben.",
     abstract: {
       goal:
         "Eine leicht bedienbare Aufgabenliste schaffen, mit der Einträge schnell erfasst, organisiert und als erledigt markiert werden können.",
@@ -345,10 +357,13 @@ export const moreProjects = [
   },
   {
     name: "Modul 347",
+    imagePresentation: "screenshot",
+    imageSrc: "/images/projects/modul-347.webp",
+    imageAlt: "Docker Desktop mit mehreren laufenden Containern",
     group: "Schule",
     category: "Schulprojekt",
     description:
-      "Eine Website, die mit Nginx in einem Docker-Container betrieben wird.",
+      "Eine Website, die reproduzierbar mit Nginx in einem Docker-Container betrieben wird. Das Projekt verbindet eine einfache Weboberfläche mit Container-Konfiguration, Ports und einer klar definierten Laufzeitumgebung.",
     abstract: {
       goal:
         "Eine statische Website reproduzierbar in einem Container ausliefern und die Grundlagen containerisierter Web-Infrastruktur praktisch anwenden.",
@@ -366,10 +381,13 @@ export const moreProjects = [
   },
   {
     name: "EMMA",
+    imagePresentation: "portrait",
+    imageSrc: "/images/projects/emma.webp",
+    imageAlt: "Selbst gebautes EMMA-Gerät mit Display und numerischem Tastenfeld",
     group: "Hardware",
     category: "Hardware & Programmierung",
     description:
-      "Game-Launcher mit drei Spielen für einen ESP32 mit TFT-Display und Keypad.",
+      "Ein selbst gebauter Game-Launcher mit drei Spielen für einen ESP32. TFT-Display, numerisches Keypad und eine gemeinsame Menüführung verbinden Hardware und C++-Spiellogik zu einem kompakten Gerät.",
     abstract: {
       goal:
         "Mehrere kleine Spiele auf begrenzter Hardware in einem gemeinsamen Launcher zugänglich machen und vollständig über Display und Keypad bedienen.",
@@ -387,10 +405,13 @@ export const moreProjects = [
   },
   {
     name: "Simon Says",
+    imagePresentation: "portrait",
+    imageSrc: "/images/projects/simon-says.webp",
+    imageAlt: "Selbst gebautes Simon-Says-Spiel mit vier farbigen Tasten und LEDs",
     group: "Hardware",
     category: "Hardware & Programmierung",
     description:
-      "Selbst programmiertes Hardware-Spiel mit einer wachsenden Signalfolge.",
+      "Ein selbst programmiertes Hardware-Spiel mit einer immer länger werdenden Farbfolge. LEDs und Tasten geben Signale aus, erfassen die Eingaben und prüfen jede Runde direkt auf Fehler.",
     abstract: {
       goal:
         "Das bekannte Merkspiel als physische Anwendung umsetzen, bei der eine immer längere Folge erkannt und korrekt wiederholt werden muss.",
@@ -406,10 +427,13 @@ export const moreProjects = [
   },
   {
     name: "Eigener PC-Bau",
+    imagePresentation: "cover",
+    imageSrc: "/images/projects/pc-bau.webp",
+    imageAlt: "Selbst gebauter weisser Desktop-PC mit farbiger Innenbeleuchtung",
     group: "Hardware",
     category: "Hardware & Systeme",
     description:
-      "Einen Computer geplant, passende Komponenten ausgewählt und selbst zusammengebaut.",
+      "Einen eigenen Computer geplant, passende Komponenten verglichen und vollständig selbst zusammengebaut. Neben Leistung und Preis waren Kompatibilität, Kühlung, Verkabelung und eine saubere Inbetriebnahme entscheidend.",
     abstract: {
       goal:
         "Einen auf den eigenen Bedarf abgestimmten Computer zusammenstellen, dessen Komponenten technisch und preislich sinnvoll zusammenspielen.",
@@ -425,10 +449,13 @@ export const moreProjects = [
   },
   {
     name: "TenniSoft",
+    imagePresentation: "screenshot",
+    imageSrc: "/images/projects/tennisoft.webp",
+    imageAlt: "TenniSoft-Desktopanwendung mit Formular zur Platzbuchung",
     group: "Desktop",
     category: "Desktopprojekt",
     description:
-      "Windows-Anwendung für die Organisation rund um Tennis.",
+      "Eine Windows-Anwendung für die Organisation von Tennisplätzen und Buchungen. Formulare, Navigation und Programmlogik wurden als übersichtliche Desktop-Erfahrung mit C# und .NET MAUI umgesetzt.",
     abstract: {
       goal:
         "Wichtige Abläufe rund um Tennis in einer Desktop-Anwendung bündeln und typische Verwaltungsinformationen übersichtlich zugänglich machen.",
@@ -447,7 +474,7 @@ export const moreProjects = [
     group: "Desktop",
     category: "Desktopprojekt",
     description:
-      "Zwei-Personen-Spiel mit Spielstand und vollständiger Gewinnprüfung.",
+      "Eine digitale Umsetzung von Vier Gewinnt für zwei Personen mit Rundenwechsel und Spielstand. Nach jedem Zug prüft die Anwendung alle horizontalen, vertikalen und diagonalen Gewinnmöglichkeiten.",
     abstract: {
       goal:
         "Das Brettspiel für zwei Personen digital abbilden und nach jedem Zug zuverlässig alle möglichen Gewinnrichtungen prüfen.",
@@ -466,7 +493,7 @@ export const moreProjects = [
     group: "Schule",
     category: "Experiment",
     description:
-      "Ein frühes Repository zum Ausprobieren von Ablage und Projektstruktur.",
+      "Ein frühes Lern-Repository für kleine Programmierexperimente und erste strukturierte Abläufe mit Git. Dabei standen Dateiorganisation, nachvollziehbare Änderungen und der Umgang mit Commits im Mittelpunkt.",
     abstract: {
       goal:
         "Grundlegende Arbeitsweisen mit einem Code-Repository ausprobieren und eine nachvollziehbare Struktur für kleine Experimente aufbauen.",
@@ -490,4 +517,7 @@ export const moreProjects = [
   abstract: ProjectAbstract;
   technologies: readonly string[];
   links: readonly ProjectLink[];
+  imagePresentation?: "cover" | "portrait" | "screenshot";
+  imageSrc?: string;
+  imageAlt?: string;
 }>;

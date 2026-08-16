@@ -1,4 +1,5 @@
-import { privateDocuments } from "@/data/private";
+import { DocumentLibrary } from "@/components/sections/document-library";
+import { privateDocumentGroups } from "@/data/private-documents";
 
 export function PrivateSection({ username }: { username: string }) {
   return (
@@ -15,22 +16,7 @@ export function PrivateSection({ username }: { username: string }) {
           </p>
         </div>
 
-        <div className="document-list">
-          {privateDocuments.map((document, index) => (
-            <article className="document-row" key={document.title}>
-              <div className="document-card-icon">
-                <span>0{index + 1}</span>
-              </div>
-              <div className="document-card-copy">
-                <h2>{document.title}</h2>
-                <p>{document.description}</p>
-              </div>
-              <p className="document-status">
-                {document.status}
-              </p>
-            </article>
-          ))}
-        </div>
+        <DocumentLibrary groups={privateDocumentGroups} />
       </div>
     </section>
   );

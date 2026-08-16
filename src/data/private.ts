@@ -2,23 +2,6 @@ import "server-only";
 
 export const privateProfile = {
   email: "contact@etienneschwab.ch",
-  location: "Muri-Gümligen, Region Bern",
+  phoneDisplay: "+41 077 481 85 74",
+  phoneHref: "+41774818574",
 } as const;
-
-export const privateDocuments = [
-  {
-    title: "Lebenslauf",
-    description: "Ausbildung, Erfahrungen und persönliche Angaben kompakt als PDF.",
-    status: "PDF noch hinterlegen",
-  },
-  {
-    title: "Zeugnisse",
-    description: "Aktuelle Schulzeugnisse und relevante Ausbildungsnachweise.",
-    status: "PDFs noch hinterlegen",
-  },
-  {
-    title: "ÜK-Nachweise",
-    description: "Nachweise und Unterlagen aus den überbetrieblichen Kursen.",
-    status: "PDFs noch hinterlegen",
-  },
-] as const;
