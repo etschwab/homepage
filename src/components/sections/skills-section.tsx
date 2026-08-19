@@ -2,25 +2,30 @@ import { skillLevels, strengths } from "@/data/profile";
 
 export function SkillsSection() {
   return (
-    <section className="content-section" aria-labelledby="skills-title">
-      <div className="site-container split-layout">
-        <div>
-          <h2 id="skills-title" className="section-title">
-            Kompetenzen
-          </h2>
-          <p className="section-intro">
+    <section className="content-section skills-section" aria-labelledby="skills-title">
+      <div className="site-container skills-layout">
+        <header className="skills-heading">
+          <div>
+            <span className="section-eyebrow">Kompetenzen</span>
+            <h2 id="skills-title" className="section-title">
+              Was ich kann.
+            </h2>
+          </div>
+          <p>
             Technisches Wissen ist für mich dann wertvoll, wenn daraus eine
             verständliche und verlässliche Lösung entsteht.
           </p>
-        </div>
+        </header>
 
         <div className="skills-content">
           <div className="skill-levels" aria-label="Technische Kenntnisse nach Erfahrungsstufe">
-            {skillLevels.map((group) => (
+            {skillLevels.map((group, index) => (
               <section className={`skill-level is-${group.tone}`} key={group.level}>
                 <header className="skill-level-heading">
                   <div>
-                    <span className="skill-level-kicker">Kenntnisstand</span>
+                    <span className="skill-level-kicker">
+                      0{index + 1} / Kenntnisstand
+                    </span>
                     <h3>{group.level}</h3>
                   </div>
                   <span className="skill-level-dots" aria-hidden="true">
