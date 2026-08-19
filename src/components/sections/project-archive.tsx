@@ -272,9 +272,7 @@ export function ProjectArchive() {
                     </a>
                   ))}
                 </div>
-              ) : (
-                <p className="project-dialog-note">Dokumentation auf Anfrage</p>
-              )}
+              ) : null}
             </div>
           </div>
         ) : null}
