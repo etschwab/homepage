@@ -92,54 +92,85 @@ export const aboutSection = {
   ],
 } as const;
 
-export const skillGroups = [
+export const skillLevels = [
   {
-    kind: "Fachkompetenz",
-    category: "Frontend",
-    skills: ["React", "Next.js", "TypeScript", "HTML & CSS"],
-    description:
-      "Ich entwickle responsive Oberflächen, strukturiere Komponenten nachvollziehbar und achte auf eine klare Bedienung sowie konsistente Gestaltung.",
-    context: "Anamorph · smartain · BookLoan",
+    level: "Sehr gut",
+    tone: "strong",
+    score: 3,
+    items: [
+      {
+        name: "Frontend & Web",
+        skills: ["React", "Next.js", "TypeScript", "HTML", "CSS"],
+        description:
+          "Hier liegt meine grösste Stärke. Ich entwickle responsive Weboberflächen, strukturiere Komponenten sauber und verbinde Technik mit einer klaren, konsistenten Gestaltung.",
+        context: "Anamorph · smartain · BookLoan · Portfolio",
+      },
+    ],
   },
   {
-    kind: "Fachkompetenz",
-    category: "Backend & Daten",
-    skills: ["NestJS", "SQL & Datenbanken", "Supabase"],
-    description:
-      "Ich verbinde Anwendungen mit Datenbanken, modelliere Informationen und setze Authentifizierung sowie typische Datenflüsse um.",
-    context: "smartain",
+    level: "Mittel",
+    tone: "medium",
+    score: 2,
+    items: [
+      {
+        name: "Backend & Daten",
+        skills: ["NestJS", "SQL", "Datenbanken", "Supabase"],
+        description:
+          "Ich kann Anwendungen mit Datenbanken verbinden, Datenmodelle aufbauen und typische Datenflüsse sowie Authentifizierung umsetzen.",
+        context: "smartain · Schulprojekte",
+      },
+      {
+        name: "Git & Container",
+        skills: ["Git", "GitLab", "GitHub", "Docker"],
+        description:
+          "Ich arbeite sicher mit Branches, Commits und gemeinsamen Repositories. Docker nutze ich für Images, Container und reproduzierbare Entwicklungsumgebungen.",
+        context: "Modul 347 · Teamprojekte · eigene Repositories",
+      },
+    ],
   },
   {
-    kind: "Fachkompetenz",
-    category: "Tools & DevOps",
-    skills: ["Git", "GitLab", "Docker", "Azure", "AWS"],
+    level: "Erfahrung gesammelt",
+    tone: "experience",
+    score: 1,
+    items: [
+      {
+        name: "Mobile & Desktop",
+        skills: ["React Native", ".NET MAUI", "C#", "Expo"],
+        description:
+          "Ich habe mobile und desktopnahe Anwendungen umgesetzt und dabei Navigation, Geräteschnittstellen und unterschiedliche Nutzungssituationen kennengelernt.",
+        context: "CarPin · TenniSoft · 4 Gewinnt",
+      },
+      {
+        name: "DevOps & Cloud",
+        skills: ["GitLab CI/CD", "Kubernetes", "ArgoCD", "Azure", "AWS"],
+        description:
+          "Mit diesen Technologien habe ich Grundlagen und erste praktische Erfahrungen gesammelt. Diesen Bereich möchte ich im Praktikum gezielt vertiefen.",
+        context: "Unterricht · Übungen · Projekt-Deployments",
+      },
+    ],
+  },
+] as const;
+
+export const strengths = [
+  {
+    name: "Teamarbeit",
     description:
-      "Ich versioniere Änderungen sauber, arbeite mit gemeinsamen Repositories und kenne die Grundlagen reproduzierbarer Builds und Deployments.",
-    context: "Modul 347 · Projekt-Repositories",
+      "Ich spreche Aufgaben und Schnittstellen früh ab und arbeite zuverlässig auf ein gemeinsames Ergebnis hin.",
   },
   {
-    kind: "Fachkompetenz",
-    category: "Mobile",
-    skills: ["React Native", ".NET MAUI"],
+    name: "Lernbereitschaft",
     description:
-      "Ich entwickle mobile und desktopnahe Anwendungen mit klarer Navigation und berücksichtige dabei unterschiedliche Geräte und Nutzungssituationen.",
-    context: "CarPin · TenniSoft",
+      "Neue Technologien eigne ich mir projektbezogen an und setze das Gelernte möglichst direkt praktisch ein.",
   },
   {
-    kind: "Softskills",
-    category: "Teamarbeit & Kommunikation",
-    skills: ["Abstimmung", "Verantwortung", "Verlässlichkeit"],
+    name: "Verantwortung",
     description:
-      "In Teamprojekten spreche ich Aufgaben und Schnittstellen früh ab. Als Unihockeytrainer vermittle ich Inhalte verständlich und übernehme Verantwortung für eine Gruppe.",
-    context: "Teamprojekte · Trainer E-Junioren",
+      "Als Trainer der E-Junioren vermittle ich Inhalte verständlich, bereite Trainings vor und übernehme Verantwortung für eine Gruppe.",
   },
   {
-    kind: "Softskills",
-    category: "Lernbereitschaft & Problemlösung",
-    skills: ["Selbstständigkeit", "Ausdauer", "Strukturiertes Vorgehen"],
+    name: "Problemlösung",
     description:
-      "Neue Technologien eigne ich mir projektbezogen an. Bei Problemen zerlege ich die Aufgabe, teste mögliche Ursachen und dokumentiere eine nachvollziehbare Lösung.",
-    context: "Eigene Projekte · IMS & gibb",
+      "Ich zerlege Probleme in kleinere Schritte, prüfe mögliche Ursachen und arbeite strukturiert an einer nachvollziehbaren Lösung.",
   },
 ] as const;
 

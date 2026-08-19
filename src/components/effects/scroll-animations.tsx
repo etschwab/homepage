@@ -14,7 +14,7 @@ const contentSelector = [
   ".page-main button",
   ".page-main form",
   ".page-main .project-browser-tools",
-  ".page-main .skill-list li",
+  ".page-main .skill-level",
   ".page-main .education-list li",
   ".site-footer",
 ].join(",");

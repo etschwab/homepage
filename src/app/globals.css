@@ -1023,11 +1023,64 @@ h2 em,
   line-height: 1.7;
 }
 
-.skill-list {
+.skills-content {
+  display: grid;
+  gap: clamp(3rem, 6vw, 5.5rem);
+}
+
+.skill-levels {
+  display: grid;
+  gap: 2.25rem;
+}
+
+.skill-level {
   border-top: 1px solid var(--border-strong);
 }
 
-.skill-list article {
+.skill-level-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-block: 1.25rem 0.35rem;
+}
+
+.skill-level-kicker,
+.strengths-heading > span {
+  color: var(--accent);
+  font-size: 0.67rem;
+  font-weight: 740;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.skill-level-heading h3,
+.strengths-heading h3 {
+  margin: 0.35rem 0 0;
+  font-size: clamp(1.9rem, 3vw, 2.8rem);
+  font-weight: 630;
+  letter-spacing: -0.04em;
+}
+
+.skill-level-dots {
+  display: flex;
+  gap: 0.35rem;
+  padding-bottom: 0.45rem;
+}
+
+.skill-level-dots i {
+  width: 0.55rem;
+  height: 0.55rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+}
+
+.skill-level-dots i.is-filled {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.skill-level-list article {
   display: grid;
   grid-template-columns: minmax(0, 1.5fr) minmax(10rem, 0.5fr);
   gap: 2rem;
@@ -1035,29 +1088,19 @@ h2 em,
   padding-block: 1.6rem;
 }
 
-.skill-kind {
-  display: inline-block;
-  margin-bottom: 0.5rem;
-  color: var(--accent);
-  font-size: 0.68rem;
-  font-weight: 740;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
-}
-
-.skill-list h3 {
+.skill-level-list h4 {
   margin: 0;
   font-size: clamp(1.35rem, 2vw, 1.9rem);
   font-weight: 630;
   letter-spacing: -0.025em;
 }
 
-.skill-list .skill-technologies {
+.skill-level-list .skill-technologies {
   margin: 0.4rem 0 0;
   color: var(--text-secondary);
 }
 
-.skill-list .skill-description {
+.skill-level-list .skill-description {
   max-width: 46rem;
   margin: 0.8rem 0 0;
   color: var(--text-muted);
@@ -1065,7 +1108,7 @@ h2 em,
   line-height: 1.65;
 }
 
-.skill-list .skill-context {
+.skill-level-list .skill-context {
   margin: 0;
   color: var(--text-muted);
   font-size: 0.78rem;
@@ -1079,6 +1122,43 @@ h2 em,
   font-size: 0.66rem;
   letter-spacing: 0.09em;
   text-transform: uppercase;
+}
+
+.strengths {
+  border-top: 1px solid var(--border-strong);
+  padding-top: 1.25rem;
+}
+
+.strengths-heading {
+  max-width: 34rem;
+}
+
+.strength-grid {
+  display: grid;
+  margin-top: 1.75rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+}
+
+.strength-grid article {
+  min-height: 11rem;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 1.35rem;
+}
+
+.strength-grid h4 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 630;
+}
+
+.strength-grid p {
+  margin: 0.75rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.65;
 }
 
 /* Education timeline */
@@ -2750,7 +2830,9 @@ h2 em,
   .floorball-media img,
   .floorball-slide video { min-height: 20rem; }
 
-  .skill-list article { grid-template-columns: 1fr; gap: 1rem; }
+  .skill-level-list article { grid-template-columns: 1fr; gap: 1rem; }
+
+  .strength-grid { grid-template-columns: 1fr; }
 
   .project-filter-bar {
     align-items: flex-end;
