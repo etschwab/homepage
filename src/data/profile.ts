@@ -94,24 +94,52 @@ export const aboutSection = {
 
 export const skillGroups = [
   {
+    kind: "Fachkompetenz",
     category: "Frontend",
     skills: ["React", "Next.js", "TypeScript", "HTML & CSS"],
+    description:
+      "Ich entwickle responsive Oberflächen, strukturiere Komponenten nachvollziehbar und achte auf eine klare Bedienung sowie konsistente Gestaltung.",
     context: "Anamorph · smartain · BookLoan",
   },
   {
+    kind: "Fachkompetenz",
     category: "Backend & Daten",
     skills: ["NestJS", "SQL & Datenbanken", "Supabase"],
+    description:
+      "Ich verbinde Anwendungen mit Datenbanken, modelliere Informationen und setze Authentifizierung sowie typische Datenflüsse um.",
     context: "smartain",
   },
   {
+    kind: "Fachkompetenz",
     category: "Tools & DevOps",
     skills: ["Git", "GitLab", "Docker", "Azure", "AWS"],
+    description:
+      "Ich versioniere Änderungen sauber, arbeite mit gemeinsamen Repositories und kenne die Grundlagen reproduzierbarer Builds und Deployments.",
     context: "Modul 347 · Projekt-Repositories",
   },
   {
+    kind: "Fachkompetenz",
     category: "Mobile",
     skills: ["React Native", ".NET MAUI"],
+    description:
+      "Ich entwickle mobile und desktopnahe Anwendungen mit klarer Navigation und berücksichtige dabei unterschiedliche Geräte und Nutzungssituationen.",
     context: "CarPin · TenniSoft",
+  },
+  {
+    kind: "Softskills",
+    category: "Teamarbeit & Kommunikation",
+    skills: ["Abstimmung", "Verantwortung", "Verlässlichkeit"],
+    description:
+      "In Teamprojekten spreche ich Aufgaben und Schnittstellen früh ab. Als Unihockeytrainer vermittle ich Inhalte verständlich und übernehme Verantwortung für eine Gruppe.",
+    context: "Teamprojekte · Trainer E-Junioren",
+  },
+  {
+    kind: "Softskills",
+    category: "Lernbereitschaft & Problemlösung",
+    skills: ["Selbstständigkeit", "Ausdauer", "Strukturiertes Vorgehen"],
+    description:
+      "Neue Technologien eigne ich mir projektbezogen an. Bei Problemen zerlege ich die Aufgabe, teste mögliche Ursachen und dokumentiere eine nachvollziehbare Lösung.",
+    context: "Eigene Projekte · IMS & gibb",
   },
 ] as const;
 

@@ -1016,16 +1016,33 @@ h2 em,
   gap: clamp(2.5rem, 7vw, 7rem);
 }
 
+.split-layout .section-intro {
+  max-width: 28rem;
+  margin: 1.5rem 0 0;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
 .skill-list {
   border-top: 1px solid var(--border-strong);
 }
 
 .skill-list article {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(10rem, 0.65fr);
+  grid-template-columns: minmax(0, 1.5fr) minmax(10rem, 0.5fr);
   gap: 2rem;
   border-bottom: 1px solid var(--border);
-  padding-block: 1.3rem;
+  padding-block: 1.6rem;
+}
+
+.skill-kind {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  color: var(--accent);
+  font-size: 0.68rem;
+  font-weight: 740;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
 }
 
 .skill-list h3 {
@@ -1035,9 +1052,17 @@ h2 em,
   letter-spacing: -0.025em;
 }
 
-.skill-list p {
+.skill-list .skill-technologies {
   margin: 0.4rem 0 0;
   color: var(--text-secondary);
+}
+
+.skill-list .skill-description {
+  max-width: 46rem;
+  margin: 0.8rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.65;
 }
 
 .skill-list .skill-context {
@@ -1045,6 +1070,15 @@ h2 em,
   color: var(--text-muted);
   font-size: 0.78rem;
   line-height: 1.55;
+}
+
+.skill-context strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--foreground);
+  font-size: 0.66rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
 }
 
 /* Education timeline */

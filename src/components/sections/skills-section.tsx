@@ -8,16 +8,25 @@ export function SkillsSection() {
           <h2 id="skills-title" className="section-title">
             Kompetenzen
           </h2>
+          <p className="section-intro">
+            Technisches Wissen ist für mich dann wertvoll, wenn daraus eine
+            verständliche und verlässliche Lösung entsteht.
+          </p>
         </div>
 
         <div className="skill-list">
           {skillGroups.map((group) => (
             <article key={group.category}>
-              <div>
+              <div className="skill-main">
+                <span className="skill-kind">{group.kind}</span>
                 <h3>{group.category}</h3>
-                <p>{group.skills.join(" · ")}</p>
+                <p className="skill-technologies">{group.skills.join(" · ")}</p>
+                <p className="skill-description">{group.description}</p>
               </div>
-              <p className="skill-context">{group.context}</p>
+              <p className="skill-context">
+                <strong>Praxis</strong>
+                {group.context}
+              </p>
             </article>
           ))}
         </div>
