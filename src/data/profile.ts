@@ -256,10 +256,6 @@ export const featuredProjects = [
         href: "https://github.com/Anamorph-duoproj/Anamorph",
       },
       { label: "Live-Demo", href: "https://anamorph-nu.vercel.app" },
-      {
-        label: "Projektabstract",
-        href: "/documents/projectabstracts/anamorph.pdf",
-      },
     ],
   },
   {
@@ -284,8 +280,8 @@ export const featuredProjects = [
     links: [
       { label: "GitHub", href: "https://github.com/etschwab/smartain" },
       {
-        label: "Projektabstract",
-        href: "/documents/projectabstracts/smartrain.pdf",
+        label: "Website",
+        href: "https://smartrain.etienneschwab.ch",
       },
     ],
   },
@@ -309,12 +305,7 @@ export const featuredProjects = [
     imageSrc: "/images/projects/carpin.webp",
     imageAlt:
       "CarPin-App mit Kartenansicht und Informationen zum gespeicherten Parkplatz",
-    links: [
-      {
-        label: "Projektabstract",
-        href: "/documents/projectabstracts/carpin.pdf",
-      },
-    ],
+    links: [],
   },
 ] as const;
 
