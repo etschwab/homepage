@@ -3,25 +3,20 @@
 import Link from "next/link";
 import { ArrowRight, FolderLock, Grid2X2, House, UserRound } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useLayoutEffect, useMemo } from "react";
+import { useLayoutEffect } from "react";
 
 type NavItem = {
-  index?: string;
   label: string;
   href: string;
 };
 
 type MainNavProps = {
   items: readonly NavItem[];
-  internalItem?: NavItem;
 };
 
-export function MainNav({ items, internalItem }: MainNavProps) {
+export function MainNav({ items }: MainNavProps) {
   const pathname = usePathname();
-  const navItems = useMemo(
-    () => (internalItem ? [internalItem, ...items] : [...items]),
-    [internalItem, items],
-  );
+  const navItems = [...items];
   const icons = [House, UserRound, Grid2X2, FolderLock];
   const desktopItems = navItems.slice(0, -1);
   const actionItem = navItems.at(-1);

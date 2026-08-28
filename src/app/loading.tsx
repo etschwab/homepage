@@ -6,7 +6,7 @@ export default function Loading() {
       <div className="loader-mark" aria-hidden="true">
         {siteCopy.loading.mark}
       </div>
-      <p className="font-mono text-sm text-zinc-500">
+      <p className="loading-text">
         {siteCopy.loading.text}
       </p>
     </div>

@@ -5,9 +5,15 @@ import { aboutSection, links } from "@/data/profile";
 
 export function AboutSection() {
   return (
-    <section className="about-page" aria-labelledby="about-title">
+    <section className="about-page" id="profil" aria-labelledby="about-title">
       <header className="site-container about-title">
         <h1 id="about-title">Über mich</h1>
+        <nav className="page-section-nav" aria-label="Inhalte dieser Seite">
+          <a href="#profil">Über mich</a>
+          <a href="#kompetenzen">Kompetenzen</a>
+          <a href="#bildungsweg">Bildungsweg</a>
+          <a href="#freizeit">Freizeit</a>
+        </nav>
       </header>
 
       <div className="site-container about-story">

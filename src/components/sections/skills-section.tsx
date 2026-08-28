@@ -2,7 +2,11 @@ import { skillLevels, strengths } from "@/data/profile";
 
 export function SkillsSection() {
   return (
-    <section className="content-section skills-section" aria-labelledby="skills-title">
+    <section
+      className="content-section skills-section"
+      id="kompetenzen"
+      aria-labelledby="skills-title"
+    >
       <div className="site-container skills-layout">
         <header className="skills-heading">
           <div>

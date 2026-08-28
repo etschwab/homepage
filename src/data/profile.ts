@@ -1,8 +1,8 @@
 export const navItems = [
-  { index: "01", label: "Home", href: "/" },
-  { index: "02", label: "Über mich", href: "/ueber-mich" },
-  { index: "03", label: "Projekte", href: "/projekte" },
-  { index: "04", label: "Dateien", href: "/dateien" },
+  { label: "Home", href: "/" },
+  { label: "Über mich", href: "/ueber-mich" },
+  { label: "Projekte", href: "/projekte" },
+  { label: "Dateien", href: "/dateien" },
 ] as const;
 
 export const links = {

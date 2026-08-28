@@ -21,7 +21,6 @@ const projects = [
     ...project,
     group: featuredGroups[index],
     category: project.kind,
-    featured: true as const,
   })),
   ...moreProjects.map((project) => ({
     ...project,
@@ -29,7 +28,6 @@ const projects = [
     imageAlt: "imageAlt" in project ? project.imageAlt : undefined,
     imagePresentation:
       "imagePresentation" in project ? project.imagePresentation : undefined,
-    featured: false as const,
   })),
 ];
 
@@ -118,10 +116,7 @@ export function ProjectArchive() {
       {visibleProjects.length ? (
         <div className="project-card-grid">
           {visibleProjects.map((project, index) => (
-            <article
-              className={`project-card${project.featured ? " is-featured" : ""}`}
-              key={project.name}
-            >
+            <article className="project-card" key={project.name}>
               <button
                 className="project-card-open"
                 type="button"

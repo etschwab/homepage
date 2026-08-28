@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import { AboutSection } from "@/components/sections/about-section";
 import { InterestsSection } from "@/components/sections/interests-section";
 import { SkillsSection } from "@/components/sections/skills-section";
@@ -14,10 +16,9 @@ export default function AboutPage() {
   return (
     <PageShell>
       <AboutSection />
-      <InterestsSection />
       <SkillsSection />
       <Timeline />
+      <InterestsSection />
     </PageShell>
   );
 }
-import type { Metadata } from "next";

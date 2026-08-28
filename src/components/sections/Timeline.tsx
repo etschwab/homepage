@@ -2,7 +2,11 @@ import { education } from "@/data/profile";
 
 export function Timeline() {
   return (
-    <section className="content-section timeline-section" aria-labelledby="education-title">
+    <section
+      className="content-section timeline-section"
+      id="bildungsweg"
+      aria-labelledby="education-title"
+    >
       <div className="site-container">
         <header className="section-heading-row">
           <div>

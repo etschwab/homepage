@@ -8,7 +8,6 @@ import { logout } from "@/lib/auth/actions";
 
 type SiteHeaderProps = {
   isProtected?: boolean;
-  username?: string;
 };
 
 export function SiteHeader({ isProtected = false }: SiteHeaderProps) {

@@ -5,25 +5,21 @@ import { SiteFooter } from "@/components/site/site-footer";
 type PageShellProps = {
   children: React.ReactNode;
   isProtected?: boolean;
-  showFooter?: boolean;
-  username?: string;
 };
 
 export function PageShell({
   children,
   isProtected = false,
-  showFooter = true,
-  username,
 }: PageShellProps) {
   return (
     <div className="page-root">
       <a className="skip-link" href="#main-content">
         Zum Inhalt springen
       </a>
-      <SiteHeader isProtected={isProtected} username={username} />
+      <SiteHeader isProtected={isProtected} />
       <ScrollAnimations />
       <main className="page-main" id="main-content">{children}</main>
-      {showFooter ? <SiteFooter /> : null}
+      <SiteFooter />
     </div>
   );
 }

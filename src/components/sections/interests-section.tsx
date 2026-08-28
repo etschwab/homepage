@@ -45,7 +45,11 @@ export function InterestsSection() {
   }
 
   return (
-    <section className="content-section interests-section" aria-labelledby="interests-title">
+    <section
+      className="content-section interests-section"
+      id="freizeit"
+      aria-labelledby="interests-title"
+    >
       <div className="site-container">
         <header className="section-heading-row">
           <div>

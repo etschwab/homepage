@@ -1,4 +1,6 @@
-import { WorkSection } from "@/components/sections/work-section";
+import type { Metadata } from "next";
+
+import { ProjectArchive } from "@/components/sections/project-archive";
 import { PageShell } from "@/components/site/page-shell";
 
 export const metadata: Metadata = {
@@ -10,8 +12,14 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <PageShell>
-      <WorkSection />
+      <section className="project-archive-section" aria-labelledby="archive-title">
+        <div className="site-container">
+          <header className="archive-heading">
+            <h1 id="archive-title">Projekte</h1>
+          </header>
+          <ProjectArchive />
+        </div>
+      </section>
     </PageShell>
   );
 }
-import type { Metadata } from "next";
