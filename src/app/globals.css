@@ -464,45 +464,6 @@ h2 em,
   font-weight: 620;
 }
 
-.home-hero-overview {
-  grid-column: 10 / 13;
-  align-self: end;
-  margin-bottom: clamp(3rem, 8vh, 6rem);
-  border-top: 1px solid var(--border-strong);
-  padding-top: 1.25rem;
-}
-
-.home-hero-overview > p {
-  margin: 0;
-  color: var(--text-secondary);
-  font-size: clamp(0.96rem, 1.1vw, 1.08rem);
-  line-height: 1.65;
-}
-
-.home-profile-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem 1rem;
-  margin-top: 1.4rem;
-  color: var(--text-muted);
-  font-size: 0.74rem;
-  font-weight: 680;
-}
-
-.home-profile-meta span + span::before {
-  margin-right: 1rem;
-  color: var(--border-strong);
-  content: "/";
-}
-
-.home-landing-links {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem 1.5rem;
-  margin-top: 1.5rem;
-}
-
 .page-number {
   grid-column: 1 / 2;
   align-self: start;
@@ -2457,7 +2418,6 @@ h2 em,
   }
 
   .home-hero-copy,
-  .home-hero-overview,
   .page-number,
   .about-portrait,
   .about-story-copy,
@@ -2468,11 +2428,6 @@ h2 em,
   .home-hero-copy {
     width: 100%;
     padding-top: 0;
-  }
-
-  .home-hero-overview {
-    width: min(100%, 36rem);
-    margin-bottom: 0;
   }
 
   .home-hero h1 {
