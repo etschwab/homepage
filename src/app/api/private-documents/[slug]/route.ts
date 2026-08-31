@@ -1,11 +1,9 @@
-import { readFile } from "node:fs/promises";
-import { resolve, sep } from "node:path";
-
 import {
   isPrivateDocumentSlug,
   privateDocumentFiles,
 } from "@/data/private-documents";
 import { readSession } from "@/lib/auth/session";
+import { readPrivateDocument } from "@/lib/private-documents/storage";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -27,18 +25,8 @@ export async function GET(
   }
 
   const document = privateDocumentFiles[slug];
-  const documentRoot = resolve(
-    /* turbopackIgnore: true */
-    process.env.PRIVATE_DOCUMENTS_DIR ?? resolve(process.cwd(), "private-documents"),
-  );
-  const filePath = resolve(documentRoot, document.relativePath);
-
-  if (!filePath.startsWith(`${documentRoot}${sep}`)) {
-    return new Response("Ungültiger Dateipfad", { status: 400 });
-  }
-
   try {
-    const file = await readFile(/* turbopackIgnore: true */ filePath);
+    const file = await readPrivateDocument(document.relativePath);
     const download = new URL(request.url).searchParams.get("download") === "1";
     const disposition = download ? "attachment" : "inline";
     const encodedName = encodeURIComponent(document.downloadName);

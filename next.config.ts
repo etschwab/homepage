@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   devIndicators: false,
   outputFileTracingIncludes: {
-    "/api/private-documents/*": ["./private-documents/**/*"],
+    "/api/private-documents/*": ["./secure-documents/**/*"],
   },
   turbopack: {
     root: process.cwd(),
