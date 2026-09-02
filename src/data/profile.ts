@@ -312,6 +312,10 @@ export const featuredProjects = [
 export const moreProjects = [
   {
     name: "Rankly",
+    imagePresentation: "screenshot",
+    imageSrc: "/images/projects/rankly.png",
+    imageAlt:
+      "Rankly-Abstimmung mit einer Rangliste bekannter Fussballspieler",
     group: "Web",
     category: "Webanwendung",
     description:
