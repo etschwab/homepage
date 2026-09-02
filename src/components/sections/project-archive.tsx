@@ -253,22 +253,23 @@ export function ProjectArchive() {
                 </dl>
               </section>
 
-              {selectedProject.links.length ? (
-                <div className="project-dialog-links">
-                  {selectedProject.links.map((link) => (
-                    <a
-                      href={link.href}
-                      key={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {link.label}
-                      <ArrowUpRight aria-hidden="true" size={15} />
-                    </a>
-                  ))}
-                </div>
-              ) : null}
             </div>
+
+            {selectedProject.links.length ? (
+              <div className="project-dialog-links" aria-label="Projektlinks">
+                {selectedProject.links.map((link) => (
+                  <a
+                    href={link.href}
+                    key={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {link.label}
+                    <ArrowUpRight aria-hidden="true" size={15} />
+                  </a>
+                ))}
+              </div>
+            ) : null}
           </div>
         ) : null}
       </dialog>
