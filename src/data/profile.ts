@@ -311,6 +311,28 @@ export const featuredProjects = [
 
 export const moreProjects = [
   {
+    name: "Rankly",
+    group: "Web",
+    category: "Webanwendung",
+    description:
+      "Eine Plattform für gemeinsame Ranglisten und Abstimmungen. Nutzer erstellen ein Ranking, teilen es per Link und sehen aus allen Stimmen direkt einen gemeinsamen Favoriten entstehen.",
+    abstract: {
+      goal:
+        "Gruppen eine einfache Möglichkeit geben, Optionen gemeinsam zu bewerten und aus individuellen Ranglisten ein nachvollziehbares Gesamtergebnis zu bilden.",
+      implementation:
+        "Die responsive Webanwendung verbindet React und TypeScript mit Anmeldung, geteilten Abstimmungen und einer persistenten Datenbank auf Cloudflare.",
+      role:
+        "Rankly ist ein persönliches Projekt. Ich entwickelte Produktidee, Datenmodell, Abstimmungslogik, Authentifizierung, Oberfläche und Veröffentlichung selbst.",
+      learnings:
+        "Ich vertiefte die Entwicklung vollständiger Nutzerflüsse, die Modellierung gemeinsamer Daten und den zuverlässigen Betrieb einer dynamischen Webanwendung.",
+    },
+    technologies: ["React", "TypeScript", "Cloudflare D1"],
+    links: [
+      { label: "GitHub", href: "https://github.com/etschwab/ranking" },
+      { label: "Website", href: "https://rankly.etienneschwab.ch" },
+    ],
+  },
+  {
     name: "Planary",
     imagePresentation: "screenshot",
     imageSrc: "/images/projects/planary-dashboard.webp",
@@ -379,54 +401,6 @@ export const moreProjects = [
     technologies: ["TypeScript", "Web"],
     links: [
       { label: "GitHub", href: "https://github.com/etschwab/BookLoan" },
-    ],
-  },
-  {
-    name: "ToDoList",
-    imagePresentation: "screenshot",
-    imageSrc: "/images/projects/todolist.webp",
-    imageAlt: "Helle To-Do-App mit Eingabefeldern, Filtern und Dark-Mode-Schalter",
-    group: "Schule",
-    category: "Schulprojekt",
-    description:
-      "Eine Browser-App zum Erfassen, Priorisieren und Abhaken persönlicher Aufgaben. Kategorien, Fälligkeiten und Filter sorgen dafür, dass auch längere Aufgabenlisten übersichtlich bleiben.",
-    abstract: {
-      goal:
-        "Eine leicht bedienbare Aufgabenliste schaffen, mit der Einträge schnell erfasst, organisiert und als erledigt markiert werden können.",
-      implementation:
-        "HTML und CSS bilden die Oberfläche, JavaScript verwaltet Eingaben, Statusänderungen und die dynamische Darstellung der Aufgaben im Browser.",
-      role:
-        "Ich setzte das Projekt selbstständig von der Grundstruktur bis zur Interaktionslogik um.",
-      learnings:
-        "Das Projekt vertiefte mein Verständnis für DOM-Manipulation, Event-Handling und die Trennung von Darstellung und Anwendungszustand.",
-    },
-    technologies: ["JavaScript", "HTML", "CSS"],
-    links: [
-      { label: "GitHub", href: "https://github.com/etschwab/ToDoList" },
-    ],
-  },
-  {
-    name: "Modul 347",
-    imagePresentation: "screenshot",
-    imageSrc: "/images/projects/modul-347.webp",
-    imageAlt: "Docker Desktop mit mehreren laufenden Containern",
-    group: "Schule",
-    category: "Schulprojekt",
-    description:
-      "Eine Website, die reproduzierbar mit Nginx in einem Docker-Container betrieben wird. Das Projekt verbindet eine einfache Weboberfläche mit Container-Konfiguration, Ports und einer klar definierten Laufzeitumgebung.",
-    abstract: {
-      goal:
-        "Eine statische Website reproduzierbar in einem Container ausliefern und die Grundlagen containerisierter Web-Infrastruktur praktisch anwenden.",
-      implementation:
-        "Die Website wird durch Nginx bereitgestellt. Ein Dockerfile beschreibt Image und Deployment, sodass die gleiche Umgebung lokal und auf einem Zielsystem gestartet werden kann.",
-      role:
-        "Ich konfigurierte Website, Nginx und Containeraufbau im Rahmen des Schulmoduls.",
-      learnings:
-        "Ich lernte den Unterschied zwischen Anwendung und Laufzeitumgebung sowie den Umgang mit Images, Containern, Ports und reproduzierbaren Builds.",
-    },
-    technologies: ["Docker", "Nginx", "HTML"],
-    links: [
-      { label: "GitHub", href: "https://github.com/etschwab/m347" },
     ],
   },
   {
@@ -537,27 +511,6 @@ export const moreProjects = [
     },
     technologies: ["C#", "Windows Forms"],
     links: [],
-  },
-  {
-    name: "Scamble",
-    group: "Schule",
-    category: "Experiment",
-    description:
-      "Ein frühes Lern-Repository für kleine Programmierexperimente und erste strukturierte Abläufe mit Git. Dabei standen Dateiorganisation, nachvollziehbare Änderungen und der Umgang mit Commits im Mittelpunkt.",
-    abstract: {
-      goal:
-        "Grundlegende Arbeitsweisen mit einem Code-Repository ausprobieren und eine nachvollziehbare Struktur für kleine Experimente aufbauen.",
-      implementation:
-        "Kleine Programmierübungen und Dateien wurden geordnet, versioniert und über GitHub verwaltet.",
-      role:
-        "Das Repository entstand als persönliches Lern- und Experimentierprojekt.",
-      learnings:
-        "Ich machte erste praktische Erfahrungen mit Versionskontrolle, Commits, Dateistruktur und der Weiterentwicklung eines Projekts in kleinen Schritten.",
-    },
-    technologies: ["Grundlagen"],
-    links: [
-      { label: "GitHub", href: "https://github.com/etschwab/scamble" },
-    ],
   },
 ] satisfies ReadonlyArray<{
   name: string;
