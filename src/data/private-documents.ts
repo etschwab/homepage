@@ -17,11 +17,11 @@ export const privateDocumentGroups = [
     documents: [
       {
         title: "Lebenslauf Etienne Schwab",
-        description: "Direkt als PDF ansehen oder als originale Word-Datei herunterladen.",
-        format: "DOCX",
-        size: "437 KB",
+        description: "Direkt als PDF ansehen oder herunterladen.",
+        format: "PDF",
+        size: "89 KB",
         previewSlug: "lebenslauf-vorschau",
-        downloadSlug: "lebenslauf-original",
+        downloadSlug: "lebenslauf-vorschau",
       },
     ],
   },
