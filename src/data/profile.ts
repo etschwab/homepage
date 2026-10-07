@@ -14,7 +14,7 @@ export const profile = {
   name: "Etienne Schwab",
   role: "IMS-Schüler & Entwickler",
   intro:
-    "Ich bin 17, besuche die IMS Bern und entwickle Websites und digitale Anwendungen. Am liebsten arbeite ich am Frontend und sehe dabei direkt, was aus einer Idee entsteht.",
+    "Ich bin 18, besuche die IMS Bern und entwickle Websites und digitale Anwendungen. Am liebsten arbeite ich am Frontend und sehe dabei direkt, was aus einer Idee entsteht.",
   location: "Bern, Schweiz",
   availability: "Offen für ein Praktikum",
 } as const;
@@ -81,12 +81,12 @@ export const siteCopy = {
 export const aboutSection = {
   title: "Über mich",
   paragraphs: [
-    "Ich heisse Etienne Schwab, bin 17 Jahre alt und komme aus Muri-Gümligen in der Region Bern. An der IMS Bern verbinde ich die kaufmännische Ausbildung mit Informatikunterricht an der gibb.",
+    "Ich heisse Etienne Schwab, bin 18 Jahre alt und komme aus Muri-Gümligen in der Region Bern. An der IMS Bern verbinde ich die kaufmännische Ausbildung mit Informatikunterricht an der gibb.",
     "Mich interessieren vor allem Frontend-Entwicklung, Webanwendungen und digitale Produkte, die verständlich aufgebaut sind. Bei Planary sammle ich zusätzlich Erfahrung mit echten Webprojekten.",
     "Seit über zehn Jahren spiele ich Unihockey. Ausserdem spiele ich gerne Dart und GeoGuessr.",
   ],
   facts: [
-    { label: "Alter", value: "17 Jahre" },
+    { label: "Alter", value: "18 Jahre" },
     { label: "Ausbildung", value: "IMS Bern" },
     { label: "Region", value: "Muri-Gümligen" },
   ],

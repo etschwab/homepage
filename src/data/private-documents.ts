@@ -165,8 +165,8 @@ export const privateDocumentFiles = {
 
 export const privateDocumentArchiveFiles = [
   {
-    relativePath: "lebenslauf-etienne-schwab.docx",
-    archivePath: "Bewerbungsunterlagen_Etienne_Schwab/Lebenslauf/Lebenslauf_Etienne_Schwab.docx",
+    relativePath: "lebenslauf-etienne-schwab.pdf",
+    archivePath: "Bewerbungsunterlagen_Etienne_Schwab/Lebenslauf/Lebenslauf_Etienne_Schwab.pdf",
   },
   {
     relativePath: "zeugnisse/berufsmaturitaet.pdf",
