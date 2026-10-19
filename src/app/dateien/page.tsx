@@ -5,6 +5,7 @@ import { ContactSection } from "@/components/sections/contact-section";
 import { PrivateSection } from "@/components/sections/private-section";
 import { PageShell } from "@/components/site/page-shell";
 import { siteCopy } from "@/data/profile";
+import { getContent } from "@/lib/cms/content";
 import { readSession } from "@/lib/auth/session";
 
 export const metadata: Metadata = {
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
 
 export default async function FilesPage() {
   const session = await readSession();
+  const { files } = await getContent();
 
   if (session) {
     return (
@@ -35,10 +37,7 @@ export default async function FilesPage() {
               Persönliche<br />
               <em>Dateien.</em>
             </h1>
-            <p>
-              Lebenslauf, Zeugnisse und weitere persönliche Dokumente sind
-              geschützt. Melde dich an, um sie anzusehen.
-            </p>
+            <p>{files.text}</p>
             <Link href="/login" className="action-link">
               {siteCopy.actions.login} <span aria-hidden="true">→</span>
             </Link>

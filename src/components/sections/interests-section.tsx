@@ -4,7 +4,9 @@ import Image from "next/image";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-import { interests } from "@/data/profile";
+import type { SiteContent } from "@/lib/cms/types";
+
+type Interest = SiteContent["interests"][number];
 
 const floorballMedia = [
   {
@@ -27,8 +29,13 @@ const floorballMedia = [
   },
 ] as const;
 
-export function InterestsSection() {
-  const [floorball, dart, geoguessr] = interests;
+type InterestsSectionProps = {
+  copy: SiteContent["sections"]["leisure"];
+  interests: SiteContent["interests"];
+};
+
+export function InterestsSection({ copy, interests }: InterestsSectionProps) {
+  const [floorball = { title: "", description: "" }, ...otherInterests] = interests;
   const [activeSlide, setActiveSlide] = useState(0);
   const currentSlide = floorballMedia[activeSlide];
 
@@ -54,12 +61,10 @@ export function InterestsSection() {
         <header className="section-heading-row">
           <div>
             <h2 id="interests-title" className="section-title">
-              Unihockey, Dart und GeoGuessr
+              {copy.title}
             </h2>
           </div>
-          <p>
-            In meiner Freizeit bin ich meistens nicht am Laptop.
-          </p>
+          <p>{copy.text}</p>
         </header>
 
         <div className="hobby-showcase">
@@ -126,8 +131,9 @@ export function InterestsSection() {
           </article>
 
           <div className="interest-side" aria-label="Weitere Hobbys">
-            <InterestItem item={dart} index="02" />
-            <InterestItem item={geoguessr} index="03" />
+            {otherInterests.map((item, index) => (
+              <InterestItem key={index} item={item} index={String(index + 2).padStart(2, "0")} />
+            ))}
           </div>
         </div>
       </div>
@@ -139,7 +145,7 @@ function InterestItem({
   item,
   index,
 }: {
-  item: (typeof interests)[number];
+  item: Interest;
   index: string;
 }) {
   return (

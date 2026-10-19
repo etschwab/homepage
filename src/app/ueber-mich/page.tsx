@@ -5,6 +5,7 @@ import { InterestsSection } from "@/components/sections/interests-section";
 import { SkillsSection } from "@/components/sections/skills-section";
 import { Timeline } from "@/components/sections/Timeline";
 import { PageShell } from "@/components/site/page-shell";
+import { getContent } from "@/lib/cms/content";
 
 export const metadata: Metadata = {
   title: "Über mich",
@@ -12,13 +13,15 @@ export const metadata: Metadata = {
     "Etienne Schwab über IMS Bern, Frontend-Entwicklung, Unihockey, Kompetenzen und Bildungsweg.",
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const { interests, sections } = await getContent();
+
   return (
     <PageShell>
       <AboutSection />
       <SkillsSection />
       <Timeline />
-      <InterestsSection />
+      <InterestsSection copy={sections.leisure} interests={interests} />
     </PageShell>
   );
 }

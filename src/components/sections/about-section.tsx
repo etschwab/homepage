@@ -1,9 +1,12 @@
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 
-import { aboutSection, links } from "@/data/profile";
+import { links } from "@/data/profile";
+import { getContent } from "@/lib/cms/content";
 
-export function AboutSection() {
+export async function AboutSection() {
+  const { about: aboutSection } = await getContent();
+
   return (
     <section className="about-page" id="profil" aria-labelledby="about-title">
       <header className="site-container about-title">
@@ -46,7 +49,7 @@ export function AboutSection() {
 
         <div className="about-story-copy">
           {aboutSection.paragraphs.map((paragraph, index) => (
-            <p className={index === 0 ? "about-story-lead" : undefined} key={paragraph}>
+            <p className={index === 0 ? "about-story-lead" : undefined} key={index}>
               {paragraph}
             </p>
           ))}
@@ -60,8 +63,8 @@ export function AboutSection() {
           </a>
 
           <dl className="about-facts">
-            {aboutSection.facts.map((fact) => (
-              <div key={fact.label}>
+            {aboutSection.facts.map((fact, index) => (
+              <div key={index}>
                 <dt>{fact.label}</dt>
                 <dd>{fact.value}</dd>
               </div>

@@ -1,6 +1,8 @@
-import { privateProfile } from "@/data/private";
+import { getContent } from "@/lib/cms/content";
 
-export function ContactSection() {
+export async function ContactSection() {
+  const { contact: privateProfile } = await getContent();
+
   return (
     <section className="private-contact" aria-labelledby="contact-title">
       <div className="site-container split-layout">

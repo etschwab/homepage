@@ -2,6 +2,12 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   devIndicators: false,
+  experimental: {
+    serverActions: {
+      // Dokument-Uploads im Admin (max. 4 MB plus Formular-Overhead).
+      bodySizeLimit: "4.5mb",
+    },
+  },
   outputFileTracingIncludes: {
     "/api/private-documents/*": ["./secure-documents/**/*"],
   },

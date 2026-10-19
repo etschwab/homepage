@@ -1,16 +1,18 @@
-import { profile } from "@/data/profile";
+import { getContent } from "@/lib/cms/content";
 
-export function HeroSection() {
+export async function HeroSection() {
+  const { home } = await getContent();
+
   return (
     <section className="home-hero">
       <div className="site-container home-hero-grid">
         <div className="home-hero-copy">
-          <p className="home-kicker">Portfolio · IMS Bern · 2026</p>
+          <p className="home-kicker">{home.kicker}</p>
           <h1>
             Etienne
             <em>Schwab.</em>
           </h1>
-          <p className="home-role">{profile.role}</p>
+          <p className="home-role">{home.role}</p>
         </div>
 
       </div>

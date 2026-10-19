@@ -1,6 +1,8 @@
-import { skillLevels, strengths } from "@/data/profile";
+import { getContent } from "@/lib/cms/content";
 
-export function SkillsSection() {
+export async function SkillsSection() {
+  const { sections, skillLevels, strengths } = await getContent();
+
   return (
     <section
       className="content-section skills-section"
@@ -12,19 +14,16 @@ export function SkillsSection() {
           <div>
             <span className="section-eyebrow">Kompetenzen</span>
             <h2 id="skills-title" className="section-title">
-              Was ich kann.
+              {sections.skills.title}
             </h2>
           </div>
-          <p>
-            Technisches Wissen ist für mich dann wertvoll, wenn daraus eine
-            verständliche und verlässliche Lösung entsteht.
-          </p>
+          <p>{sections.skills.text}</p>
         </header>
 
         <div className="skills-content">
           <div className="skill-levels" aria-label="Technische Kenntnisse nach Erfahrungsstufe">
             {skillLevels.map((group, index) => (
-              <section className={`skill-level is-${group.tone}`} key={group.level}>
+              <section className={`skill-level is-${group.tone}`} key={index}>
                 <header className="skill-level-heading">
                   <div>
                     <span className="skill-level-kicker">
@@ -40,8 +39,8 @@ export function SkillsSection() {
                 </header>
 
                 <div className="skill-level-list">
-                  {group.items.map((item) => (
-                    <article key={item.name}>
+                  {group.items.map((item, itemIndex) => (
+                    <article key={itemIndex}>
                       <div className="skill-main">
                         <h4>{item.name}</h4>
                         <p className="skill-technologies">{item.skills.join(" · ")}</p>
@@ -64,8 +63,8 @@ export function SkillsSection() {
               <h3 id="strengths-title">Was mich im Team auszeichnet</h3>
             </div>
             <div className="strength-grid">
-              {strengths.map((strength) => (
-                <article key={strength.name}>
+              {strengths.map((strength, index) => (
+                <article key={index}>
                   <h4>{strength.name}</h4>
                   <p>{strength.description}</p>
                 </article>
