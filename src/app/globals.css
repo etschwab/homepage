@@ -2679,10 +2679,6 @@ h2 em,
 }
 
 /* Admin */
-.files-admin-link {
-  margin-top: 2rem;
-}
-
 .admin-page {
   padding-block: clamp(5rem, 10vw, 9rem);
 }
@@ -2693,6 +2689,10 @@ h2 em,
 
 .admin-heading .page-title {
   margin-top: 1.2rem;
+}
+
+.admin-logout {
+  margin-top: 1.5rem;
 }
 
 .admin {

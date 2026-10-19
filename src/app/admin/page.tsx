@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 
 import { AdminPanel } from "@/app/admin/admin-panel";
 import { PageShell } from "@/components/site/page-shell";
-import { verifySession } from "@/lib/auth/dal";
+import { adminLogout } from "@/lib/auth/actions";
+import { verifyAdminSession } from "@/lib/auth/dal";
 import { getContent, getDocumentGroups } from "@/lib/cms/content";
 import { contentSchema } from "@/lib/cms/defaults";
 
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function AdminPage() {
-  const session = await verifySession();
+  const session = await verifyAdminSession();
   const [content, groups] = await Promise.all([getContent(), getDocumentGroups()]);
   const storage = process.env.BLOB_READ_WRITE_TOKEN
     ? "blob"
@@ -23,7 +24,7 @@ export default async function AdminPage() {
       : "local";
 
   return (
-    <PageShell isProtected>
+    <PageShell>
       <section className="admin-page" aria-labelledby="admin-title">
         <div className="site-container">
           <header className="admin-heading">
@@ -35,6 +36,11 @@ export default async function AdminPage() {
               Texte und Dokumente direkt hier anpassen. Änderungen sind nach dem
               Speichern sofort online, ohne Push.
             </p>
+            <form action={adminLogout} className="admin-logout">
+              <button type="submit" className="admin-button">
+                Admin abmelden
+              </button>
+            </form>
           </header>
 
           <AdminPanel

@@ -7,13 +7,32 @@ type CredentialResult =
   | { ok: true; username: string }
   | { ok: false; reason: "invalid" };
 
-export async function verifyAdminCredentials(
+/** Zugang zu den geschützten Dokumenten (/login). */
+export function verifyAdminCredentials(username: string, password: string) {
+  return verifyCredentials(
+    username,
+    password,
+    process.env.ADMIN_USERNAME,
+    process.env.ADMIN_PASSWORD_HASH,
+  );
+}
+
+/** Zugang zum Admin-Bereich (/admin/login). Bewusst eigene Zugangsdaten. */
+export function verifyEditorCredentials(username: string, password: string) {
+  return verifyCredentials(
+    username,
+    password,
+    process.env.EDITOR_USERNAME,
+    process.env.EDITOR_PASSWORD_HASH,
+  );
+}
+
+async function verifyCredentials(
   username: string,
   password: string,
+  configuredUsername: string | undefined,
+  configuredPasswordHash: string | undefined,
 ): Promise<CredentialResult> {
-  const configuredUsername = process.env.ADMIN_USERNAME;
-  const configuredPasswordHash = process.env.ADMIN_PASSWORD_HASH;
-
   if (!configuredUsername || !configuredPasswordHash) {
     return { ok: false, reason: "invalid" };
   }

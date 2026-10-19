@@ -1,26 +1,27 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-import { getSessionCookieName } from "@/lib/auth/constants";
+import { getAdminCookieName } from "@/lib/auth/constants";
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const hasSessionCookie = Boolean(
-    request.cookies.get(getSessionCookieName())?.value,
+  const hasAdminCookie = Boolean(
+    request.cookies.get(getAdminCookieName())?.value,
   );
 
-  if (pathname.startsWith("/admin") && !hasSessionCookie) {
-    const loginUrl = new URL("/login", request.url);
-    loginUrl.searchParams.set("from", pathname);
-    return NextResponse.redirect(loginUrl);
+  // Die Login-Seiten prüfen die Session selbst. Hier nur anhand des Cookies
+  // weiterzuleiten würde mit einem ungültigen Cookie das Login blockieren.
+  if (pathname === "/admin/login") {
+    return NextResponse.next();
   }
 
-  if (pathname === "/login" && hasSessionCookie) {
-    return NextResponse.redirect(new URL("/dateien", request.url));
+  // Der Admin-Bereich hat ein eigenes Login; das Dokumenten-Login reicht nicht.
+  if (pathname.startsWith("/admin") && !hasAdminCookie) {
+    return NextResponse.redirect(new URL("/admin/login", request.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/login"],
+  matcher: ["/admin/:path*"],
 };
