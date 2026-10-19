@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PageShell } from "@/components/site/page-shell";
-import { siteCopy } from "@/data/profile";
+import { getContent } from "@/lib/cms/content";
 
 export const metadata: Metadata = {
   title: "Impressum",
@@ -10,22 +10,24 @@ export const metadata: Metadata = {
     "Impressum und Kontaktangaben zur persönlichen Portfolio-Website von Etienne Schwab.",
 };
 
-export default function ImpressumPage() {
+export default async function ImpressumPage() {
+  const { imprint } = await getContent();
+
   return (
     <PageShell>
       <section className="legal-page">
         <div className="site-container">
           <div className="legal-hero">
-            <h1>{siteCopy.imprint.title}<em>.</em></h1>
-            <p>{siteCopy.imprint.description}</p>
+            <h1>{imprint.title}<em>.</em></h1>
+            <p>{imprint.description}</p>
           </div>
 
           <dl className="legal-list">
-            {siteCopy.imprint.rows.map((row) => (
-                <div key={row.label}>
+            {imprint.rows.map((row, index) => (
+                <div key={index}>
                   <dt>{row.label}</dt>
                   <dd>
-                    {"href" in row ? (
+                    {row.href ? (
                       <a href={row.href}>{row.value}</a>
                     ) : (
                       row.value
@@ -36,8 +38,8 @@ export default function ImpressumPage() {
           </dl>
 
           <div className="legal-notes">
-            {siteCopy.imprint.notes.map((note) => (
-              <p key={note}>{note}</p>
+            {imprint.notes.map((note, index) => (
+              <p key={index}>{note}</p>
             ))}
           </div>
 

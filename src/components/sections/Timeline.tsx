@@ -1,6 +1,8 @@
-import { education } from "@/data/profile";
+import { getContent } from "@/lib/cms/content";
 
-export function Timeline() {
+export async function Timeline() {
+  const { education, sections } = await getContent();
+
   return (
     <section
       className="content-section timeline-section"
@@ -11,17 +13,17 @@ export function Timeline() {
         <header className="section-heading-row">
           <div>
             <h2 id="education-title" className="section-title">
-              Bildungsweg
+              {sections.education.title}
             </h2>
           </div>
-          <p>Seit 2024 besuche ich die IMS mit Unterricht an der bwd und gibb.</p>
+          <p>{sections.education.text}</p>
         </header>
 
         <div className="education-track">
           <ol className="education-list">
             {education.map((item, index) => (
               <li
-                key={`${item.period}-${item.school}`}
+                key={index}
                 className={index === education.length - 1 ? "is-current" : undefined}
               >
                 <span className="track-marker" aria-hidden="true">

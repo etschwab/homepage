@@ -27,6 +27,7 @@
 /.codex-cv-render/
 /tmp/
 /private-documents/
+/.data/
 
 # debug
 npm-debug.log*

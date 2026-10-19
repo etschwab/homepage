@@ -4,36 +4,14 @@ import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowUpRight, Search, X } from "lucide-react";
 
-import {
-  featuredProjects,
-  moreProjects,
-  type ProjectGroup,
-} from "@/data/profile";
 import { useModalScrollLock } from "@/hooks/use-modal-scroll-lock";
+import {
+  projectFilters as filters,
+  type Project,
+  type ProjectFilter as Filter,
+} from "@/lib/projects";
 
-type Filter = "Alle" | ProjectGroup;
-
-const filters: readonly Filter[] = ["Alle", "Web", "Schule", "Hardware", "Desktop"];
-const featuredGroups: readonly ProjectGroup[] = ["Schule", "Web", "Schule"];
-
-const projects = [
-  ...featuredProjects.map((project, index) => ({
-    ...project,
-    group: featuredGroups[index],
-    category: project.kind,
-  })),
-  ...moreProjects.map((project) => ({
-    ...project,
-    imageSrc: "imageSrc" in project ? project.imageSrc : undefined,
-    imageAlt: "imageAlt" in project ? project.imageAlt : undefined,
-    imagePresentation:
-      "imagePresentation" in project ? project.imagePresentation : undefined,
-  })),
-];
-
-type Project = (typeof projects)[number];
-
-export function ProjectArchive() {
+export function ProjectArchive({ projects }: { projects: readonly Project[] }) {
   const [activeFilter, setActiveFilter] = useState<Filter>("Alle");
   const [query, setQuery] = useState("");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -59,7 +37,7 @@ export function ProjectArchive() {
 
       return matchesFilter && searchableText.includes(normalizedQuery);
     });
-  }, [activeFilter, query]);
+  }, [activeFilter, query, projects]);
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -116,7 +94,7 @@ export function ProjectArchive() {
       {visibleProjects.length ? (
         <div className="project-card-grid">
           {visibleProjects.map((project, index) => (
-            <article className="project-card" key={project.name}>
+            <article className="project-card" key={`${project.name}-${index}`}>
               <button
                 className="project-card-open"
                 type="button"

@@ -1,8 +1,11 @@
 import "server-only";
 
-import { createDecipheriv, createHash } from "node:crypto";
+import { createCipheriv, createDecipheriv, createHash, randomBytes } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { resolve, sep } from "node:path";
+
+import { readObject } from "@/lib/cms/store";
+import type { ManagedDocument } from "@/lib/cms/types";
 
 const MAGIC = Buffer.from("ESDOC1", "ascii");
 const IV_LENGTH = 12;
@@ -21,15 +24,16 @@ function getEncryptionKey() {
     .digest();
 }
 
-export async function readPrivateDocument(relativePath: string) {
-  const documentRoot = resolve(process.cwd(), "secure-documents");
-  const filePath = resolve(documentRoot, `${relativePath}.enc`);
+/** Gleiches Format wie scripts/encrypt-private-documents.mjs. */
+export function encryptDocument(plaintext: Buffer) {
+  const iv = randomBytes(IV_LENGTH);
+  const cipher = createCipheriv("aes-256-gcm", getEncryptionKey(), iv);
+  const ciphertext = Buffer.concat([cipher.update(plaintext), cipher.final()]);
 
-  if (!filePath.startsWith(`${documentRoot}${sep}`)) {
-    throw new Error("Ungültiger Dateipfad");
-  }
+  return Buffer.concat([MAGIC, iv, cipher.getAuthTag(), ciphertext]);
+}
 
-  const encrypted = await readFile(/* turbopackIgnore: true */ filePath);
+function decryptDocument(encrypted: Buffer) {
   const minimumLength = MAGIC.length + IV_LENGTH + TAG_LENGTH + 1;
 
   if (
@@ -54,4 +58,30 @@ export async function readPrivateDocument(relativePath: string) {
     decipher.update(encrypted.subarray(contentStart)),
     decipher.final(),
   ]);
+}
+
+async function readRepoDocument(relativePath: string) {
+  const documentRoot = resolve(process.cwd(), "secure-documents");
+  const filePath = resolve(documentRoot, `${relativePath}.enc`);
+
+  if (!filePath.startsWith(`${documentRoot}${sep}`)) {
+    throw new Error("Ungültiger Dateipfad");
+  }
+
+  return readFile(/* turbopackIgnore: true */ filePath);
+}
+
+export async function readPrivateDocument(
+  document: Pick<ManagedDocument, "storage" | "path">,
+) {
+  const encrypted =
+    document.storage === "cms"
+      ? await readObject(document.path)
+      : await readRepoDocument(document.path);
+
+  if (!encrypted) {
+    throw new Error("Dokument nicht gefunden");
+  }
+
+  return decryptDocument(encrypted);
 }
