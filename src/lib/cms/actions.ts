@@ -5,7 +5,7 @@ import "server-only";
 import { randomBytes } from "node:crypto";
 import { revalidatePath, updateTag } from "next/cache";
 
-import { readSession } from "@/lib/auth/session";
+import { readAdminSession } from "@/lib/auth/session";
 import {
   CMS_TAG,
   CONTENT_KEY,
@@ -41,7 +41,8 @@ export type DocumentsActionState = {
 const MAX_UPLOAD_BYTES = 4 * 1024 * 1024;
 
 async function requireAdmin() {
-  const session = await readSession();
+  // Nur das eigene Admin-Login darf schreiben, nicht das Dokumenten-Login.
+  const session = await readAdminSession();
   if (!session) throw new Error("Nicht angemeldet");
 }
 

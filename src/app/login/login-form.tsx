@@ -10,8 +10,12 @@ import type { LoginState } from "@/lib/auth/schema";
 
 const initialState: LoginState = {};
 
-export function LoginForm() {
-  const [state, formAction] = useActionState(login, initialState);
+type LoginFormProps = {
+  action?: typeof login;
+};
+
+export function LoginForm({ action = login }: LoginFormProps) {
+  const [state, formAction] = useActionState(action, initialState);
 
   return (
     <form action={formAction} className="login-form" noValidate>

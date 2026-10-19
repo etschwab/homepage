@@ -1,4 +1,4 @@
-import { readSession } from "@/lib/auth/session";
+import { readAdminSession, readSession } from "@/lib/auth/session";
 import { findDocument } from "@/lib/cms/content";
 import { readPrivateDocument } from "@/lib/private-documents/storage";
 
@@ -14,7 +14,8 @@ export async function GET(
   request: Request,
   context: { params: Promise<{ slug: string }> },
 ) {
-  const session = await readSession();
+  // Ansehen geht mit dem Dokumenten-Login oder im Admin-Bereich.
+  const session = (await readSession()) ?? (await readAdminSession());
 
   if (!session) {
     return new Response("Nicht autorisiert", { status: 401 });

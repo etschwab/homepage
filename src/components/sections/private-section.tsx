@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import { DocumentLibrary } from "@/components/sections/document-library";
 import { getDocumentGroups } from "@/lib/cms/content";
 
@@ -31,9 +29,6 @@ export async function PrivateSection({ username }: { username: string }) {
             Persönliche Dokumente und Nachweise sind nur in diesem geschützten
             Bereich sichtbar.
           </p>
-          <Link href="/admin" className="action-link files-admin-link">
-            Inhalte bearbeiten <span aria-hidden="true">→</span>
-          </Link>
         </div>
 
         <DocumentLibrary groups={privateDocumentGroups} />

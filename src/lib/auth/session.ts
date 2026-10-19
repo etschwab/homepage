@@ -4,6 +4,8 @@ import { SignJWT, jwtVerify, type JWTPayload } from "jose";
 import { cookies } from "next/headers";
 
 import {
+  ADMIN_SESSION_DURATION_SECONDS,
+  getAdminCookieName,
   getSessionCookieName,
   SESSION_DURATION_SECONDS,
 } from "@/lib/auth/constants";
@@ -12,6 +14,11 @@ export type SessionUser = {
   userId: string;
   username: string;
   role: "admin";
+};
+
+export type AdminSessionUser = {
+  username: string;
+  role: "editor";
 };
 
 type SessionPayload = JWTPayload & {
@@ -34,37 +41,30 @@ function getEncodedSecret() {
   return new TextEncoder().encode(secret);
 }
 
-export async function createSession(username: string) {
-  const token = await new SignJWT({ username, role: "admin" })
+async function setTokenCookie(
+  name: string,
+  claims: { username: string; role: string },
+  subject: string,
+  maxAge: number,
+) {
+  const token = await new SignJWT(claims)
     .setProtectedHeader({ alg: "HS256" })
-    .setSubject("admin")
+    .setSubject(subject)
     .setIssuedAt()
-    .setExpirationTime(`${SESSION_DURATION_SECONDS}s`)
+    .setExpirationTime(`${maxAge}s`)
     .sign(getEncodedSecret());
 
   const cookieStore = await cookies();
-  cookieStore.set(getSessionCookieName(), token, {
+  cookieStore.set(name, token, {
     httpOnly: true,
-    maxAge: SESSION_DURATION_SECONDS,
+    maxAge,
     path: "/",
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
   });
 }
 
-export async function deleteSession() {
-  const cookieStore = await cookies();
-  cookieStore.delete(getSessionCookieName());
-}
-
-export async function readSession() {
-  const cookieStore = await cookies();
-  const token = cookieStore.get(getSessionCookieName())?.value;
-
-  return decryptSession(token);
-}
-
-export async function decryptSession(token: string | undefined) {
+async function verifyToken(token: string | undefined, subject: string, role: string) {
   if (!token) {
     return null;
   }
@@ -77,19 +77,74 @@ export async function decryptSession(token: string | undefined) {
     );
 
     if (
-      payload.sub !== "admin" ||
-      payload.role !== "admin" ||
+      payload.sub !== subject ||
+      payload.role !== role ||
       typeof payload.username !== "string"
     ) {
       return null;
     }
 
-    return {
-      userId: payload.sub,
-      username: payload.username,
-      role: "admin",
-    } satisfies SessionUser;
+    return { username: payload.username };
   } catch {
     return null;
   }
+}
+
+// Dokumenten-Login (/login): darf geschützte Dateien und Kontakt ansehen.
+
+export async function createSession(username: string) {
+  await setTokenCookie(
+    getSessionCookieName(),
+    { username, role: "admin" },
+    "admin",
+    SESSION_DURATION_SECONDS,
+  );
+}
+
+export async function deleteSession() {
+  const cookieStore = await cookies();
+  cookieStore.delete(getSessionCookieName());
+}
+
+export async function readSession() {
+  const cookieStore = await cookies();
+  return decryptSession(cookieStore.get(getSessionCookieName())?.value);
+}
+
+export async function decryptSession(token: string | undefined) {
+  const verified = await verifyToken(token, "admin", "admin");
+  if (!verified) return null;
+
+  return {
+    userId: "admin",
+    username: verified.username,
+    role: "admin",
+  } satisfies SessionUser;
+}
+
+// Admin-Login (/admin/login): darf Inhalte und Dokumente bearbeiten.
+
+export async function createAdminSession(username: string) {
+  await setTokenCookie(
+    getAdminCookieName(),
+    { username, role: "editor" },
+    "editor",
+    ADMIN_SESSION_DURATION_SECONDS,
+  );
+}
+
+export async function deleteAdminSession() {
+  const cookieStore = await cookies();
+  cookieStore.delete(getAdminCookieName());
+}
+
+export async function readAdminSession(): Promise<AdminSessionUser | null> {
+  const cookieStore = await cookies();
+  const verified = await verifyToken(
+    cookieStore.get(getAdminCookieName())?.value,
+    "editor",
+    "editor",
+  );
+
+  return verified ? { username: verified.username, role: "editor" } : null;
 }
