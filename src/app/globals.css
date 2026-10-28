@@ -3039,6 +3039,55 @@ h2 em,
   width: 100%;
 }
 
+.admin-standard {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: clamp(3rem, 6vw, 5rem);
+  border-top: 1px solid var(--border);
+  padding-top: 2rem;
+}
+
+.admin-standard h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 640;
+}
+
+.admin-standard-status {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.admin-standard-form {
+  display: grid;
+  gap: 1rem;
+  max-width: 36rem;
+  margin-top: 0.5rem;
+}
+
+.admin-standard-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.admin-button.is-danger:hover:not(:disabled) {
+  border-color: #c45c54;
+  background: rgba(196, 92, 84, 0.16);
+}
+
+.admin-standard-message {
+  min-height: 1.2em;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.admin-standard-message.is-error {
+  color: #c45c54;
+}
+
 .admin-savebar {
   position: sticky;
   bottom: 1rem;

@@ -57,9 +57,13 @@ Hochgeladene Dokumente werden wie die Dateien in `secure-documents` mit
 `SESSION_SECRET` verschlüsselt. Wird das Secret geändert, sind sie nicht mehr
 lesbar und müssen neu hochgeladen werden.
 
-Die Dateien in `src/data` bleiben der Ausgangsstand. «Zurücksetzen» im Admin
-stellt diesen Stand wieder her. Lokal ohne Token speichert der Admin in
-`.data/cms`.
+Ganz unten im Admin gibt es den Bereich **Standard**: «Als Standard festlegen»
+sichert den gespeicherten Stand von Texten und Dokumenten, «Auf Standard
+zurücksetzen» holt ihn zurück. Beides verlangt das Admin-Passwort. Ohne eigenen
+Standard gilt der Ausgangsstand aus `src/data`. Dateien, die zum Standard
+gehören, werden beim Ersetzen oder Löschen nicht gelöscht.
+
+Lokal ohne Blob Store speichert der Admin in `.data/cms`.
 
 ## Wichtige Befehle
 

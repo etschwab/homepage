@@ -18,6 +18,11 @@ export const CMS_TAG = "cms";
 export const CONTENT_KEY = "content.json";
 export const DOCUMENTS_KEY = "documents.json";
 
+// Selbst festgelegter Standard, auf den «Zurücksetzen» zurückgeht.
+export const STANDARD_CONTENT_KEY = "standard/content.json";
+export const STANDARD_DOCUMENTS_KEY = "standard/documents.json";
+export const STANDARD_META_KEY = "standard/meta.json";
+
 let documentSchema = deriveSchema(defaultDocumentGroups);
 documentSchema = withOptions(documentSchema, ["*", "documents", "*", "format"], ["PDF", "DOCX"]);
 documentSchema = withOptions(documentSchema, ["*", "documents", "*", "storage"], ["repo", "cms"]);
@@ -70,6 +75,14 @@ export const getContent = cache(async () => normalizeContent(await readJson(CONT
 export const getDocumentGroups = cache(async () =>
   normalizeDocuments(await readJson(DOCUMENTS_KEY)),
 );
+
+/** Wann der Standard zuletzt festgelegt wurde, oder null für den Stand aus dem Code. */
+export async function getStandardInfo(): Promise<{ savedAt: string } | null> {
+  const meta = await readJson(STANDARD_META_KEY);
+  return meta && typeof meta === "object" && "savedAt" in meta && typeof meta.savedAt === "string"
+    ? { savedAt: meta.savedAt }
+    : null;
+}
 
 export async function findDocument(id: string): Promise<ManagedDocument | undefined> {
   const groups = await getDocumentGroups();

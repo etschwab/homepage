@@ -1,9 +1,9 @@
 "use client";
 
-import { useActionState, useEffect, useId, useState, useTransition } from "react";
-import { ArrowDown, ArrowUp, Plus, RotateCcw, Save, Trash2 } from "lucide-react";
+import { useActionState, useEffect, useId, useState } from "react";
+import { ArrowDown, ArrowUp, Plus, Save, Trash2 } from "lucide-react";
 
-import { resetContent, saveContent, type ContentActionState } from "@/lib/cms/actions";
+import { saveContent, type ContentActionState } from "@/lib/cms/actions";
 import { blankValue, type FieldSchema, type JsonValue } from "@/lib/cms/schema";
 import type { SiteContent } from "@/lib/cms/types";
 
@@ -86,17 +86,14 @@ export function ContentEditor({
   const [saved, setSaved] = useState<JsonValue>(initialContent as unknown as JsonValue);
   const [value, setValue] = useState<JsonValue>(saved);
   const [state, formAction, pending] = useActionState(saveContent, initialState);
-  const [resetState, setResetState] = useState<ContentActionState>({});
-  const [resetting, startReset] = useTransition();
   const dirty = JSON.stringify(value) !== JSON.stringify(saved);
 
   // Nach dem Speichern den bereinigten Stand vom Server übernehmen.
   const [handledAt, setHandledAt] = useState<number | undefined>();
-  const latest = [state, resetState].sort((a, b) => (b.savedAt ?? 0) - (a.savedAt ?? 0))[0];
-  if (latest.ok && latest.content && latest.savedAt !== handledAt) {
-    setHandledAt(latest.savedAt);
-    setSaved(latest.content as unknown as JsonValue);
-    setValue(latest.content as unknown as JsonValue);
+  if (state.ok && state.content && state.savedAt !== handledAt) {
+    setHandledAt(state.savedAt);
+    setSaved(state.content as unknown as JsonValue);
+    setValue(state.content as unknown as JsonValue);
   }
 
   useEffect(() => {
@@ -107,8 +104,6 @@ export function ContentEditor({
   }, [dirty]);
 
   if (schema.kind !== "object" || !isRecord(value)) return null;
-
-  const message = latest.message;
 
   return (
     <form action={formAction} className="admin-form">
@@ -133,12 +128,12 @@ export function ContentEditor({
       ))}
 
       <div className="admin-savebar" aria-live="polite">
-        <p className={latest.ok === false ? "is-error" : undefined}>
-          {pending || resetting
+        <p className={state.ok === false ? "is-error" : undefined}>
+          {pending
             ? "Wird gespeichert …"
             : dirty
               ? "Ungespeicherte Änderungen"
-              : (message ?? "Alles gespeichert")}
+              : (state.message ?? "Alles gespeichert")}
         </p>
         <div className="admin-savebar-actions">
           <button
@@ -148,18 +143,6 @@ export function ContentEditor({
             onClick={() => setValue(saved)}
           >
             Verwerfen
-          </button>
-          <button
-            type="button"
-            className="admin-button"
-            disabled={pending || resetting}
-            onClick={() => {
-              if (!window.confirm("Alle Texte auf den Stand im Code zurücksetzen? Deine Änderungen im Admin gehen verloren.")) return;
-              startReset(async () => setResetState(await resetContent()));
-            }}
-          >
-            <RotateCcw aria-hidden="true" size={16} />
-            Zurücksetzen
           </button>
           <button type="submit" className="admin-button is-primary" disabled={!dirty || pending}>
             <Save aria-hidden="true" size={16} />

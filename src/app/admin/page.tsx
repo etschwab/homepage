@@ -4,7 +4,7 @@ import { AdminPanel } from "@/app/admin/admin-panel";
 import { PageShell } from "@/components/site/page-shell";
 import { adminLogout } from "@/lib/auth/actions";
 import { verifyAdminSession } from "@/lib/auth/dal";
-import { getContent, getDocumentGroups } from "@/lib/cms/content";
+import { getContent, getDocumentGroups, getStandardInfo } from "@/lib/cms/content";
 import { contentSchema } from "@/lib/cms/defaults";
 import { hasBlobStore } from "@/lib/cms/store";
 
@@ -17,7 +17,11 @@ export const dynamic = "force-dynamic";
 
 export default async function AdminPage() {
   const session = await verifyAdminSession();
-  const [content, groups] = await Promise.all([getContent(), getDocumentGroups()]);
+  const [content, groups, standard] = await Promise.all([
+    getContent(),
+    getDocumentGroups(),
+    getStandardInfo(),
+  ]);
   const storage = hasBlobStore()
     ? "blob"
     : process.env.VERCEL
@@ -49,6 +53,7 @@ export default async function AdminPage() {
             schema={contentSchema}
             groups={groups}
             storage={storage}
+            standardSavedAt={standard?.savedAt ?? null}
           />
         </div>
       </section>

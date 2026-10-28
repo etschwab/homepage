@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { ContentEditor } from "@/app/admin/content-editor";
 import { DocumentsEditor } from "@/app/admin/documents-editor";
+import { StandardPanel } from "@/app/admin/standard-panel";
 import type { FieldSchema } from "@/lib/cms/schema";
 import type { ManagedDocumentGroup, SiteContent } from "@/lib/cms/types";
 
@@ -12,6 +13,7 @@ type AdminPanelProps = {
   schema: FieldSchema;
   groups: ManagedDocumentGroup[];
   storage: "blob" | "local" | "missing";
+  standardSavedAt: string | null;
 };
 
 const tabs = [
@@ -19,7 +21,7 @@ const tabs = [
   { id: "dokumente", label: "Dokumente" },
 ] as const;
 
-export function AdminPanel({ content, schema, groups, storage }: AdminPanelProps) {
+export function AdminPanel({ content, schema, groups, storage, standardSavedAt }: AdminPanelProps) {
   const [tab, setTab] = useState<(typeof tabs)[number]["id"]>("texte");
 
   return (
@@ -72,6 +74,8 @@ export function AdminPanel({ content, schema, groups, storage }: AdminPanelProps
       >
         <DocumentsEditor initialGroups={groups} />
       </div>
+
+      <StandardPanel savedAt={standardSavedAt} />
     </div>
   );
 }
