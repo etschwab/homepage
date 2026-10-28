@@ -6,6 +6,7 @@ import { adminLogout } from "@/lib/auth/actions";
 import { verifyAdminSession } from "@/lib/auth/dal";
 import { getContent, getDocumentGroups } from "@/lib/cms/content";
 import { contentSchema } from "@/lib/cms/defaults";
+import { hasBlobStore } from "@/lib/cms/store";
 
 export const metadata: Metadata = {
   title: "Admin",
@@ -17,7 +18,7 @@ export const dynamic = "force-dynamic";
 export default async function AdminPage() {
   const session = await verifyAdminSession();
   const [content, groups] = await Promise.all([getContent(), getDocumentGroups()]);
-  const storage = process.env.BLOB_READ_WRITE_TOKEN
+  const storage = hasBlobStore()
     ? "blob"
     : process.env.VERCEL
       ? "missing"

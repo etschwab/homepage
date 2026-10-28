@@ -5,7 +5,7 @@ import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, resolve, sep } from "node:path";
 
 // Speicher für alles, was im Admin geändert wird. Auf Vercel ist das ein
-// privater Blob Store (BLOB_READ_WRITE_TOKEN), lokal der Ordner .data/cms.
+// privater Blob Store, lokal der Ordner .data/cms.
 
 export class StoreNotConfiguredError extends Error {
   constructor() {
@@ -15,8 +15,12 @@ export class StoreNotConfiguredError extends Error {
   }
 }
 
-function hasBlobStore() {
-  return Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+/**
+ * Vercel verbindet einen Blob Store entweder mit BLOB_READ_WRITE_TOKEN oder
+ * (neuer) mit BLOB_STORE_ID; das SDK meldet sich dann selbst per OIDC an.
+ */
+export function hasBlobStore() {
+  return Boolean(process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID);
 }
 
 function assertWritable() {

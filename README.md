@@ -49,8 +49,8 @@ Einmalig einrichten:
    `EDITOR_USERNAME` und `EDITOR_PASSWORD_HASH` eintragen. In `.env.local`
    jedes `$` im Hash als `\$` schreiben.
 2. In Vercel unter **Storage → Create → Blob** einen Store mit Zugriff
-   **Private** anlegen und mit diesem Projekt verbinden. Dadurch wird
-   `BLOB_READ_WRITE_TOKEN` automatisch gesetzt.
+   **Private** anlegen und mit diesem Projekt verbinden. Dadurch setzt Vercel
+   automatisch `BLOB_STORE_ID` (oder bei älteren Stores `BLOB_READ_WRITE_TOKEN`).
 3. Neu deployen.
 
 Hochgeladene Dokumente werden wie die Dateien in `secure-documents` mit
