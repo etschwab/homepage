@@ -1688,7 +1688,182 @@ h2 em,
 .files-private-grid {
   display: grid;
   grid-template-columns: minmax(17rem, 4fr) minmax(0, 8fr);
-  gap: clamp(3rem, 7vw, 7rem);
+  align-items: start;
+  gap: 0 clamp(3rem, 7vw, 7rem);
+}
+
+/* Die Gruppen und ihre Notengrafiken liegen direkt im Seitenraster:
+   Grafik links, passende Dokumente rechts auf derselben Zeile. */
+.files-private-heading {
+  grid-column: 1;
+  grid-row: 1 / span var(--heading-rows, 1);
+}
+
+.files-private-grid .document-vault {
+  display: contents;
+}
+
+.files-private-grid .document-vault-status {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.files-private-grid .document-group {
+  grid-column: 2;
+  grid-row: var(--row);
+}
+
+.document-group-grades {
+  position: sticky;
+  top: calc(var(--header-height) + 1.5rem);
+  grid-column: 1;
+  grid-row: var(--row);
+  align-self: start;
+  margin-top: 2rem;
+}
+
+.grade-panel {
+  border-top: 1px solid var(--border-strong);
+  padding-top: 1.2rem;
+}
+
+.grade-panel-eyebrow {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.grade-series {
+  margin: 0.9rem 0 0;
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  background: color-mix(in srgb, var(--surface-elevated) 76%, transparent);
+  padding: 1rem 1.2rem 0.9rem;
+}
+
+.grade-series figcaption {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.grade-series figcaption > div:first-child {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.grade-series figcaption > div:first-child span {
+  color: var(--accent);
+  font-size: 0.7rem;
+  font-weight: 760;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.grade-series figcaption > div:first-child strong {
+  font-size: 1.05rem;
+  font-weight: 640;
+  letter-spacing: -0.02em;
+}
+
+.grade-series-average {
+  display: grid;
+  justify-items: end;
+  text-align: right;
+}
+
+.grade-series-average strong {
+  font-family: var(--font-newsreader), Georgia, serif;
+  font-size: 2.4rem;
+  font-weight: 500;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.grade-series-average span {
+  margin-top: 0.3rem;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+}
+
+.grade-bars {
+  position: relative;
+  display: flex;
+  height: 7.5rem;
+  gap: 0.5rem;
+  margin-top: 1.2rem;
+  padding-bottom: 1.4rem;
+}
+
+.grade-pass-line {
+  position: absolute;
+  right: 0;
+  bottom: calc(1.4rem + (100% - 1.4rem) * var(--pass) / 100);
+  left: 0;
+  border-top: 1px dashed var(--border-strong);
+  pointer-events: none;
+}
+
+.grade-pass-line span {
+  position: absolute;
+  top: -0.55rem;
+  right: 0;
+  background: var(--surface-elevated);
+  padding-left: 0.3rem;
+  color: var(--text-muted);
+  font-size: 0.62rem;
+  line-height: 1;
+}
+
+.grade-bar {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+}
+
+.grade-bar-track {
+  display: flex;
+  flex: 1;
+  align-items: flex-end;
+}
+
+.grade-bar-fill {
+  position: relative;
+  width: 100%;
+  max-width: 2.4rem;
+  margin-inline: auto;
+  border-radius: 0.4rem 0.4rem 0 0;
+  background: var(--accent);
+}
+
+.grade-bar-fill span {
+  position: absolute;
+  bottom: calc(100% + 0.2rem);
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--foreground);
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.grade-bar-label {
+  position: absolute;
+  right: 0;
+  bottom: -1.4rem;
+  left: 0;
+  overflow: hidden;
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .files-private-heading .page-title {
@@ -2558,6 +2733,18 @@ h2 em,
   .document-card-grid {
     grid-template-columns: 1fr;
   }
+
+  .files-private-heading,
+  .files-private-grid .document-vault-status,
+  .files-private-grid .document-group,
+  .document-group-grades {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .files-private-grid .document-vault-status { margin-top: 3rem; }
+
+  .document-group-grades { position: static; }
 
   .document-preview-dialog {
     width: calc(100vw - 0.75rem);
