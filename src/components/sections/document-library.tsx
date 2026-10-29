@@ -2,8 +2,9 @@
 
 import { Download, Eye, FileArchive, FileText, ShieldCheck, X } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState, type CSSProperties } from "react";
 
+import { GradeChart, type GradeSeries } from "@/components/sections/grade-chart";
 import { useModalScrollLock } from "@/hooks/use-modal-scroll-lock";
 
 type DocumentItem = {
@@ -19,6 +20,7 @@ type DocumentGroup = {
   index: string;
   title: string;
   description: string;
+  grades: GradeSeries[];
   documents: DocumentItem[];
 };
 
@@ -52,43 +54,58 @@ export function DocumentLibrary({ groups }: { groups: DocumentGroup[] }) {
           </Link>
         </div>
 
-        {groups.map((group) => (
-          <section className="document-group" key={group.index} aria-labelledby={`document-group-${group.index}`}>
-            <header className="document-group-heading">
-              <span>{group.index}</span>
-              <div>
-                <h2 id={`document-group-${group.index}`}>{group.title}</h2>
-                <p>{group.description}</p>
+        {groups.map((group, groupIndex) => (
+          <Fragment key={group.index}>
+            {group.grades.length > 0 ? (
+              <aside
+                className="document-group-grades"
+                style={{ "--row": groupIndex + 2 } as CSSProperties}
+                aria-label={`Noten ${group.title}`}
+              >
+                <GradeChart title={group.title} series={group.grades} />
+              </aside>
+            ) : null}
+            <section
+              className="document-group"
+              style={{ "--row": groupIndex + 2 } as CSSProperties}
+              aria-labelledby={`document-group-${group.index}`}
+            >
+              <header className="document-group-heading">
+                <span>{group.index}</span>
+                <div>
+                  <h2 id={`document-group-${group.index}`}>{group.title}</h2>
+                  <p>{group.description}</p>
+                </div>
+              </header>
+  
+              <div className={`document-card-grid${group.documents.length === 1 ? " is-single" : ""}`}>
+                {group.documents.map((document) => (
+                  <article className="private-document-card" key={document.title}>
+                    <div className="private-document-card-topline">
+                      <span className="private-document-icon" aria-hidden="true">
+                        <FileText size={19} />
+                      </span>
+                      <span>{document.format} · {document.size}</span>
+                    </div>
+                    <div className="private-document-card-copy">
+                      <h3>{document.title}</h3>
+                      <p>{document.description}</p>
+                    </div>
+                    <div className="private-document-actions">
+                      <button type="button" onClick={() => setPreview(document)}>
+                        <Eye aria-hidden="true" size={16} />
+                        Ansehen
+                      </button>
+                      <a href={`/api/private-documents/${document.downloadSlug}?download=1`}>
+                        <Download aria-hidden="true" size={16} />
+                        Download
+                      </a>
+                    </div>
+                  </article>
+                ))}
               </div>
-            </header>
-
-            <div className={`document-card-grid${group.documents.length === 1 ? " is-single" : ""}`}>
-              {group.documents.map((document) => (
-                <article className="private-document-card" key={document.title}>
-                  <div className="private-document-card-topline">
-                    <span className="private-document-icon" aria-hidden="true">
-                      <FileText size={19} />
-                    </span>
-                    <span>{document.format} · {document.size}</span>
-                  </div>
-                  <div className="private-document-card-copy">
-                    <h3>{document.title}</h3>
-                    <p>{document.description}</p>
-                  </div>
-                  <div className="private-document-actions">
-                    <button type="button" onClick={() => setPreview(document)}>
-                      <Eye aria-hidden="true" size={16} />
-                      Ansehen
-                    </button>
-                    <a href={`/api/private-documents/${document.downloadSlug}?download=1`}>
-                      <Download aria-hidden="true" size={16} />
-                      Download
-                    </a>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </section>
+            </section>
+          </Fragment>
         ))}
       </div>
 
