@@ -36,7 +36,7 @@ export const gradesByGroup: Record<string, GradeSeries[]> = {
     {
       school: "ÜK",
       title: "Modulnoten",
-      average: 5.33,
+      average: 5.43,
       averageLabel: "Ø aller Module",
       rows: [
         { label: "187", detail: "ICT-Arbeitsplatz in Betrieb nehmen", value: 5.0 },
@@ -45,6 +45,7 @@ export const gradesByGroup: Record<string, GradeSeries[]> = {
         { label: "294", detail: "Frontend realisieren", value: 5.5 },
         { label: "210", detail: "Public Cloud nutzen", value: 5.5 },
         { label: "335", detail: "Mobile-App realisieren", value: 5.5 },
+        { label: "223", detail: "Multi-User-Applikationen realisieren", value: 6.0 },
       ],
     },
   ],
