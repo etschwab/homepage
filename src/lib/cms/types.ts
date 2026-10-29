@@ -71,9 +71,27 @@ export type ManagedDocument = {
   path: string;
 };
 
+export type GradeRow = {
+  label: string;
+  /** Optionaler Zusatz, z. B. der Modulname */
+  detail: string;
+  value: number;
+};
+
+export type GradeSeries = {
+  school: string;
+  title: string;
+  averageLabel: string;
+  /** 0 bedeutet: aus den Zeilen berechnen */
+  average: number;
+  rows: GradeRow[];
+};
+
 export type ManagedDocumentGroup = {
   id: string;
   title: string;
   description: string;
+  /** Notengrafiken, die neben den Dokumenten der Gruppe stehen */
+  grades: GradeSeries[];
   documents: ManagedDocument[];
 };
