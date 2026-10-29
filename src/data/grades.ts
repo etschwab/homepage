@@ -1,15 +1,6 @@
 import "server-only";
 
-export type GradeBar = { label: string; value: number };
-
-export type GradeSeries = {
-  school: string;
-  title: string;
-  /** Wert, der gross als Durchschnitt angezeigt wird */
-  average: number;
-  averageLabel: string;
-  bars: GradeBar[];
-};
+import type { GradeSeries } from "@/components/sections/grade-chart";
 
 // Noten aus den Zeugnissen und Kompetenznachweisen, nach Dokumentgruppe (id).
 // Gruppen ohne Eintrag zeigen keine Grafik.
@@ -20,11 +11,11 @@ export const gradesByGroup: Record<string, GradeSeries[]> = {
       title: "Berufsmaturität",
       average: 5.0,
       averageLabel: "Ø aller Semester",
-      bars: [
-        { label: "1. Sem.", value: 5.0 },
-        { label: "2. Sem.", value: 5.1 },
-        { label: "3. Sem.", value: 5.0 },
-        { label: "4. Sem.", value: 4.9 },
+      rows: [
+        { label: "1. Semester", value: 5.0 },
+        { label: "2. Semester", value: 5.1 },
+        { label: "3. Semester", value: 5.0 },
+        { label: "4. Semester", value: 4.9 },
       ],
     },
     {
@@ -32,11 +23,12 @@ export const gradesByGroup: Record<string, GradeSeries[]> = {
       title: "Informatik",
       average: 5.1,
       averageLabel: "Erfahrungsnote",
-      bars: [
-        { label: "1. Sem.", value: 4.75 },
-        { label: "2. Sem.", value: 5.25 },
-        { label: "3. Sem.", value: 5.25 },
-        { label: "4. Sem.", value: 5.0 },
+      // Schnitt der Modulnoten pro Semester
+      rows: [
+        { label: "1. Semester", value: 4.75 },
+        { label: "2. Semester", value: 5.25 },
+        { label: "3. Semester", value: 5.25 },
+        { label: "4. Semester", value: 5.0 },
       ],
     },
   ],
@@ -46,13 +38,13 @@ export const gradesByGroup: Record<string, GradeSeries[]> = {
       title: "Modulnoten",
       average: 5.33,
       averageLabel: "Ø aller Module",
-      bars: [
-        { label: "187", value: 5.0 },
-        { label: "106", value: 5.5 },
-        { label: "295", value: 5.0 },
-        { label: "294", value: 5.5 },
-        { label: "210", value: 5.5 },
-        { label: "335", value: 5.5 },
+      rows: [
+        { label: "187", detail: "ICT-Arbeitsplatz in Betrieb nehmen", value: 5.0 },
+        { label: "106", detail: "Datenbanken abfragen und warten", value: 5.5 },
+        { label: "295", detail: "Backend realisieren", value: 5.0 },
+        { label: "294", detail: "Frontend realisieren", value: 5.5 },
+        { label: "210", detail: "Public Cloud nutzen", value: 5.5 },
+        { label: "335", detail: "Mobile-App realisieren", value: 5.5 },
       ],
     },
   ],
