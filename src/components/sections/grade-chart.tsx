@@ -1,13 +1,6 @@
 import type { CSSProperties } from "react";
 
-export type GradeSeries = {
-  school: string;
-  title: string;
-  /** Wert, der gross als Durchschnitt angezeigt wird */
-  average: number;
-  averageLabel: string;
-  rows: { label: string; detail?: string; value: number }[];
-};
+import type { GradeSeries } from "@/lib/cms/types";
 
 // Schweizer Notenskala: 1 ist die tiefste Note, 4 genügend, 6 die beste.
 const MIN_GRADE = 1;
@@ -15,30 +8,40 @@ const MAX_GRADE = 6;
 const PASS_GRADE = 4;
 
 const toPercent = (grade: number) => ((grade - MIN_GRADE) / (MAX_GRADE - MIN_GRADE)) * 100;
-const formatGrade = (grade: number) => (Math.round(grade * 10) / 10).toFixed(1);
+export const formatGrade = (grade: number) => (Math.round(grade * 10) / 10).toFixed(1);
+
+/** Eingetragener Durchschnitt oder, falls leer, der Schnitt der Zeilen. */
+export function seriesAverage(series: GradeSeries) {
+  if (series.average > 0) return series.average;
+  if (series.rows.length === 0) return 0;
+  return series.rows.reduce((sum, row) => sum + row.value, 0) / series.rows.length;
+}
 
 export function GradeChart({ series }: { series: GradeSeries[] }) {
+  const visible = series.filter((item) => item.rows.length > 0);
+  if (visible.length === 0) return null;
+
   return (
     <div
       className="grade-chart"
       style={{ "--pass": `${toPercent(PASS_GRADE)}%` } as CSSProperties}
     >
-      {series.map((item) => (
-        <figure className="grade-card" key={`${item.school}-${item.title}`}>
+      {visible.map((item, index) => (
+        <figure className="grade-card" key={`${index}-${item.school}-${item.title}`}>
           <figcaption className="grade-card-head">
             <div className="grade-card-title">
               <span>{item.school}</span>
               <strong>{item.title}</strong>
             </div>
             <div className="grade-card-average">
-              <strong>{formatGrade(item.average)}</strong>
+              <strong>{formatGrade(seriesAverage(item))}</strong>
               <span>{item.averageLabel}</span>
             </div>
           </figcaption>
 
           <ol className="grade-rows">
-            {item.rows.map((row) => (
-              <li key={row.label}>
+            {item.rows.map((row, rowIndex) => (
+              <li key={`${rowIndex}-${row.label}`}>
                 <div className="grade-row-copy">
                   <span className="grade-row-label">{row.label}</span>
                   {row.detail ? <span className="grade-row-detail">{row.detail}</span> : null}

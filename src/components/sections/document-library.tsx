@@ -4,8 +4,9 @@ import { Download, Eye, FileArchive, FileText, ShieldCheck, X } from "lucide-rea
 import Link from "next/link";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
-import { GradeChart, type GradeSeries } from "@/components/sections/grade-chart";
+import { GradeChart } from "@/components/sections/grade-chart";
 import { useModalScrollLock } from "@/hooks/use-modal-scroll-lock";
+import type { GradeSeries } from "@/lib/cms/types";
 
 type DocumentItem = {
   title: string;
@@ -81,7 +82,7 @@ export function DocumentLibrary({
                 </div>
               </header>
 
-              {group.grades.length > 0 ? <GradeChart series={group.grades} /> : null}
+              <GradeChart series={group.grades} />
             </div>
 
             <div className={`document-card-grid${group.documents.length === 1 ? " is-single" : ""}`}>

@@ -3204,6 +3204,135 @@ h2 em,
   gap: 0.75rem;
 }
 
+.admin-fields.is-four {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.admin-grades {
+  border: 1px solid var(--border);
+  background: var(--background);
+}
+
+.admin-grades > summary {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  font-weight: 640;
+  list-style: none;
+}
+
+.admin-grades > summary::-webkit-details-marker {
+  display: none;
+}
+
+.admin-grades > summary::after {
+  color: var(--text-muted);
+  content: "+";
+  font-weight: 400;
+}
+
+.admin-grades[open] > summary::after {
+  content: "–";
+}
+
+.admin-grades > summary span {
+  margin-left: auto;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 400;
+}
+
+.admin-grades > summary:hover {
+  background: var(--surface-hover);
+}
+
+.admin-grades[open] > summary {
+  border-bottom: 1px solid var(--border);
+}
+
+.admin-grades-body {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+  padding: 1rem;
+}
+
+.admin-grade-series {
+  display: grid;
+  gap: 0.85rem;
+  justify-items: start;
+  width: 100%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 1rem;
+}
+
+.admin-grade-series-head {
+  display: flex;
+  align-items: end;
+  gap: 1rem;
+  width: 100%;
+}
+
+.admin-grade-series-head > .admin-fields {
+  flex: 1;
+}
+
+.admin-grade-table {
+  width: 100%;
+}
+
+.admin-grade-table ol {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.admin-grade-row {
+  display: grid;
+  grid-template-columns: minmax(7rem, 1fr) minmax(0, 2fr) 5.5rem auto;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.admin-grade-row.is-header {
+  margin-bottom: 0.35rem;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 680;
+}
+
+.admin-grade-row input {
+  width: 100%;
+  min-width: 0;
+  min-height: 2.4rem;
+  border: 1px solid var(--border);
+  border-radius: 0;
+  background: var(--background);
+  padding: 0.4rem 0.7rem;
+  color: var(--foreground);
+  font: inherit;
+  font-size: 0.92rem;
+  outline: 0;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.admin-grade-row input:focus,
+.admin .form-field input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.admin-grade-row input[aria-invalid="true"],
+.admin .form-field input[aria-invalid="true"] {
+  border-color: #c45c54;
+}
+
 .admin-upload {
   display: grid;
   gap: 0.75rem;
@@ -3303,10 +3432,31 @@ h2 em,
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .admin-group-head {
+  .admin-group-head,
+  .admin-grade-series-head {
     flex-direction: column;
     align-items: stretch;
   }
+
+  .admin-fields.is-four {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-grade-row {
+    grid-template-columns: minmax(0, 1fr) 4.5rem;
+  }
+
+  .admin-grade-row.is-header { display: none; }
+
+  .admin-grade-row > input:nth-child(2) { grid-column: 1 / -1; grid-row: 2; }
+
+  .admin-grade-row > .admin-item-controls { grid-column: 1 / -1; }
+
+  .admin-grade-series,
+  .admin-grades-body {
+    padding: 0.75rem;
+  }
+
 
   .admin-section > summary,
   .admin-section-body,

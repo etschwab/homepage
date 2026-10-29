@@ -2,13 +2,15 @@ import "server-only";
 
 import type { ManagedDocumentGroup } from "@/lib/cms/types";
 
-// Ausgangsstand der Dokumente. Sobald im Admin etwas geändert wird, gilt die
-// dort gespeicherte Liste. Die Dateien liegen verschlüsselt in secure-documents.
+// Ausgangsstand der Dokumente und Noten. Sobald im Admin etwas geändert wird,
+// gilt die dort gespeicherte Liste. Die Dateien liegen verschlüsselt in
+// secure-documents.
 export const defaultDocumentGroups: ManagedDocumentGroup[] = [
   {
     id: "lebenslauf",
     title: "Lebenslauf",
     description: "Profil, Ausbildung und technische Kenntnisse auf einen Blick.",
+    grades: [],
     documents: [
       {
         id: "lebenslauf-vorschau",
@@ -26,6 +28,33 @@ export const defaultDocumentGroups: ManagedDocumentGroup[] = [
     id: "zeugnisse",
     title: "Zeugnisse",
     description: "Aktuelle Nachweise aus Berufsmaturität und Informatik.",
+    grades: [
+      {
+        school: "BWD",
+        title: "Berufsmaturität",
+        averageLabel: "Ø aller Semester",
+        average: 0,
+        rows: [
+          { label: "1. Semester", detail: "", value: 5.0 },
+          { label: "2. Semester", detail: "", value: 5.1 },
+          { label: "3. Semester", detail: "", value: 5.0 },
+          { label: "4. Semester", detail: "", value: 4.9 },
+        ],
+      },
+      {
+        school: "GIBB",
+        title: "Informatik",
+        averageLabel: "Erfahrungsnote",
+        average: 5.1,
+        // Schnitt der Modulnoten pro Semester
+        rows: [
+          { label: "1. Semester", detail: "", value: 4.75 },
+          { label: "2. Semester", detail: "", value: 5.25 },
+          { label: "3. Semester", detail: "", value: 5.25 },
+          { label: "4. Semester", detail: "", value: 5.0 },
+        ],
+      },
+    ],
     documents: [
       {
         id: "zeugnis-berufsmaturitaet",
@@ -53,6 +82,23 @@ export const defaultDocumentGroups: ManagedDocumentGroup[] = [
     id: "uek-nachweise",
     title: "ÜK-Nachweise",
     description: "Kompetenz- und Leistungsnachweise aus den überbetrieblichen Kursen.",
+    grades: [
+      {
+        school: "ÜK",
+        title: "Modulnoten",
+        averageLabel: "Ø aller Module",
+        average: 0,
+        rows: [
+          { label: "187", detail: "ICT-Arbeitsplatz in Betrieb nehmen", value: 5.0 },
+          { label: "106", detail: "Datenbanken abfragen und warten", value: 5.5 },
+          { label: "295", detail: "Backend realisieren", value: 5.0 },
+          { label: "294", detail: "Frontend realisieren", value: 5.5 },
+          { label: "210", detail: "Public Cloud nutzen", value: 5.5 },
+          { label: "335", detail: "Mobile-App realisieren", value: 5.5 },
+          { label: "223", detail: "Multi-User-Applikationen realisieren", value: 6.0 },
+        ],
+      },
+    ],
     documents: [
       {
         id: "uek-knw106",

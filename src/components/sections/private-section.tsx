@@ -1,5 +1,4 @@
 import { DocumentLibrary } from "@/components/sections/document-library";
-import { gradesByGroup } from "@/data/grades";
 import { getDocumentGroups } from "@/lib/cms/content";
 
 export async function PrivateSection({ username }: { username: string }) {
@@ -8,7 +7,7 @@ export async function PrivateSection({ username }: { username: string }) {
     index: String(index + 1).padStart(2, "0"),
     title: group.title,
     description: group.description,
-    grades: gradesByGroup[group.id] ?? [],
+    grades: group.grades,
     documents: group.documents.map((document) => ({
       title: document.title,
       description: document.description,

@@ -38,7 +38,7 @@ export default async function AdminPage() {
               Inhalte<br /><em>bearbeiten.</em>
             </h1>
             <p className="files-lead">
-              Texte und Dokumente direkt hier anpassen. Änderungen sind nach dem
+              Texte, Dokumente und Noten direkt hier anpassen. Änderungen sind nach dem
               Speichern sofort online, ohne Push.
             </p>
             <form action={adminLogout} className="admin-logout">
