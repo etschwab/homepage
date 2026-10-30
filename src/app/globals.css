@@ -1824,6 +1824,24 @@ h2 em,
   margin: 1.6rem 0 0 3.5rem;
 }
 
+.document-group-main {
+  display: grid;
+  min-width: 0;
+  gap: 1rem;
+}
+
+/* Unter den Dokumenten: Grafiken nebeneinander wie die Dokumentkarten */
+.grade-chart.is-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0;
+}
+
+.grade-chart.is-grid .grade-card {
+  border-radius: 1.25rem;
+  padding: 1.2rem 1.2rem 0.9rem;
+}
+
 .grade-card {
   margin: 0;
   border: 1px solid var(--border);
@@ -2735,6 +2753,8 @@ h2 em,
   .document-group-aside { position: static; }
 
   .grade-chart { margin-left: 0; }
+
+  .grade-chart.is-grid { grid-template-columns: 1fr; }
 
   .document-preview-dialog {
     width: calc(100vw - 0.75rem);
