@@ -17,20 +17,13 @@ export function seriesAverage(series: GradeSeries) {
   return series.rows.reduce((sum, row) => sum + row.value, 0) / series.rows.length;
 }
 
-export function GradeChart({
-  series,
-  layout = "stack",
-}: {
-  series: GradeSeries[];
-  /** "grid": nebeneinander unter den Dokumenten statt untereinander links */
-  layout?: "stack" | "grid";
-}) {
+export function GradeChart({ series }: { series: GradeSeries[] }) {
   const visible = series.filter((item) => item.rows.length > 0);
   if (visible.length === 0) return null;
 
   return (
     <div
-      className={`grade-chart${layout === "grid" ? " is-grid" : ""}`}
+      className="grade-chart"
       style={{ "--pass": `${toPercent(PASS_GRADE)}%` } as CSSProperties}
     >
       {visible.map((item, index) => (

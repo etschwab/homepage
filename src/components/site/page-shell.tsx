@@ -5,18 +5,21 @@ import { SiteFooter } from "@/components/site/site-footer";
 type PageShellProps = {
   children: React.ReactNode;
   isProtected?: boolean;
+  /** Ohne Kopfzeile und Navigation, z. B. im Admin */
+  hideNavigation?: boolean;
 };
 
 export function PageShell({
   children,
   isProtected = false,
+  hideNavigation = false,
 }: PageShellProps) {
   return (
-    <div className="page-root">
+    <div className={`page-root${hideNavigation ? " is-bare" : ""}`}>
       <a className="skip-link" href="#main-content">
         Zum Inhalt springen
       </a>
-      <SiteHeader isProtected={isProtected} />
+      {hideNavigation ? null : <SiteHeader isProtected={isProtected} />}
       <ScrollAnimations />
       <main className="page-main" id="main-content">{children}</main>
       <SiteFooter />

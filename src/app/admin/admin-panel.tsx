@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { FolderOpen, Type } from "lucide-react";
 
 import { ContentEditor } from "@/app/admin/content-editor";
 import { DocumentsEditor } from "@/app/admin/documents-editor";
@@ -18,8 +17,8 @@ type AdminPanelProps = {
 };
 
 const tabs = [
-  { id: "texte", label: "Texte", hint: "Inhalte der Seiten", icon: Type },
-  { id: "dokumente", label: "Dokumente & Noten", hint: "Dateien und Notengrafiken", icon: FolderOpen },
+  { id: "texte", label: "Texte" },
+  { id: "dokumente", label: "Dokumente & Noten" },
 ] as const;
 
 export function AdminPanel({ content, schema, groups, storage, standardSavedAt }: AdminPanelProps) {
@@ -51,14 +50,10 @@ export function AdminPanel({ content, schema, groups, storage, standardSavedAt }
             id={`admin-tab-${entry.id}`}
             aria-selected={tab === entry.id}
             aria-controls={`admin-panel-${entry.id}`}
-            className={`admin-tab is-${entry.id}`}
+            className="admin-tab"
             onClick={() => setTab(entry.id)}
           >
-            <entry.icon aria-hidden="true" size={18} />
-            <span>
-              <strong>{entry.label}</strong>
-              <small>{entry.hint}</small>
-            </span>
+            {entry.label}
           </button>
         ))}
       </div>
