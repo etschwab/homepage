@@ -3113,8 +3113,7 @@ h2 em,
 }
 
 /* Aufklappbare Abschnitte und Einträge mit Pfeil vorne */
-.admin-section,
-.admin-group {
+.admin-section {
   border: 1px solid var(--border);
   background: var(--surface);
 }
@@ -3249,10 +3248,9 @@ h2 em,
 }
 
 /* Dokumente */
-.admin-group {
+.admin-group-body {
   display: grid;
   gap: 1.25rem;
-  padding: 1.35rem;
 }
 
 .admin-group-head {
@@ -3262,13 +3260,6 @@ h2 em,
   gap: 1rem;
   border-bottom: 1px solid var(--border);
   padding-bottom: 1rem;
-}
-
-.admin-group-head h3 {
-  margin: 0;
-  font-size: 1.3rem;
-  font-weight: 660;
-  letter-spacing: -0.02em;
 }
 
 .admin-document-foot {
@@ -3464,7 +3455,6 @@ h2 em,
 
   .admin-section > summary,
   .admin-section-body,
-  .admin-group,
   .admin-item-body,
   .admin-grade-series {
     padding: 1rem;
