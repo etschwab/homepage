@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ListPlus, Plus, Trash2 } from "lucide-react";
+import { BarChart3, ListPlus, Plus, Trash2 } from "lucide-react";
 
 import { MoveButtons, move } from "@/app/admin/list-controls";
 import { formatGrade, seriesAverage } from "@/components/sections/grade-chart";
@@ -42,10 +42,13 @@ export function GradesEditor({
     });
 
   return (
-    <details className="admin-grades" open={series.length > 0}>
+    <details className="admin-block is-grades admin-grades" open={series.length > 0}>
       <summary>
-        Noten
-        <span>
+        <span className="admin-block-label">
+          <BarChart3 aria-hidden="true" size={14} />
+          Noten
+        </span>
+        <span className={`admin-chip ${series.length ? "is-grades" : "is-muted"}`}>
           {series.length === 0
             ? "keine Grafik"
             : `${series.length} Grafik${series.length === 1 ? "" : "en"} · ${rowCount} Note${rowCount === 1 ? "" : "n"}`}
@@ -55,65 +58,37 @@ export function GradesEditor({
       <div className="admin-grades-body">
         <p className="admin-hint">
           Noten von 1 bis 6, z. B. 5.5 oder 5,5. Den Durchschnitt leer lassen,
-          dann wird er aus den Zeilen berechnet. Gespeichert wird mit «Speichern».
+          dann wird er aus den Zeilen berechnet. Die Farbe zeigt die Note:{" "}
+          <span className="admin-grade-key is-good">ab 5</span>{" "}
+          <span className="admin-grade-key is-ok">ab 4</span>{" "}
+          <span className="admin-grade-key is-low">unter 4</span>
         </p>
 
         {series.map((item, seriesIndex) => {
           const prefix = `grade-${groupId}-${seriesIndex}`;
           const computed = seriesAverage({ ...item, average: 0 });
+          const shown = seriesAverage(item);
 
           return (
             <div className="admin-grade-series" key={seriesIndex}>
-              <div className="admin-grade-series-head">
-                <div className="admin-fields is-four">
-                  <div className="form-field">
-                    <label htmlFor={`${prefix}-school`}>Schule</label>
-                    <input
-                      id={`${prefix}-school`}
-                      value={item.school}
-                      placeholder="z. B. BWD"
-                      onChange={(event) => updateSeries(seriesIndex, { school: event.target.value })}
-                    />
-                  </div>
-                  <div className="form-field">
-                    <label htmlFor={`${prefix}-title`}>Titel</label>
-                    <input
-                      id={`${prefix}-title`}
-                      value={item.title}
-                      placeholder="z. B. Berufsmaturität"
-                      onChange={(event) => updateSeries(seriesIndex, { title: event.target.value })}
-                    />
-                  </div>
-                  <div className="form-field">
-                    <label htmlFor={`${prefix}-average-label`}>Bezeichnung Schnitt</label>
-                    <input
-                      id={`${prefix}-average-label`}
-                      value={item.averageLabel}
-                      placeholder="z. B. Ø aller Semester"
-                      onChange={(event) => updateSeries(seriesIndex, { averageLabel: event.target.value })}
-                    />
-                  </div>
-                  <div className="form-field">
-                    <label htmlFor={`${prefix}-average`}>Durchschnitt</label>
-                    <GradeInput
-                      id={`${prefix}-average`}
-                      value={item.average}
-                      allowEmpty
-                      placeholder={computed ? `automatisch ${formatGrade(computed)}` : "automatisch"}
-                      onChange={(average) => updateSeries(seriesIndex, { average })}
-                    />
-                  </div>
-                </div>
+              <div className="admin-grade-series-bar">
+                <span className="admin-chip is-grades">{item.school || "Schule"}</span>
+                <strong>{item.title || "Ohne Titel"}</strong>
+                <span className={`admin-grade-badge is-large ${gradeTone(shown)}`} title="Durchschnitt">
+                  {shown ? formatGrade(shown) : "–"}
+                </span>
                 <div className="admin-item-controls">
                   <MoveButtons
                     index={seriesIndex}
                     length={series.length}
                     onMove={(to) => onChange(move(series, seriesIndex, to))}
                   />
+                  <span className="admin-controls-divider" aria-hidden="true" />
                   <button
                     type="button"
                     className="admin-icon is-danger"
                     aria-label={`Notengrafik ${item.title || seriesIndex + 1} löschen`}
+                    title="Notengrafik löschen"
                     onClick={() => {
                       if (window.confirm(`Notengrafik «${item.title || "ohne Titel"}» löschen?`)) {
                         onChange(series.filter((_, position) => position !== seriesIndex));
@@ -122,6 +97,46 @@ export function GradesEditor({
                   >
                     <Trash2 aria-hidden="true" size={16} />
                   </button>
+                </div>
+              </div>
+
+              <div className="admin-fields is-four">
+                <div className="form-field">
+                  <label htmlFor={`${prefix}-school`}>Schule</label>
+                  <input
+                    id={`${prefix}-school`}
+                    value={item.school}
+                    placeholder="z. B. BWD"
+                    onChange={(event) => updateSeries(seriesIndex, { school: event.target.value })}
+                  />
+                </div>
+                <div className="form-field">
+                  <label htmlFor={`${prefix}-title`}>Titel</label>
+                  <input
+                    id={`${prefix}-title`}
+                    value={item.title}
+                    placeholder="z. B. Berufsmaturität"
+                    onChange={(event) => updateSeries(seriesIndex, { title: event.target.value })}
+                  />
+                </div>
+                <div className="form-field">
+                  <label htmlFor={`${prefix}-average-label`}>Bezeichnung Schnitt</label>
+                  <input
+                    id={`${prefix}-average-label`}
+                    value={item.averageLabel}
+                    placeholder="z. B. Ø aller Semester"
+                    onChange={(event) => updateSeries(seriesIndex, { averageLabel: event.target.value })}
+                  />
+                </div>
+                <div className="form-field">
+                  <label htmlFor={`${prefix}-average`}>Durchschnitt</label>
+                  <GradeInput
+                    id={`${prefix}-average`}
+                    value={item.average}
+                    allowEmpty
+                    placeholder={computed ? `automatisch ${formatGrade(computed)}` : "automatisch"}
+                    onChange={(average) => updateSeries(seriesIndex, { average })}
+                  />
                 </div>
               </div>
 
@@ -134,7 +149,7 @@ export function GradesEditor({
                 </div>
                 <ol>
                   {item.rows.map((row, rowIndex) => (
-                    <li className="admin-grade-row" key={rowIndex}>
+                    <li className={`admin-grade-row ${gradeTone(row.value)}`} key={rowIndex}>
                       <input
                         aria-label={`Bezeichnung Zeile ${rowIndex + 1}`}
                         value={row.label}
@@ -163,6 +178,7 @@ export function GradesEditor({
                           type="button"
                           className="admin-icon is-danger"
                           aria-label={`Zeile ${row.label || rowIndex + 1} löschen`}
+                          title="Zeile löschen"
                           onClick={() =>
                             updateSeries(seriesIndex, {
                               rows: item.rows.filter((_, position) => position !== rowIndex),
@@ -179,7 +195,7 @@ export function GradesEditor({
 
               <button
                 type="button"
-                className="admin-button"
+                className="admin-button is-add"
                 onClick={() => updateSeries(seriesIndex, { rows: [...item.rows, { ...blankRow }] })}
               >
                 <Plus aria-hidden="true" size={16} />
@@ -191,7 +207,7 @@ export function GradesEditor({
 
         <button
           type="button"
-          className="admin-button"
+          className="admin-button is-grades"
           onClick={() => onChange([...series, { ...blankSeries, rows: [{ ...blankRow }] }])}
         >
           <ListPlus aria-hidden="true" size={16} />
@@ -200,6 +216,14 @@ export function GradesEditor({
       </div>
     </details>
   );
+}
+
+/** Farbklasse nach Notenhöhe: ab 5 gut, ab 4 genügend, darunter tief. */
+function gradeTone(grade: number) {
+  if (!grade) return "is-empty";
+  if (grade >= 5) return "is-good";
+  if (grade >= 4) return "is-ok";
+  return "is-low";
 }
 
 /**

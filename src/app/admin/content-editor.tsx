@@ -1,8 +1,9 @@
 "use client";
 
 import { useActionState, useEffect, useId, useState } from "react";
-import { ArrowDown, ArrowUp, Plus, Save, Trash2 } from "lucide-react";
+import { ArrowDown, ArrowUp, Plus, Trash2 } from "lucide-react";
 
+import { SaveBar } from "@/app/admin/save-bar";
 import { saveContent, type ContentActionState } from "@/lib/cms/actions";
 import { blankValue, type FieldSchema, type JsonValue } from "@/lib/cms/schema";
 import type { SiteContent } from "@/lib/cms/types";
@@ -109,10 +110,13 @@ export function ContentEditor({
     <form action={formAction} className="admin-form">
       <input type="hidden" name="content" value={JSON.stringify(value)} />
 
-      {sections.map((section) => (
+      {sections.map((section, index) => (
         <details className="admin-section" key={section.key}>
           <summary>
-            <span>{section.title}</span>
+            <span className="admin-section-number" aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <span className="admin-section-title">{section.title}</span>
             {section.hint ? <span className="admin-hint">{section.hint}</span> : null}
           </summary>
           <div className="admin-section-body">
@@ -127,29 +131,13 @@ export function ContentEditor({
         </details>
       ))}
 
-      <div className="admin-savebar" aria-live="polite">
-        <p className={state.ok === false ? "is-error" : undefined}>
-          {pending
-            ? "Wird gespeichert …"
-            : dirty
-              ? "Ungespeicherte Änderungen"
-              : (state.message ?? "Alles gespeichert")}
-        </p>
-        <div className="admin-savebar-actions">
-          <button
-            type="button"
-            className="admin-button"
-            disabled={!dirty || pending}
-            onClick={() => setValue(saved)}
-          >
-            Verwerfen
-          </button>
-          <button type="submit" className="admin-button is-primary" disabled={!dirty || pending}>
-            <Save aria-hidden="true" size={16} />
-            Speichern
-          </button>
-        </div>
-      </div>
+      <SaveBar
+        pending={pending}
+        dirty={dirty}
+        ok={state.ok}
+        message={state.message}
+        onDiscard={() => setValue(saved)}
+      />
     </form>
   );
 }
@@ -335,7 +323,7 @@ function ListField({
           );
         })}
       </ol>
-      <button type="button" className="admin-button" onClick={() => onChange([...items, blankValue(schema)])}>
+      <button type="button" className="admin-button is-add" onClick={() => onChange([...items, blankValue(schema)])}>
         <Plus aria-hidden="true" size={16} />
         Hinzufügen
       </button>
