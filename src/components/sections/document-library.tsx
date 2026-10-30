@@ -65,54 +65,64 @@ export function DocumentLibrary({
           </div>
         </div>
 
-        {groups.map((group) => (
-          <section
-            className="document-group"
-            key={group.index}
-            aria-labelledby={`document-group-${group.index}`}
-          >
-            {/* Kopf und Noten bleiben beim Scrollen stehen, aber nur innerhalb
-                der eigenen Gruppe – so schiebt sich nichts übereinander. */}
-            <div className="document-group-aside">
-              <header className="document-group-heading">
-                <span>{group.index}</span>
-                <div>
-                  <h2 id={`document-group-${group.index}`}>{group.title}</h2>
-                  <p>{group.description}</p>
+        {groups.map((group) => {
+          // Mehrere Notengrafiken wären links viel höher als die Dokumente.
+          // Dann stehen sie rechts unter den Dokumenten, je eine pro Spalte.
+          const gradesBelow = group.grades.filter((series) => series.rows.length > 0).length > 1;
+
+          return (
+            <section
+              className="document-group"
+              key={group.index}
+              aria-labelledby={`document-group-${group.index}`}
+            >
+              {/* Kopf und Noten bleiben beim Scrollen stehen, aber nur innerhalb
+                  der eigenen Gruppe – so schiebt sich nichts übereinander. */}
+              <div className="document-group-aside">
+                <header className="document-group-heading">
+                  <span>{group.index}</span>
+                  <div>
+                    <h2 id={`document-group-${group.index}`}>{group.title}</h2>
+                    <p>{group.description}</p>
+                  </div>
+                </header>
+
+                {gradesBelow ? null : <GradeChart series={group.grades} />}
+              </div>
+
+              <div className="document-group-main">
+                <div className={`document-card-grid${group.documents.length === 1 ? " is-single" : ""}`}>
+                  {group.documents.map((document) => (
+                    <article className="private-document-card" key={document.title}>
+                      <div className="private-document-card-topline">
+                        <span className="private-document-icon" aria-hidden="true">
+                          <FileText size={19} />
+                        </span>
+                        <span>{document.format} · {document.size}</span>
+                      </div>
+                      <div className="private-document-card-copy">
+                        <h3>{document.title}</h3>
+                        <p>{document.description}</p>
+                      </div>
+                      <div className="private-document-actions">
+                        <button type="button" onClick={() => setPreview(document)}>
+                          <Eye aria-hidden="true" size={16} />
+                          Ansehen
+                        </button>
+                        <a href={`/api/private-documents/${document.downloadSlug}?download=1`}>
+                          <Download aria-hidden="true" size={16} />
+                          Download
+                        </a>
+                      </div>
+                    </article>
+                  ))}
                 </div>
-              </header>
 
-              <GradeChart series={group.grades} />
-            </div>
-
-            <div className={`document-card-grid${group.documents.length === 1 ? " is-single" : ""}`}>
-              {group.documents.map((document) => (
-                <article className="private-document-card" key={document.title}>
-                  <div className="private-document-card-topline">
-                    <span className="private-document-icon" aria-hidden="true">
-                      <FileText size={19} />
-                    </span>
-                    <span>{document.format} · {document.size}</span>
-                  </div>
-                  <div className="private-document-card-copy">
-                    <h3>{document.title}</h3>
-                    <p>{document.description}</p>
-                  </div>
-                  <div className="private-document-actions">
-                    <button type="button" onClick={() => setPreview(document)}>
-                      <Eye aria-hidden="true" size={16} />
-                      Ansehen
-                    </button>
-                    <a href={`/api/private-documents/${document.downloadSlug}?download=1`}>
-                      <Download aria-hidden="true" size={16} />
-                      Download
-                    </a>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </section>
-        ))}
+                {gradesBelow ? <GradeChart series={group.grades} layout="grid" /> : null}
+              </div>
+            </section>
+          );
+        })}
       </div>
 
       <dialog
