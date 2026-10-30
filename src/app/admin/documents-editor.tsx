@@ -70,182 +70,188 @@ export function DocumentsEditor({ initialGroups }: { initialGroups: ManagedDocum
       </p>
 
       {groups.map((group, groupIndex) => (
-        <section className="admin-group" key={group.id} aria-label={group.title || "Gruppe"}>
-          <div className="admin-group-head">
-            <h3>{group.title || "Ohne Titel"}</h3>
-            <div className="admin-item-controls">
-              <MoveButtons
-                index={groupIndex}
-                length={groups.length}
-                onMove={(to) => setGroups(move(groups, groupIndex, to))}
-              />
-              <button
-                type="button"
-                className="admin-icon is-danger"
-                aria-label={`Gruppe ${group.title} löschen`}
-                title="Gruppe löschen"
-                onClick={() => {
-                  const count = group.documents.length;
-                  const question = count
-                    ? `Gruppe «${group.title}» mit ${count} Dokument${count === 1 ? "" : "en"} löschen?`
-                    : `Gruppe «${group.title}» löschen?`;
-                  if (window.confirm(question)) submit(groups.filter((_, i) => i !== groupIndex));
-                }}
-              >
-                <Trash2 aria-hidden="true" size={16} />
-              </button>
+        <details className="admin-section" key={group.id}>
+          <summary>
+            <span className="admin-section-title">{group.title || "Ohne Titel"}</span>
+            <span className="admin-hint">{groupSummary(group)}</span>
+          </summary>
+          <div className="admin-section-body admin-group-body">
+            <div className="admin-group-head">
+              <p className="admin-list-label">Gruppe verschieben oder löschen</p>
+              <div className="admin-item-controls">
+                <MoveButtons
+                  index={groupIndex}
+                  length={groups.length}
+                  onMove={(to) => setGroups(move(groups, groupIndex, to))}
+                />
+                <button
+                  type="button"
+                  className="admin-icon is-danger"
+                  aria-label={`Gruppe ${group.title} löschen`}
+                  title="Gruppe löschen"
+                  onClick={() => {
+                    const count = group.documents.length;
+                    const question = count
+                      ? `Gruppe «${group.title}» mit ${count} Dokument${count === 1 ? "" : "en"} löschen?`
+                      : `Gruppe «${group.title}» löschen?`;
+                    if (window.confirm(question)) submit(groups.filter((_, i) => i !== groupIndex));
+                  }}
+                >
+                  <Trash2 aria-hidden="true" size={16} />
+                </button>
+              </div>
             </div>
-          </div>
 
-          <div className="admin-fields is-two">
-            <div className="form-field">
-              <label htmlFor={`group-title-${group.id}`}>Gruppe</label>
-              <input
-                id={`group-title-${group.id}`}
-                value={group.title}
-                onChange={(event) => updateGroup(groupIndex, { title: event.target.value })}
-              />
+            <div className="admin-fields is-two">
+              <div className="form-field">
+                <label htmlFor={`group-title-${group.id}`}>Gruppe</label>
+                <input
+                  id={`group-title-${group.id}`}
+                  value={group.title}
+                  onChange={(event) => updateGroup(groupIndex, { title: event.target.value })}
+                />
+              </div>
+              <div className="form-field">
+                <label htmlFor={`group-description-${group.id}`}>Beschreibung</label>
+                <input
+                  id={`group-description-${group.id}`}
+                  value={group.description}
+                  onChange={(event) => updateGroup(groupIndex, { description: event.target.value })}
+                />
+              </div>
             </div>
-            <div className="form-field">
-              <label htmlFor={`group-description-${group.id}`}>Beschreibung</label>
-              <input
-                id={`group-description-${group.id}`}
-                value={group.description}
-                onChange={(event) => updateGroup(groupIndex, { description: event.target.value })}
-              />
-            </div>
-          </div>
 
-          <div className="admin-list">
-            <p className="admin-list-label">Dokumente ({group.documents.length})</p>
-            {group.documents.length === 0 ? (
-              <p className="admin-hint">Noch keine Dokumente in dieser Gruppe.</p>
-            ) : (
-              <ol>
-                {group.documents.map((document, documentIndex) => (
-                  <li key={document.id}>
-                    <details className="admin-item">
-                      <summary>
-                        <span className="admin-item-title">
-                          <strong>{document.title || "Ohne Titel"}</strong>
-                          <span className="admin-hint">
-                            {document.format} · {document.size} ·{" "}
-                            {document.storage === "cms" ? "im Admin hochgeladen" : "aus dem Code"}
+            <div className="admin-list">
+              <p className="admin-list-label">Dokumente ({group.documents.length})</p>
+              {group.documents.length === 0 ? (
+                <p className="admin-hint">Noch keine Dokumente in dieser Gruppe.</p>
+              ) : (
+                <ol>
+                  {group.documents.map((document, documentIndex) => (
+                    <li key={document.id}>
+                      <details className="admin-item">
+                        <summary>
+                          <span className="admin-item-title">
+                            <strong>{document.title || "Ohne Titel"}</strong>
+                            <span className="admin-hint">
+                              {document.format} · {document.size} ·{" "}
+                              {document.storage === "cms" ? "im Admin hochgeladen" : "aus dem Code"}
+                            </span>
                           </span>
-                        </span>
-                      </summary>
+                        </summary>
 
-                      <div className="admin-item-body">
-                        <div className="admin-fields is-three">
-                          <div className="form-field">
-                            <label htmlFor={`doc-title-${document.id}`}>Titel</label>
-                            <input
-                              id={`doc-title-${document.id}`}
-                              value={document.title}
-                              onChange={(event) => updateDocument(groupIndex, documentIndex, { title: event.target.value })}
-                            />
+                        <div className="admin-item-body">
+                          <div className="admin-fields is-three">
+                            <div className="form-field">
+                              <label htmlFor={`doc-title-${document.id}`}>Titel</label>
+                              <input
+                                id={`doc-title-${document.id}`}
+                                value={document.title}
+                                onChange={(event) => updateDocument(groupIndex, documentIndex, { title: event.target.value })}
+                              />
+                            </div>
+                            <div className="form-field">
+                              <label htmlFor={`doc-description-${document.id}`}>Beschreibung</label>
+                              <input
+                                id={`doc-description-${document.id}`}
+                                value={document.description}
+                                onChange={(event) => updateDocument(groupIndex, documentIndex, { description: event.target.value })}
+                              />
+                            </div>
+                            <div className="form-field">
+                              <label htmlFor={`doc-name-${document.id}`}>Dateiname beim Download</label>
+                              <input
+                                id={`doc-name-${document.id}`}
+                                value={document.downloadName}
+                                onChange={(event) => updateDocument(groupIndex, documentIndex, { downloadName: event.target.value })}
+                              />
+                            </div>
                           </div>
-                          <div className="form-field">
-                            <label htmlFor={`doc-description-${document.id}`}>Beschreibung</label>
-                            <input
-                              id={`doc-description-${document.id}`}
-                              value={document.description}
-                              onChange={(event) => updateDocument(groupIndex, documentIndex, { description: event.target.value })}
-                            />
-                          </div>
-                          <div className="form-field">
-                            <label htmlFor={`doc-name-${document.id}`}>Dateiname beim Download</label>
-                            <input
-                              id={`doc-name-${document.id}`}
-                              value={document.downloadName}
-                              onChange={(event) => updateDocument(groupIndex, documentIndex, { downloadName: event.target.value })}
-                            />
-                          </div>
-                        </div>
 
-                        <div className="admin-document-foot">
-                          {groups.length > 1 ? (
-                            <label className="admin-move-select">
-                              In Gruppe
-                              <select
-                                value={groupIndex}
-                                onChange={(event) => moveDocumentToGroup(groupIndex, documentIndex, Number(event.target.value))}
+                          <div className="admin-document-foot">
+                            {groups.length > 1 ? (
+                              <label className="admin-move-select">
+                                In Gruppe
+                                <select
+                                  value={groupIndex}
+                                  onChange={(event) => moveDocumentToGroup(groupIndex, documentIndex, Number(event.target.value))}
+                                >
+                                  {groups.map((option, optionIndex) => (
+                                    <option key={option.id} value={optionIndex}>
+                                      {option.title || `Gruppe ${optionIndex + 1}`}
+                                    </option>
+                                  ))}
+                                </select>
+                              </label>
+                            ) : (
+                              <span />
+                            )}
+                            <div className="admin-item-controls">
+                              <a
+                                className="admin-icon"
+                                href={`/api/private-documents/${document.id}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={`${document.title} ansehen`}
+                                title="Ansehen"
                               >
-                                {groups.map((option, optionIndex) => (
-                                  <option key={option.id} value={optionIndex}>
-                                    {option.title || `Gruppe ${optionIndex + 1}`}
-                                  </option>
-                                ))}
-                              </select>
-                            </label>
-                          ) : (
-                            <span />
-                          )}
-                          <div className="admin-item-controls">
-                            <a
-                              className="admin-icon"
-                              href={`/api/private-documents/${document.id}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              aria-label={`${document.title} ansehen`}
-                              title="Ansehen"
-                            >
-                              <Eye aria-hidden="true" size={16} />
-                            </a>
-                            <FileButton
-                              label={`${document.title} durch neue Datei ersetzen`}
-                              disabled={pending}
-                              onFile={(file) => submit(groups, { file, replaceId: document.id })}
-                            >
-                              <FileUp aria-hidden="true" size={16} />
-                            </FileButton>
-                            <MoveButtons
-                              index={documentIndex}
-                              length={group.documents.length}
-                              onMove={(to) => updateGroup(groupIndex, { documents: move(group.documents, documentIndex, to) })}
-                            />
-                            <button
-                              type="button"
-                              className="admin-icon is-danger"
-                              aria-label={`${document.title} löschen`}
-                              title="Löschen"
-                              disabled={pending}
-                              onClick={() => {
-                                if (!window.confirm(`«${document.title}» löschen?`)) return;
-                                submit(
-                                  groups.map((entry, i) =>
-                                    i === groupIndex
-                                      ? { ...entry, documents: entry.documents.filter((_, j) => j !== documentIndex) }
-                                      : entry,
-                                  ),
-                                );
-                              }}
-                            >
-                              <Trash2 aria-hidden="true" size={16} />
-                            </button>
+                                <Eye aria-hidden="true" size={16} />
+                              </a>
+                              <FileButton
+                                label={`${document.title} durch neue Datei ersetzen`}
+                                disabled={pending}
+                                onFile={(file) => submit(groups, { file, replaceId: document.id })}
+                              >
+                                <FileUp aria-hidden="true" size={16} />
+                              </FileButton>
+                              <MoveButtons
+                                index={documentIndex}
+                                length={group.documents.length}
+                                onMove={(to) => updateGroup(groupIndex, { documents: move(group.documents, documentIndex, to) })}
+                              />
+                              <button
+                                type="button"
+                                className="admin-icon is-danger"
+                                aria-label={`${document.title} löschen`}
+                                title="Löschen"
+                                disabled={pending}
+                                onClick={() => {
+                                  if (!window.confirm(`«${document.title}» löschen?`)) return;
+                                  submit(
+                                    groups.map((entry, i) =>
+                                      i === groupIndex
+                                        ? { ...entry, documents: entry.documents.filter((_, j) => j !== documentIndex) }
+                                        : entry,
+                                    ),
+                                  );
+                                }}
+                              >
+                                <Trash2 aria-hidden="true" size={16} />
+                              </button>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </details>
-                  </li>
-                ))}
-              </ol>
-            )}
+                      </details>
+                    </li>
+                  ))}
+                </ol>
+              )}
+            </div>
+
+            <GradesEditor
+              groupId={group.id}
+              series={group.grades}
+              onChange={(grades) => updateGroup(groupIndex, { grades })}
+            />
+
+            <UploadForm
+              disabled={pending}
+              onUpload={(file, title, description) =>
+                submit(groups, { file, title, description, uploadGroupId: group.id })
+              }
+            />
           </div>
-
-          <GradesEditor
-            groupId={group.id}
-            series={group.grades}
-            onChange={(grades) => updateGroup(groupIndex, { grades })}
-          />
-
-          <UploadForm
-            disabled={pending}
-            onUpload={(file, title, description) =>
-              submit(groups, { file, title, description, uploadGroupId: group.id })
-            }
-          />
-        </section>
+        </details>
       ))}
 
       <button
@@ -272,6 +278,16 @@ export function DocumentsEditor({ initialGroups }: { initialGroups: ManagedDocum
       />
     </div>
   );
+}
+
+/** Kurzinfo in der zugeklappten Zeile, z. B. «2 Dokumente · 2 Notengrafiken». */
+function groupSummary(group: ManagedDocumentGroup) {
+  const documents = group.documents.length;
+  const grades = group.grades.length;
+  return [
+    `${documents} Dokument${documents === 1 ? "" : "e"}`,
+    grades ? `${grades} Notengrafik${grades === 1 ? "" : "en"}` : "keine Noten",
+  ].join(" · ");
 }
 
 function UploadForm({
