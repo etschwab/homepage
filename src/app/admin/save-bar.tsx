@@ -1,10 +1,10 @@
 "use client";
 
-import { AlertCircle, CheckCircle2, CircleDot, Loader2, Save } from "lucide-react";
+import { Save } from "lucide-react";
 
 /**
- * Leiste unten im Admin. Farbe und Symbol zeigen auf einen Blick, ob alles
- * gespeichert ist. Ohne `onSave` ist «Speichern» ein Submit-Button.
+ * Leiste unten im Admin mit dem Speicherstand. Ohne `onSave` ist
+ * «Speichern» ein Submit-Button.
  */
 export function SaveBar({
   pending,
@@ -28,14 +28,10 @@ export function SaveBar({
     dirty: "Ungespeicherte Änderungen",
     saved: message ?? "Alles gespeichert",
   }[status];
-  const Icon = { pending: Loader2, error: AlertCircle, dirty: CircleDot, saved: CheckCircle2 }[status];
 
   return (
     <div className={`admin-savebar is-${status}`} aria-live="polite">
-      <p>
-        <Icon aria-hidden="true" size={17} />
-        {text}
-      </p>
+      <p>{text}</p>
       <div className="admin-savebar-actions">
         <button type="button" className="admin-button" disabled={!dirty || pending} onClick={onDiscard}>
           Verwerfen

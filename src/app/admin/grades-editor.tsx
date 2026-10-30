@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { BarChart3, ListPlus, Plus, Trash2 } from "lucide-react";
+import { ListPlus, Plus, Trash2 } from "lucide-react";
 
 import { MoveButtons, move } from "@/app/admin/list-controls";
 import { formatGrade, seriesAverage } from "@/components/sections/grade-chart";
@@ -42,48 +42,38 @@ export function GradesEditor({
     });
 
   return (
-    <details className="admin-block is-grades admin-grades" open={series.length > 0}>
+    <details className="admin-item">
       <summary>
-        <span className="admin-block-label">
-          <BarChart3 aria-hidden="true" size={14} />
-          Noten
-        </span>
-        <span className={`admin-chip ${series.length ? "is-grades" : "is-muted"}`}>
-          {series.length === 0
-            ? "keine Grafik"
-            : `${series.length} Grafik${series.length === 1 ? "" : "en"} · ${rowCount} Note${rowCount === 1 ? "" : "n"}`}
+        <span className="admin-item-title">
+          <strong>Noten</strong>
+          <span className="admin-hint">
+            {series.length === 0
+              ? "keine Grafik"
+              : `${series.length} Grafik${series.length === 1 ? "" : "en"} · ${rowCount} Note${rowCount === 1 ? "" : "n"}`}
+          </span>
         </span>
       </summary>
 
-      <div className="admin-grades-body">
+      <div className="admin-item-body">
         <p className="admin-hint">
           Noten von 1 bis 6, z. B. 5.5 oder 5,5. Den Durchschnitt leer lassen,
-          dann wird er aus den Zeilen berechnet. Die Farbe zeigt die Note:{" "}
-          <span className="admin-grade-key is-good">ab 5</span>{" "}
-          <span className="admin-grade-key is-ok">ab 4</span>{" "}
-          <span className="admin-grade-key is-low">unter 4</span>
+          dann wird er aus den Zeilen berechnet.
         </p>
 
         {series.map((item, seriesIndex) => {
           const prefix = `grade-${groupId}-${seriesIndex}`;
           const computed = seriesAverage({ ...item, average: 0 });
-          const shown = seriesAverage(item);
 
           return (
             <div className="admin-grade-series" key={seriesIndex}>
-              <div className="admin-grade-series-bar">
-                <span className="admin-chip is-grades">{item.school || "Schule"}</span>
-                <strong>{item.title || "Ohne Titel"}</strong>
-                <span className={`admin-grade-badge is-large ${gradeTone(shown)}`} title="Durchschnitt">
-                  {shown ? formatGrade(shown) : "–"}
-                </span>
+              <div className="admin-grade-series-head">
+                <strong>{[item.school, item.title].filter(Boolean).join(" · ") || "Neue Grafik"}</strong>
                 <div className="admin-item-controls">
                   <MoveButtons
                     index={seriesIndex}
                     length={series.length}
                     onMove={(to) => onChange(move(series, seriesIndex, to))}
                   />
-                  <span className="admin-controls-divider" aria-hidden="true" />
                   <button
                     type="button"
                     className="admin-icon is-danger"
@@ -149,7 +139,7 @@ export function GradesEditor({
                 </div>
                 <ol>
                   {item.rows.map((row, rowIndex) => (
-                    <li className={`admin-grade-row ${gradeTone(row.value)}`} key={rowIndex}>
+                    <li className="admin-grade-row" key={rowIndex}>
                       <input
                         aria-label={`Bezeichnung Zeile ${rowIndex + 1}`}
                         value={row.label}
@@ -195,7 +185,7 @@ export function GradesEditor({
 
               <button
                 type="button"
-                className="admin-button is-add"
+                className="admin-button"
                 onClick={() => updateSeries(seriesIndex, { rows: [...item.rows, { ...blankRow }] })}
               >
                 <Plus aria-hidden="true" size={16} />
@@ -207,7 +197,7 @@ export function GradesEditor({
 
         <button
           type="button"
-          className="admin-button is-grades"
+          className="admin-button"
           onClick={() => onChange([...series, { ...blankSeries, rows: [{ ...blankRow }] }])}
         >
           <ListPlus aria-hidden="true" size={16} />
@@ -216,14 +206,6 @@ export function GradesEditor({
       </div>
     </details>
   );
-}
-
-/** Farbklasse nach Notenhöhe: ab 5 gut, ab 4 genügend, darunter tief. */
-function gradeTone(grade: number) {
-  if (!grade) return "is-empty";
-  if (grade >= 5) return "is-good";
-  if (grade >= 4) return "is-ok";
-  return "is-low";
 }
 
 /**

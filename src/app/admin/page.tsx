@@ -29,7 +29,7 @@ export default async function AdminPage() {
       : "local";
 
   return (
-    <PageShell>
+    <PageShell hideNavigation>
       <section className="admin-page" aria-labelledby="admin-title">
         <div className="site-container">
           <header className="admin-heading">

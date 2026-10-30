@@ -1824,24 +1824,6 @@ h2 em,
   margin: 1.6rem 0 0 3.5rem;
 }
 
-.document-group-main {
-  display: grid;
-  min-width: 0;
-  gap: 1rem;
-}
-
-/* Unter den Dokumenten: Grafiken nebeneinander wie die Dokumentkarten */
-.grade-chart.is-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-  margin: 0;
-}
-
-.grade-chart.is-grid .grade-card {
-  border-radius: 1.25rem;
-  padding: 1.2rem 1.2rem 0.9rem;
-}
-
 .grade-card {
   margin: 0;
   border: 1px solid var(--border);
@@ -2485,6 +2467,10 @@ h2 em,
     padding-bottom: 4.75rem;
   }
 
+  .page-root.is-bare {
+    padding-bottom: 0;
+  }
+
   .site-header {
     height: 3.25rem;
   }
@@ -2754,8 +2740,6 @@ h2 em,
 
   .grade-chart { margin-left: 0; }
 
-  .grade-chart.is-grid { grid-template-columns: 1fr; }
-
   .document-preview-dialog {
     width: calc(100vw - 0.75rem);
     height: calc(100dvh - 0.75rem);
@@ -2875,61 +2859,38 @@ h2 em,
   }
 }
 
-/* Admin */
+/* Admin: schlicht, ohne Navigation. Alles Grosse ist auf- und zuklappbar. */
 .admin-page {
-  padding-block: clamp(5rem, 10vw, 9rem);
+  padding-block: clamp(2.5rem, 5vw, 4rem);
 }
 
 .admin-heading {
-  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  margin-bottom: clamp(2rem, 4vw, 3rem);
 }
 
 .admin-heading .page-title {
-  margin-top: 1.2rem;
+  margin-top: 1rem;
 }
 
 .admin-logout {
-  margin-top: 1.5rem;
+  margin-top: 1.25rem;
 }
 
-/* Jeder Bereich hat eine eigene Farbe, damit man sich schnell zurechtfindet. */
 .admin {
-  --admin-texts: #b7a4ec;
-  --admin-group: var(--accent);
-  --admin-docs: #7eb0e6;
-  --admin-grades: #e3b55f;
-  --admin-upload: #7ccf9f;
-  --admin-danger: #e57b70;
-  --admin-good: #7ccf9f;
-  --admin-ok: #e3b55f;
-  --admin-low: #e57b70;
   display: grid;
   gap: 1.25rem;
 }
 
-.admin .is-texts { --tone: var(--admin-texts); }
-.admin .is-group { --tone: var(--admin-group); }
-.admin .is-docs,
-.admin .is-docx { --tone: var(--admin-docs); }
-.admin .is-grades { --tone: var(--admin-grades); }
-.admin .is-upload { --tone: var(--admin-upload); }
-.admin .is-pdf { --tone: var(--admin-danger); }
-.admin .is-good { --tone: var(--admin-good); }
-.admin .is-ok { --tone: var(--admin-ok); }
-.admin .is-low { --tone: var(--admin-low); }
-
 .admin-notice {
   margin: 0;
   border: 1px solid var(--border);
-  border-left: 3px solid var(--admin-docs);
   background: var(--surface);
   padding: 1rem 1.25rem;
   color: var(--text-secondary);
 }
 
 .admin-notice.is-warning {
-  border-color: var(--admin-danger);
-  background: color-mix(in srgb, var(--admin-danger) 10%, var(--surface));
+  border-color: #c45c54;
   color: var(--foreground);
 }
 
@@ -2939,58 +2900,29 @@ h2 em,
 
 /* Tabs */
 .admin-tabs {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-  gap: 0.6rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .admin-tab {
-  --tone: var(--accent);
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-  border: 1px solid var(--border);
-  border-bottom-width: 3px;
-  background: var(--surface);
-  padding: 0.85rem 1.1rem;
-  color: var(--text-secondary);
-  text-align: left;
-  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
-}
-
-.admin-tab.is-texte { --tone: var(--admin-texts); }
-.admin-tab.is-dokumente { --tone: var(--admin-docs); }
-
-.admin-tab svg {
-  flex: none;
-  color: var(--tone);
-}
-
-.admin-tab span {
-  display: grid;
-  gap: 0.1rem;
-}
-
-.admin-tab strong {
-  color: var(--foreground);
-  font-size: 1rem;
+  min-height: 2.75rem;
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  padding-inline: 1.25rem;
+  font-size: 0.92rem;
   font-weight: 680;
-}
-
-.admin-tab small {
-  color: var(--text-muted);
-  font-size: 0.78rem;
+  transition: background-color 180ms ease, border-color 180ms ease;
 }
 
 .admin-tab:hover {
-  border-color: color-mix(in srgb, var(--tone) 50%, var(--border));
-  background: var(--surface-hover);
+  border-color: var(--accent);
 }
 
 .admin-tab[aria-selected="true"] {
-  border-color: color-mix(in srgb, var(--tone) 45%, var(--border));
-  border-bottom-color: var(--tone);
-  background: color-mix(in srgb, var(--tone) 12%, var(--surface));
+  border-color: var(--foreground);
+  background: var(--foreground);
+  color: var(--background);
 }
 
 /* Buttons */
@@ -3026,31 +2958,9 @@ h2 em,
   color: var(--selection-text);
 }
 
-/* Hinzufügen-Buttons in der Farbe ihres Bereichs (Standard: grün) */
-.admin-button.is-add,
-.admin-button.is-grades {
-  --tone: var(--admin-upload);
-  border-style: dashed;
-  border-color: color-mix(in srgb, var(--tone) 60%, transparent);
-  color: var(--tone);
-}
-
-.admin-button.is-grades { --tone: var(--admin-grades); }
-
-.admin-button.is-add:hover:not(:disabled),
-.admin-button.is-grades:hover:not(:disabled) {
-  border-color: var(--tone);
-  background: color-mix(in srgb, var(--tone) 14%, transparent);
-}
-
-.admin-button.is-danger {
-  border-color: color-mix(in srgb, var(--admin-danger) 55%, transparent);
-  color: var(--admin-danger);
-}
-
 .admin-button.is-danger:hover:not(:disabled) {
-  border-color: var(--admin-danger);
-  background: color-mix(in srgb, var(--admin-danger) 16%, transparent);
+  border-color: #c45c54;
+  background: rgba(196, 92, 84, 0.16);
 }
 
 .admin-button:disabled {
@@ -3065,24 +2975,17 @@ h2 em,
   border: 1px solid var(--border);
   background: transparent;
   padding: 0;
-  color: var(--text-secondary);
-  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+  transition: background-color 180ms ease, border-color 180ms ease;
 }
 
 .admin-icon:hover:not(:disabled) {
   border-color: var(--accent);
   background: var(--accent-soft);
-  color: var(--foreground);
-}
-
-.admin-icon.is-danger {
-  color: color-mix(in srgb, var(--admin-danger) 80%, var(--text-secondary));
 }
 
 .admin-icon.is-danger:hover:not(:disabled) {
-  border-color: var(--admin-danger);
-  background: color-mix(in srgb, var(--admin-danger) 16%, transparent);
-  color: var(--admin-danger);
+  border-color: #c45c54;
+  background: rgba(196, 92, 84, 0.16);
 }
 
 .admin-icon:disabled {
@@ -3096,81 +2999,10 @@ h2 em,
   gap: 0.3rem;
 }
 
-.admin-controls-divider {
-  width: 1px;
-  height: 1.4rem;
-  margin-inline: 0.2rem;
-  background: var(--border);
-}
-
-/* Chips und Legende */
-.admin-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-}
-
-.admin-chip {
-  --tone: var(--text-muted);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  border: 1px solid color-mix(in srgb, var(--tone) 40%, transparent);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--tone) 13%, transparent);
-  padding: 0.12rem 0.55rem;
-  color: var(--tone);
-  font-size: 0.72rem;
-  font-weight: 700;
-  line-height: 1.4;
-  white-space: nowrap;
-}
-
-.admin-chip.is-muted {
-  --tone: var(--text-muted);
-}
-
-.admin-legend {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.75rem 1.5rem;
-}
-
-.admin-legend .admin-intro {
-  flex: 1 1 28rem;
-}
-
-.admin-legend ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem 1rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.admin-legend li {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: var(--text-secondary);
-  font-size: 0.8rem;
-  font-weight: 650;
-}
-
-.admin-legend li::before {
-  width: 0.65rem;
-  height: 0.65rem;
-  border-radius: 999px;
-  background: var(--tone);
-  content: "";
-}
-
-/* Allgemeine Formularteile */
+/* Formular */
 .admin-form {
   display: grid;
-  gap: 0.9rem;
+  gap: 0.75rem;
 }
 
 .admin-intro,
@@ -3202,13 +3034,11 @@ h2 em,
   display: grid;
   gap: 0.45rem;
   color: var(--text-secondary);
-  font-size: 0.86rem;
 }
 
 .admin .form-field input,
 .admin .form-field textarea,
 .admin .form-field select,
-.admin-item-controls select,
 .admin-move-select select,
 .admin-grade-row input {
   width: 100%;
@@ -3238,7 +3068,6 @@ h2 em,
 .admin .form-field input:focus,
 .admin .form-field textarea:focus,
 .admin .form-field select:focus,
-.admin-item-controls select:focus,
 .admin-move-select select:focus,
 .admin-grade-row input:focus {
   border-color: var(--accent);
@@ -3247,8 +3076,7 @@ h2 em,
 
 .admin .form-field input[aria-invalid="true"],
 .admin-grade-row input[aria-invalid="true"] {
-  border-color: var(--admin-danger);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--admin-danger) 18%, transparent);
+  border-color: #c45c54;
 }
 
 .admin select option {
@@ -3264,9 +3092,9 @@ h2 em,
 
 .admin-fieldset legend {
   padding-inline: 0.4rem;
-  color: var(--admin-texts);
+  color: var(--text-secondary);
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 680;
 }
 
 .admin-check {
@@ -3284,54 +3112,62 @@ h2 em,
   accent-color: var(--accent);
 }
 
-/* Texte: aufklappbare Abschnitte */
-.admin-section {
+/* Aufklappbare Abschnitte und Einträge mit Pfeil vorne */
+.admin-section,
+.admin-group {
   border: 1px solid var(--border);
-  border-left: 3px solid color-mix(in srgb, var(--admin-texts) 35%, transparent);
   background: var(--surface);
-  transition: border-color 180ms ease;
 }
 
-.admin-section[open] {
-  border-left-color: var(--admin-texts);
-}
-
-.admin-section > summary {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: baseline;
-  gap: 0.15rem 0.9rem;
-  padding: 1.05rem 1.35rem;
+.admin-section > summary,
+.admin-item > summary {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   cursor: pointer;
   list-style: none;
 }
 
-.admin-section > summary:hover {
-  background: var(--surface-hover);
-}
-
 .admin-section > summary::-webkit-details-marker,
-.admin-item > summary::-webkit-details-marker,
-.admin-grades > summary::-webkit-details-marker {
+.admin-item > summary::-webkit-details-marker {
   display: none;
 }
 
-.admin-section-number {
-  grid-row: span 2;
-  color: var(--admin-texts);
-  font-family: var(--font-newsreader), Georgia, serif;
-  font-size: 0.85rem;
-  font-style: italic;
+.admin-section > summary::before,
+.admin-item > summary::before {
+  flex: none;
+  color: var(--text-muted);
+  content: "▸";
+  transition: transform 150ms ease;
+}
+
+.admin-section[open] > summary::before,
+.admin-item[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.admin-section > summary {
+  flex-wrap: wrap;
+  padding: 1.1rem 1.35rem;
 }
 
 .admin-section-title {
   font-size: 1.15rem;
-  font-weight: 650;
+  font-weight: 640;
+}
+
+.admin-section > summary .admin-hint {
+  flex-basis: 100%;
+  padding-left: 1.6rem;
+}
+
+.admin-section > summary:hover,
+.admin-item > summary:hover {
+  background: var(--surface-hover);
 }
 
 .admin-section[open] > summary {
   border-bottom: 1px solid var(--border);
-  background: color-mix(in srgb, var(--admin-texts) 8%, var(--surface));
 }
 
 .admin-section-body {
@@ -3340,7 +3176,7 @@ h2 em,
 
 .admin-list {
   display: grid;
-  gap: 0.75rem;
+  gap: 0.6rem;
   justify-items: start;
 }
 
@@ -3351,16 +3187,13 @@ h2 em,
   margin: 0;
   padding: 0;
   list-style: none;
-  counter-reset: admin-item;
 }
 
 .admin-list-label {
   margin: 0;
-  color: var(--admin-texts);
-  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
 }
 
 .admin-item {
@@ -3369,31 +3202,39 @@ h2 em,
 }
 
 .admin-item > summary {
-  display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  padding: 0.5rem 0.5rem 0.5rem 0.9rem;
-  cursor: pointer;
+  min-height: 3rem;
+  padding: 0.5rem 0.75rem;
   font-weight: 640;
-  list-style: none;
 }
 
-.admin-item > summary:hover {
-  background: var(--surface-hover);
-}
-
-.admin-item[open] {
-  border-color: color-mix(in srgb, var(--admin-texts) 45%, var(--border));
+.admin-item-title {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.75rem;
 }
 
 .admin-item[open] > summary {
   border-bottom: 1px solid var(--border);
-  background: color-mix(in srgb, var(--admin-texts) 7%, transparent);
 }
 
-.admin-item > .admin-fields {
+.admin-item > .admin-fields,
+.admin-item-body {
   padding: 1rem;
+}
+
+.admin-item-body {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+
+.admin-item-body > .admin-fields,
+.admin-item-body > .admin-grade-series {
+  width: 100%;
 }
 
 .admin-item.is-inline {
@@ -3407,132 +3248,27 @@ h2 em,
   flex: 1;
 }
 
-/* Dokumente: eine Karte pro Gruppe mit farbigen Bereichen */
+/* Dokumente */
 .admin-group {
-  border: 1px solid var(--border);
-  border-top: 3px solid var(--admin-group);
-  background: var(--surface);
-}
-
-.admin-group-bar {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  border-bottom: 1px solid var(--border);
-  background: color-mix(in srgb, var(--admin-group) 9%, var(--surface));
-  padding: 0.9rem 1.35rem;
-}
-
-.admin-group-number {
-  display: inline-grid;
-  width: 2.4rem;
-  height: 2.4rem;
-  flex: none;
-  place-items: center;
-  border-radius: 999px;
-  background: var(--admin-group);
-  color: var(--selection-text);
-  font-size: 0.85rem;
-  font-weight: 760;
-}
-
-.admin-group-bar-title {
   display: grid;
-  min-width: 0;
-  flex: 1;
-  gap: 0.35rem;
-}
-
-.admin-group-bar h3 {
-  overflow: hidden;
-  margin: 0;
-  font-size: 1.3rem;
-  font-weight: 680;
-  letter-spacing: -0.02em;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.admin-group-body {
-  display: grid;
-  gap: 1rem;
+  gap: 1.25rem;
   padding: 1.35rem;
 }
 
-/* Ein Bereich innerhalb der Gruppe: farbiger Rand links und farbiger Titel */
-.admin-block {
-  --tone: var(--accent);
-  display: grid;
-  gap: 0.85rem;
-  justify-items: stretch;
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--tone);
-  background: color-mix(in srgb, var(--tone) 5%, var(--background));
-  padding: 1rem 1.1rem;
-}
-
-.admin-block-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  margin: 0;
-  color: var(--tone);
-  font-size: 0.75rem;
-  font-weight: 760;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.admin-block-label > span {
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--tone) 18%, transparent);
-  padding: 0 0.45rem;
-  letter-spacing: 0;
-}
-
-.admin-documents {
-  display: grid;
-  gap: 0.6rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.admin-document {
-  display: grid;
-  gap: 0.85rem;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  padding: 0.9rem 1rem;
-  transition: border-color 180ms ease;
-}
-
-.admin-document:hover,
-.admin-document:focus-within {
-  border-color: color-mix(in srgb, var(--admin-docs) 55%, var(--border));
-}
-
-.admin-document-head {
+.admin-group-head {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 0.45rem 0.55rem;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1rem;
 }
 
-.admin-document-head strong {
-  margin-right: 0.3rem;
-  font-size: 1rem;
-  font-weight: 680;
-}
-
-.admin-document-icon {
-  display: inline-grid;
-  width: 1.9rem;
-  height: 1.9rem;
-  place-items: center;
-  border-radius: 0.45rem;
-  background: color-mix(in srgb, var(--admin-docs) 18%, transparent);
-  color: var(--admin-docs);
+.admin-group-head h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 660;
+  letter-spacing: -0.02em;
 }
 
 .admin-document-foot {
@@ -3541,8 +3277,7 @@ h2 em,
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  border-top: 1px dashed var(--border);
-  padding-top: 0.75rem;
+  width: 100%;
 }
 
 .admin-move-select {
@@ -3550,86 +3285,33 @@ h2 em,
   align-items: center;
   gap: 0.5rem;
   color: var(--text-muted);
-  font-size: 0.8rem;
+  font-size: 0.84rem;
 }
 
 .admin-move-select select {
   width: auto;
   min-height: 2.2rem;
   padding: 0.25rem 0.5rem;
-  font-size: 0.86rem;
 }
 
-.admin-block.is-upload {
-  border-style: dashed;
-  border-left-style: solid;
+.admin-upload {
+  display: grid;
+  gap: 0.75rem;
   justify-items: start;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
 }
 
-.admin-block.is-upload > .admin-fields {
+.admin-upload > .admin-fields {
   width: 100%;
 }
 
 /* Noten */
-.admin-grades {
-  padding: 0;
-}
-
-.admin-grades > summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.85rem 1.1rem;
-  cursor: pointer;
-  list-style: none;
-}
-
-.admin-grades > summary::after {
-  color: var(--admin-grades);
-  content: "+";
-  font-size: 1.2rem;
-  line-height: 1;
-}
-
-.admin-grades[open] > summary::after {
-  content: "–";
-}
-
-.admin-grades > summary .admin-chip {
-  margin-left: auto;
-}
-
-.admin-grades > summary:hover {
-  background: color-mix(in srgb, var(--admin-grades) 8%, transparent);
-}
-
-.admin-grades[open] > summary {
-  border-bottom: 1px solid color-mix(in srgb, var(--admin-grades) 30%, var(--border));
-}
-
-.admin-grades-body {
-  display: grid;
-  gap: 1rem;
-  justify-items: start;
-  padding: 1rem 1.1rem 1.1rem;
-}
-
-.admin-grade-key {
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--tone) 16%, transparent);
-  padding: 0 0.45rem;
-  color: var(--tone);
-  font-weight: 700;
-  white-space: nowrap;
-}
-
 .admin-grade-series {
   display: grid;
   gap: 1rem;
   justify-items: start;
-  width: 100%;
-  border: 1px solid color-mix(in srgb, var(--admin-grades) 30%, var(--border));
+  border: 1px solid var(--border);
   background: var(--surface);
   padding: 1rem;
 }
@@ -3639,38 +3321,12 @@ h2 em,
   width: 100%;
 }
 
-.admin-grade-series-bar {
+.admin-grade-series-head {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 0.6rem;
+  justify-content: space-between;
+  gap: 1rem;
   width: 100%;
-}
-
-.admin-grade-series-bar strong {
-  font-size: 1.05rem;
-  font-weight: 680;
-}
-
-.admin-grade-series-bar .admin-item-controls {
-  margin-left: auto;
-}
-
-.admin-grade-badge {
-  --tone: var(--text-muted);
-  display: inline-grid;
-  min-width: 2.6rem;
-  place-items: center;
-  border-radius: 0.5rem;
-  background: color-mix(in srgb, var(--tone) 18%, transparent);
-  padding: 0.15rem 0.5rem;
-  color: var(--tone);
-  font-weight: 760;
-  font-variant-numeric: tabular-nums;
-}
-
-.admin-grade-badge.is-large {
-  font-size: 1.05rem;
 }
 
 .admin-grade-table ol {
@@ -3682,7 +3338,6 @@ h2 em,
 }
 
 .admin-grade-row {
-  --tone: var(--border-strong);
   display: grid;
   grid-template-columns: minmax(7rem, 1fr) minmax(0, 2fr) 5.5rem auto;
   align-items: center;
@@ -3693,7 +3348,7 @@ h2 em,
   margin-bottom: 0.35rem;
   color: var(--text-secondary);
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 680;
 }
 
 .admin-grade-row input {
@@ -3702,25 +3357,13 @@ h2 em,
   font-size: 0.92rem;
 }
 
-/* Notenfeld zeigt die Farbe der Note */
-.admin-grade-row > input:nth-child(3) {
-  border-left: 4px solid var(--tone);
-  background: color-mix(in srgb, var(--tone) 12%, var(--background));
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-}
-
-.admin-grade-row.is-empty { --tone: var(--border-strong); }
-
 /* Standard */
 .admin-standard {
   display: grid;
   gap: 0.75rem;
   margin-top: clamp(3rem, 6vw, 5rem);
-  border: 1px solid color-mix(in srgb, var(--admin-danger) 35%, var(--border));
-  border-left: 3px solid var(--admin-danger);
-  background: color-mix(in srgb, var(--admin-danger) 5%, var(--surface));
-  padding: 1.5rem 1.35rem;
+  border-top: 1px solid var(--border);
+  padding-top: 2rem;
 }
 
 .admin-standard h2 {
@@ -3756,12 +3399,11 @@ h2 em,
 }
 
 .admin-standard-message.is-error {
-  color: var(--admin-danger);
+  color: #c45c54;
 }
 
-/* Speicherleiste: Farbe zeigt den Zustand */
+/* Speicherleiste */
 .admin-savebar {
-  --tone: var(--admin-good);
   position: sticky;
   bottom: 1rem;
   z-index: 4;
@@ -3771,39 +3413,25 @@ h2 em,
   justify-content: space-between;
   gap: 0.75rem 1.5rem;
   margin-top: 0.5rem;
-  border: 1px solid color-mix(in srgb, var(--tone) 45%, var(--border-strong));
-  border-left: 4px solid var(--tone);
-  background: color-mix(in srgb, var(--tone) 8%, var(--surface-elevated));
-  padding: 0.75rem 0.75rem 0.75rem 1.1rem;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-elevated);
+  padding: 0.75rem 0.75rem 0.75rem 1.25rem;
   box-shadow: var(--shadow);
-  transition: border-color 180ms ease, background-color 180ms ease;
 }
 
-.admin-savebar.is-dirty { --tone: var(--admin-grades); }
-.admin-savebar.is-error { --tone: var(--admin-danger); }
-.admin-savebar.is-pending { --tone: var(--admin-docs); }
-
 .admin-savebar p {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
   margin: 0;
-  color: var(--foreground);
+  color: var(--text-secondary);
   font-size: 0.9rem;
+}
+
+.admin-savebar.is-dirty p {
+  color: var(--foreground);
   font-weight: 600;
 }
 
-.admin-savebar p svg {
-  flex: none;
-  color: var(--tone);
-}
-
-.admin-savebar.is-pending p svg {
-  animation: admin-spin 900ms linear infinite;
-}
-
-@keyframes admin-spin {
-  to { transform: rotate(360deg); }
+.admin-savebar.is-error p {
+  color: #c45c54;
 }
 
 .admin-savebar-actions {
@@ -3822,19 +3450,9 @@ h2 em,
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .admin-group-bar {
-    flex-wrap: wrap;
-    padding: 0.85rem 1rem;
-  }
-
-  .admin-group-bar > .admin-item-controls {
-    width: 100%;
-    justify-content: flex-end;
-  }
-
   .admin-grade-row {
     grid-template-columns: minmax(0, 1fr) 4.5rem;
-    border-bottom: 1px dashed var(--border);
+    border-bottom: 1px solid var(--border);
     padding-bottom: 0.5rem;
   }
 
@@ -3844,19 +3462,11 @@ h2 em,
 
   .admin-grade-row > .admin-item-controls { grid-column: 1 / -1; justify-content: flex-end; }
 
-  .admin-grade-series,
-  .admin-grades-body,
-  .admin-block {
-    padding: 0.75rem;
-  }
-
-  .admin-grades > summary {
-    padding: 0.75rem;
-  }
-
   .admin-section > summary,
   .admin-section-body,
-  .admin-group-body {
+  .admin-group,
+  .admin-item-body,
+  .admin-grade-series {
     padding: 1rem;
   }
 

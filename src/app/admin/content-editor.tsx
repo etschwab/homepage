@@ -110,12 +110,9 @@ export function ContentEditor({
     <form action={formAction} className="admin-form">
       <input type="hidden" name="content" value={JSON.stringify(value)} />
 
-      {sections.map((section, index) => (
+      {sections.map((section) => (
         <details className="admin-section" key={section.key}>
           <summary>
-            <span className="admin-section-number" aria-hidden="true">
-              {String(index + 1).padStart(2, "0")}
-            </span>
             <span className="admin-section-title">{section.title}</span>
             {section.hint ? <span className="admin-hint">{section.hint}</span> : null}
           </summary>
@@ -323,7 +320,7 @@ function ListField({
           );
         })}
       </ol>
-      <button type="button" className="admin-button is-add" onClick={() => onChange([...items, blankValue(schema)])}>
+      <button type="button" className="admin-button" onClick={() => onChange([...items, blankValue(schema)])}>
         <Plus aria-hidden="true" size={16} />
         Hinzufügen
       </button>
