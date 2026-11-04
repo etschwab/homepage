@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Newsreader, Source_Sans_3 } from "next/font/google";
 
@@ -72,6 +73,7 @@ export default function RootLayout({
         <SmoothScroll />
         <GradientWavesBackground />
         {children}
+        <Analytics />
       </body>
     </html>
   );
